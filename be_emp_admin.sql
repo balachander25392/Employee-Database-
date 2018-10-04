@@ -47,6 +47,7 @@ CREATE TABLE IF NOT EXISTS `be_emp_db` (
   `ed_emp_div` varchar(50) DEFAULT NULL,
   `ed_emp_team` varchar(100) DEFAULT NULL,
   `ed_emp_leader` varchar(250) DEFAULT NULL,
+  `ed_emp_type` enum('student','teacher','none') NOT NULL DEFAULT 'none',
   `ed_emp_dob` date DEFAULT NULL,
   `ed_emp_doj` date DEFAULT NULL,
   `ed_emp_add_on` datetime NOT NULL,
@@ -61,7 +62,49 @@ CREATE TABLE IF NOT EXISTS `be_emp_db` (
   PRIMARY KEY (`ed_id`),
   UNIQUE KEY `ed_id` (`ed_id`),
   UNIQUE KEY `ed_emp_id` (`ed_emp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+
+-- Data exporting was unselected.
+-- Dumping structure for table be_emp_admin.be_emp_questions
+CREATE TABLE IF NOT EXISTS `be_emp_questions` (
+  `eq_id` int(30) NOT NULL AUTO_INCREMENT,
+  `eq_question` text,
+  `eq_question_to` enum('teacher','student') DEFAULT NULL,
+  `eq_answer_type` enum('text','radio','check') DEFAULT NULL,
+  `eq_added_by` int(11) DEFAULT NULL,
+  `eq_add_on` datetime DEFAULT NULL,
+  `eq_update_by` int(11) DEFAULT NULL,
+  `eq_update_on` datetime DEFAULT NULL,
+  `eq_del_by` int(11) DEFAULT NULL,
+  `eq_del_on` datetime DEFAULT NULL,
+  `eq_status` enum('0','1') DEFAULT NULL,
+  PRIMARY KEY (`eq_id`),
+  UNIQUE KEY `eq_id` (`eq_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+
+-- Data exporting was unselected.
+-- Dumping structure for table be_emp_admin.be_emp_questn_option
+CREATE TABLE IF NOT EXISTS `be_emp_questn_option` (
+  `eqo_id` int(11) NOT NULL AUTO_INCREMENT,
+  `eqo_option` text,
+  `eqo_option_question` int(11) DEFAULT NULL,
+  `eqo_option_st` enum('0','1') DEFAULT NULL,
+  PRIMARY KEY (`eqo_id`),
+  UNIQUE KEY `eqo_id` (`eqo_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8;
+
+-- Data exporting was unselected.
+-- Dumping structure for table be_emp_admin.be_qstn_answer
+CREATE TABLE IF NOT EXISTS `be_qstn_answer` (
+  `qa_id` int(11) NOT NULL AUTO_INCREMENT,
+  `qa_emp_id` varchar(50) NOT NULL,
+  `qa_emp_ans` text NOT NULL,
+  `qa_add_on` datetime DEFAULT NULL,
+  `qa_updt_on` datetime DEFAULT NULL,
+  `qa_status` enum('0','1') NOT NULL DEFAULT '1',
+  PRIMARY KEY (`qa_id`),
+  UNIQUE KEY `qa_id` (`qa_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
