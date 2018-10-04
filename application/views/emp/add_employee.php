@@ -90,6 +90,17 @@
                     <input type="text" class="form-control" id="emp_doj" name="emp_doj" placeholder="Date of Joining" autocomplete="off">
                   </div>
                 </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Type</label>
+                    <select class="form-control" name="emp_type" id="emp_type" required="">
+                      <option value="">--Select--</option>
+                      <option value="student">Student</option>
+                      <option value="teacher">Teacher</option>
+                      <option value="none">None</option>
+                    </select>
+                  </div>
+                </div>
               </div>
               <!-- /.box-body -->
 

@@ -14,7 +14,7 @@ class Welcome_model extends CI_Model {
 		$this->db->from('be_emp_aduser as c');
 		$this->db->where('c.ea_emp_id',$emp_id);
 		$this->db->where('c.ea_password',md5($pass));
-		$this->db->where('c.ea_user_st',1);
+		$this->db->where('c.ea_user_st','1');
 		$this ->db-> limit(1);
 		$query = $this->db->get();
 	 

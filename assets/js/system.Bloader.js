@@ -75,3 +75,96 @@ function setEmpIdDelete(adminid)
 {
     $('#empUserDeelteID').val(adminid);
 }
+
+$(document).ready(function(){  
+    var i=1;  
+    $('#quest_btn_add').click(function(){  
+       i++;   
+       //alert('text');
+       $('#quest_dyn_div').append('<div class="col-md-12" id="quest_par_div'+i+'"><div class="col-md-8"><div class="form-group"><label for="exampleInputPassword1">Options</label><input type="text" name="option[]" class="form-control" required=""></div></div><div class="col-md-4"><button type="button" name="remove" id="'+i+'" class="btn btn-danger quest_btn_remove">X</button></div></div>');
+    });  
+    $(document).on('click', '.quest_btn_remove', function(){  
+       var button_id = $(this).attr("id");   
+       $('#quest_par_div'+button_id+'').remove(); 
+       if($("#quest_dyn_div > div").length<1){
+            addOptiontoQuestn();
+       } 
+    });  
+ });  
+
+function addOptiontoQuestn()
+{
+    var qustn_typ = $('#ques_type').val();
+    //alert(qustn_typ);
+    $('#quest_dyn_div').empty();
+    if(qustn_typ!='text'){
+        $('#quest_dyn_div').append('<div class="col-md-12" id="quest_par_div1"><div class="col-md-8"><div class="form-group"><label for="exampleInputPassword1">Options</label><input type="text" name="option[]" class="form-control" required=""></div></div><div class="col-md-4"><button type="button" id="quest_btn_add" class="btn btn-primary">Add More</button></div></div>');
+    } else {
+
+    }
+
+    var i=1;  
+    $('#quest_btn_add').click(function(){  
+       i++;   
+       //alert('text');
+       $('#quest_dyn_div').append('<div class="col-md-12" id="quest_par_div'+i+'"><div class="col-md-8"><div class="form-group"><label for="exampleInputPassword1">Options</label><input type="text" name="option[]" class="form-control" required=""></div></div><div class="col-md-4"><button type="button" name="remove" id="'+i+'" class="btn btn-danger quest_btn_remove">X</button></div></div>');
+    });  
+    $(document).on('click', '.quest_btn_remove', function(){  
+       var button_id = $(this).attr("id");   
+       $('#quest_par_div'+button_id+'').remove();  
+       //alert($("#quest_dyn_div > div").length);
+       if($("#quest_dyn_div > div").length<1){
+            addOptiontoQuestn();
+       }
+       
+    });
+}
+
+function setQuestionIdDelete(question_id)
+{
+    $('#questionDeelteID').val(question_id);
+}
+
+$('.form-group').on("click",function(){          
+
+    var items = document.getElementsByClassName('req_question');
+    for (var i = 0; i < items.length; i++)
+    checkboxValidate(items[i].name);
+});
+
+function checkboxValidate(name){
+    var min = 1 //minumum number of boxes to be checked for this form-group
+    if($('input[name="'+name+'"]:checked').length<min){
+        $('input[name="'+name+'"]').prop('required',true);
+    }
+    else{
+        $('input[name="'+name+'"]').prop('required',false);
+    }
+}
+
+function userResultPage()
+{
+  var search_key = $('#user_result_search').val();
+  //alert(search_key);
+
+  var page = 0;
+
+  $.ajax({
+        method: "POST",
+        url: baseurl+"report/manageUserReportAjax/"+page,
+        data: { page:page,search_key:search_key },
+        beforeSend: function(){
+        },
+        success: function(data){
+            $('#resultList').html(data);
+        }
+  });
+}
+
+function refreshuserResult()
+{
+  var search_key = $('#user_result_search').val();
+  if(search_key=='' || search_key == ' '){
+    userResultPage();
+  }
+}

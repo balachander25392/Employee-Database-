@@ -18,6 +18,7 @@ class Employee_model extends CI_Model {
 		$emp_div    = $this->input->post('emp_div');
 		$emp_team   = $this->input->post('emp_team');
 		$emp_leader = $this->input->post('emp_leader');
+		$emp_type	= $this->input->post('emp_type');
 		$emp_dob    = $this->input->post('emp_dob');
 		$emp_doj    = $this->input->post('emp_doj');
  
@@ -38,6 +39,7 @@ class Employee_model extends CI_Model {
 			 	"ed_emp_div" 	=> $emp_div,
 			 	"ed_emp_team" 	=> $emp_team,
 			 	"ed_emp_leader" => $emp_leader,
+			 	"ed_emp_type"	=> $emp_type,
 			 	"ed_emp_dob" 	=> $emp_dob,
 			 	"ed_emp_doj" 	=> $emp_doj,
 			 	"ed_emp_add_on" => date('Y-m-d H:i:s'),
@@ -62,7 +64,7 @@ class Employee_model extends CI_Model {
 
 	function getEmployeeUsers($params = array())
 	{
-		$search_key = $this->input->post('search_key');
+		$search_key = addslashes($this->input->post('search_key'));
 
         $sql   = "SELECT A.ed_id,A.ed_emp_id,A.ed_emp_name,A.ed_emp_pass,A.ed_emp_email,A.ed_emp_desig,A.ed_emp_div,A.ed_emp_team,A.ed_emp_leader,A.ed_emp_dob,A.ed_emp_doj,A.ed_emp_add_on,A.ed_emp_add_by,A.ed_emp_name,B.ea_id,B.ea_name FROM be_emp_db A, be_emp_aduser B  ";
 
@@ -89,7 +91,7 @@ class Employee_model extends CI_Model {
 
 	function getEmpDetail($id)
 	{
-		$this->db->select('A.ed_id,A.ed_emp_id,A.ed_emp_name,A.ed_emp_pass,A.ed_emp_email,A.ed_emp_desig,A.ed_emp_div,A.ed_emp_team,A.ed_emp_leader,A.ed_emp_dob,A.ed_emp_doj,A.ed_emp_add_on,A.ed_emp_add_by,A.ed_emp_name');
+		$this->db->select('A.ed_id,A.ed_emp_id,A.ed_emp_name,A.ed_emp_pass,A.ed_emp_email,A.ed_emp_desig,A.ed_emp_div,A.ed_emp_team,A.ed_emp_leader,A.ed_emp_type,A.ed_emp_dob,A.ed_emp_doj,A.ed_emp_add_on,A.ed_emp_add_by,A.ed_emp_name');
         $this->db->from('be_emp_db as A');
         $this->db->where('A.ed_id',$id);
         $query = $this->db->get();
@@ -107,6 +109,7 @@ class Employee_model extends CI_Model {
 		$emp_div    = $this->input->post('emp_div');
 		$emp_team   = $this->input->post('emp_team');
 		$emp_leader = $this->input->post('emp_leader');
+		$emp_type	= $this->input->post('emp_type');
 		$emp_dob    = $this->input->post('emp_dob');
 		$emp_doj    = $this->input->post('emp_doj');
  
@@ -127,6 +130,7 @@ class Employee_model extends CI_Model {
 			 	"ed_emp_div" 	=> $emp_div,
 			 	"ed_emp_team" 	=> $emp_team,
 			 	"ed_emp_leader" => $emp_leader,
+			 	"ed_emp_type"	=> $emp_type,
 			 	"ed_emp_dob" 	=> $emp_dob,
 			 	"ed_emp_doj" 	=> $emp_doj,
 			 	"ed_emp_lup_on" => date('Y-m-d H:i:s'),
@@ -240,12 +244,13 @@ class Employee_model extends CI_Model {
 	        $data_emp['ed_emp_name']		= $objWorksheet->getCellByColumnAndRow(1,$i)->getCalculatedValue();
 	        $data_emp['ed_emp_pass']		= MD5($objWorksheet->getCellByColumnAndRow(2,$i)->getCalculatedValue());
 	        $data_emp['ed_emp_email']		= $objWorksheet->getCellByColumnAndRow(3,$i)->getCalculatedValue();
-	        $data_emp['ed_emp_desig']		= $objWorksheet->getCellByColumnAndRow(4,$i)->getCalculatedValue();
-	        $data_emp['ed_emp_div']			= $objWorksheet->getCellByColumnAndRow(5,$i)->getCalculatedValue();
-	        $data_emp['ed_emp_team']		= $objWorksheet->getCellByColumnAndRow(6,$i)->getCalculatedValue();
-	        $data_emp['ed_emp_leader']		= $objWorksheet->getCellByColumnAndRow(7,$i)->getCalculatedValue();
-	        $data_emp['ed_emp_dob']			= date($format = "Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($objWorksheet->getCellByColumnAndRow(8,$i)->getCalculatedValue()));
-	        $data_emp['ed_emp_doj']			= date($format = "Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($objWorksheet->getCellByColumnAndRow(9,$i)->getCalculatedValue()));
+	        $data_emp['ed_emp_type']		= $objWorksheet->getCellByColumnAndRow(4,$i)->getCalculatedValue();
+	        $data_emp['ed_emp_desig']		= $objWorksheet->getCellByColumnAndRow(5,$i)->getCalculatedValue();
+	        $data_emp['ed_emp_div']			= $objWorksheet->getCellByColumnAndRow(6,$i)->getCalculatedValue();
+	        $data_emp['ed_emp_team']		= $objWorksheet->getCellByColumnAndRow(7,$i)->getCalculatedValue();
+	        $data_emp['ed_emp_leader']		= $objWorksheet->getCellByColumnAndRow(8,$i)->getCalculatedValue();
+	        $data_emp['ed_emp_dob']			= date($format = "Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($objWorksheet->getCellByColumnAndRow(9,$i)->getCalculatedValue()));
+	        $data_emp['ed_emp_doj']			= date($format = "Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($objWorksheet->getCellByColumnAndRow(10,$i)->getCalculatedValue()));
 
 	        if($data_emp['ed_emp_id']!='' && $data_emp['ed_emp_name']!='' && $data_emp['ed_emp_pass']!='' &&$data_emp['ed_emp_email']!=''){
 

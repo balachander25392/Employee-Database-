@@ -7,7 +7,7 @@
         <small>Password</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?php echo base_url() ?>welcome"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="<?php echo base_url() ?>"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Change Password</li>
       </ol>
     </section>
@@ -28,7 +28,7 @@
             <?php if($this->session->flashdata('flash_msg')) { echo $this->session->flashdata('flash_msg'); } ?>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" data-toggle="validator" action="<?php echo base_url() ?>admin/updatePassword" method="POST">
+            <form role="form" data-toggle="validator" action="<?php echo base_url() ?>user/updatePassword" method="POST">
               <div class="box-body">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Current Password</label>

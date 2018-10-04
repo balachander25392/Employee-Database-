@@ -29,7 +29,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>BYD Employee DB</b> Admin Login</a>
+    <a href="../../index2.html"><b>BYD</b> Student Teacher</a>
   </div>
 
   <?php if($this->session->flashdata('message_failed')) { ?>
@@ -41,9 +41,9 @@
 
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Sign in to manage users and questionnaire</p>
+    <p class="login-box-msg">Sign in to take your questionnaire</p>
 
-    <form action="<?php echo base_url() ?>welcome/signin" method="post">
+    <form action="<?php echo base_url() ?>user/signin" method="post">
       <div class="form-group has-feedback">
         <input type="text" name="emp_id" id="emp_id" required="true" class="form-control" placeholder="Employee ID" autocomplete="off">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
@@ -57,9 +57,9 @@
         <div class="col-xs-4">
           <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
         </div>
-        <div class="col-xs-2"></div>
-        <div class="col-xs-6">
-          <a href="<?php echo base_url() ?>user">Sign in as Employee</a>
+        <div class="col-xs-3"></div>
+        <div class="col-xs-5">
+          <a href="<?php echo base_url() ?>welcome">Sign in as Admin</a>
         </div>
         <!-- /.col -->
       </div>

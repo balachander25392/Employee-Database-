@@ -231,6 +231,24 @@ class Ajax_pagination{
             });
         }
 
+        function getUserResult(page){ 
+            
+            var search_key = $('#user_result_search').val();
+            //alert(search_key); 
+            $.ajax({
+                method: "POST",
+                url: "<?php echo $this->base_url; ?>"+page,
+                data: { page: page,search_key:search_key },
+                beforeSend: function(){
+                    $('<?php echo $this->loading; ?>').show();
+                },
+                success: function(data){
+                    $('<?php echo $this->loading; ?>').hide();
+                    $('<?php echo $this->target; ?>').html(data);
+                }
+            });
+        }
+
 
         </script>
         <?php

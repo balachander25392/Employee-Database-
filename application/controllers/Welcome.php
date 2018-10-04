@@ -14,8 +14,9 @@ class Welcome extends CI_Controller {
 	{
 		if($this->session->userdata('logged_in')){
 
-			$data['title'] = "Home";
-			$this->load->template('home',$data);
+			//$data['title'] = "Home";
+			//$this->load->template('home',$data);
+			redirect('employee');
 
 		} else {
 			redirect('welcome/login');

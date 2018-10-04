@@ -52,7 +52,7 @@ class Employee extends CI_Controller {
 	        }
 	        
 	        //total rows count
-	        $totalRec = count($this->Employee_model->getEmployeeUsers());
+	        $totalRec = @count($this->Employee_model->getEmployeeUsers());
 	        
 	        //pagination configuration
 	        $config['target']      = '#empList';

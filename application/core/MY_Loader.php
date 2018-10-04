@@ -17,4 +17,17 @@ class MY_Loader extends CI_Loader {
             return $header.$menu.$content.$footer;
         }
     }
+
+    public function user_template($template_name, $vars = array(), $return = FALSE)
+    {
+        $header  = $this->view('user/header', $vars, $return); // header
+        $menu    = $this->view('user/menu', $vars, $return); // header
+        $content = $this->view('user/'.$template_name, $vars, $return); // view
+        $footer  = $this->view('user/footer', $vars, $return); // footer
+
+        if ($return)
+        {
+            return $header.$menu.$content.$footer;
+        }
+    }
 }

@@ -29,6 +29,7 @@ $(document).ready(function () {
     }, 'File size must be less than 20MB');
 
 
+
     $('#add_emp_bulk_form').validate({
 
         rules: {
