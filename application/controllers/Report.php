@@ -76,4 +76,21 @@ class Report extends CI_Controller {
 		}
 	}
 
+	function getUserAnsers()
+	{
+		if($this->session->userdata('logged_in')){
+			$data['questions'] = $this->Report_model->getUserQuestions();
+			$data['answer']    = $this->Report_model->getUserAnswers();
+	        //load the view
+	        $this->load->view('report/view_user_answers', $data, false);
+		}
+	}
+
+	function alloweditAnsAcc()
+	{
+		$result = $this->Report_model->allowAnsEditAcc();
+		$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Successfully created access to edit answers',1));
+		redirect('report/userReport');
+	}
+
 }

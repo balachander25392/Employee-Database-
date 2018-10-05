@@ -31,8 +31,9 @@
             <!-- /.box-header -->
             <!-- form start -->
             <form role="form" name="question_form" id="question_form" action="<?php echo base_url() ?>user/saveAnswer" method="POST">
+              <input type="hidden" name="templ_id" id="templ_id" value="<?php echo $templ_id; ?>">
               <div class="box-body" id="">
-                <?php $i=1; foreach($questions as $question){ ?>
+                <?php $i=1; if($questions){ foreach($questions as $question){ ?>
 
                   <input type="hidden" name="name_ref[]" value="<?php echo $question['eq_answer_type'].$question['eq_id']; ?>">
                   <input type="hidden" name="quest_id[]" value="<?php echo $question['eq_id']; ?>">
@@ -70,7 +71,7 @@
 
                      } ?>
                   </div>
-                <?php $i++; } ?>
+                <?php $i++; } } ?>
                     
               </div>
               <!-- /.box-body -->

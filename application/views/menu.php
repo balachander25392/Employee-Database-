@@ -66,6 +66,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
+            <li><a href="<?php echo base_url() ?>question/manageTemplate"><i class="fa fa-pencil-square-o"></i> Manage Template</a></li>
             <li><a href="<?php echo base_url() ?>question"><i class="fa fa-pencil-square-o"></i> Manage Questions</a></li>
             <li><a href="<?php echo base_url() ?>question/addQuestion"><i class="fa fa-plus-circle"></i> Add Question</a></li>
           </ul>

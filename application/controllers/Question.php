@@ -16,17 +16,19 @@ class Question extends CI_Controller {
 	public function index()
 	{
 		if($this->session->userdata('logged_in')){
-		$data['title'] = "Manage Questions";
+		
 		$data = array();
-    
+    	$data['title']    = "Manage Questions";
+		$data['template'] = $this->Autoload_model->getTemplateList();
         //total rows count
-        $totalRec = count($this->Question_model->getQuestions());
+        $totalRec = @count($this->Question_model->getQuestions());
         
         //pagination configuration
         $config['target']      = '#questList';
         $config['base_url']    = base_url().'question/manageQuestionAjax';
         $config['total_rows']  = $totalRec;
         $config['per_page']    = $this->perPage;
+        $config['link_func']   = 'getQuestionList';
         $this->ajax_pagination->initialize($config);
         
         //get the posts data
@@ -51,13 +53,14 @@ class Question extends CI_Controller {
 	        }
 	        
 	        //total rows count
-	        $totalRec = count($this->Question_model->getQuestions());
+	        $totalRec = @count($this->Question_model->getQuestions());
 	        
 	        //pagination configuration
 	        $config['target']      = '#questList';
 	        $config['base_url']    = base_url().'question/manageQuestionAjax';
 	        $config['total_rows']  = $totalRec;
 	        $config['per_page']    = $this->perPage;
+	        $config['link_func']   = 'getQuestionList';
 	        $this->ajax_pagination->initialize($config);
 	        
 	        //get the posts data
@@ -71,7 +74,8 @@ class Question extends CI_Controller {
 	function addQuestion()
 	{
 		if($this->session->userdata('logged_in')){
-			$data['title'] = "Add Question";
+			$data['title']    = "Add Question";
+			$data['template'] = $this->Autoload_model->getTemplateList();
 			$this->load->template('question/add_question',$data);
 		} else {
 			redirect('welcome/login');
@@ -108,6 +112,7 @@ class Question extends CI_Controller {
 	{
 		if($this->session->userdata('logged_in')){
 			$data['title']    		= "Edit Question";
+			$data['template'] 		= $this->Autoload_model->getTemplateList();
 			$data['questn_id'] 		= $this->uri->segment(3);
 			$quest_id 				= $this->Autoload_model->encrypt_decrypt('dc',$this->uri->segment(3));
 			$data['questn_detail'] 	= $this->Question_model->getQuestionDetail($quest_id);
@@ -130,6 +135,105 @@ class Question extends CI_Controller {
 		} else {
 			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Unable to update question. Try again!',3));
 			redirect('question');
+		}
+	}
+
+	function manageTemplate()
+	{
+		if($this->session->userdata('logged_in')){
+			$data['title'] = "Manage Template";
+			$data = array();
+	    
+	        //total rows count
+	        $totalRec = @count($this->Question_model->getTemplates());
+	        
+	        //pagination configuration
+	        $config['target']      = '#tempList';
+	        $config['base_url']    = base_url().'question/manageTemplateAjax';
+	        $config['total_rows']  = $totalRec;
+	        $config['per_page']    = $this->perPage;
+	        $this->ajax_pagination->initialize($config);
+	        
+	        //get the posts data
+	        $data['template'] = $this->Question_model->getTemplates(array('limit'=>$this->perPage));
+	        
+	        //load the view
+	        $this->load->template('question/manage_template', $data);
+		} else {
+			redirect('welcome/login');
+		}
+	}
+
+	function manageTemplateAjax()
+	{
+		if($this->session->userdata('logged_in')){
+			
+			$page = $this->input->post('page');
+	        if(!$page){
+	            $offset = 0;
+	        }else{
+	            $offset = $page;
+	        }
+	        
+	        //total rows count
+	        $totalRec = @count($this->Question_model->getTemplates());
+	        
+	        //pagination configuration
+	        $config['target']      = '#tempList';
+	        $config['base_url']    = base_url().'question/manageTemplateAjax';
+	        $config['total_rows']  = $totalRec;
+	        $config['per_page']    = $this->perPage;
+	        $this->ajax_pagination->initialize($config);
+	        
+	        //get the posts data
+	        $data['template'] = $this->Question_model->getTemplates(array('start'=>$offset,'limit'=>$this->perPage));
+	        
+	        //load the view
+	        $this->load->view('question/manage_template_ajax', $data, false);
+		}
+	}
+
+	function addTemplate()
+	{
+		$result = $this->Question_model->templateAdd();
+
+		if($result==1){
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Successfully Added new Template',1));
+			redirect('question/manageTemplate');
+		} else {
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Unable to add template. Try again!',3));
+			redirect('question/manageTemplate');
+		}
+	}
+
+	function getTemplEdit()
+	{
+		echo $this->Question_model->getTemplDetail();
+	}
+
+	function editTemplate()
+	{
+		$result = $this->Question_model->templateEdit();
+
+		if($result==1){
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Successfully updated new Template',1));
+			redirect('question/manageTemplate');
+		} else {
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Unable to update template. Try again!',3));
+			redirect('question/manageTemplate');
+		}
+	}
+
+	function deleteTemplate()
+	{
+		$result = $this->Question_model->templateDelete();
+
+		if($result==1){
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Successfully deleted new Template',1));
+			redirect('question/manageTemplate');
+		} else {
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Unable to delete template. Try again!',3));
+			redirect('question/manageTemplate');
 		}
 	}
 

@@ -31,6 +31,7 @@
             <!-- /.box-header -->
             <!-- form start -->
             <form role="form" name="question_form" id="question_form" action="<?php echo base_url() ?>user/updateAnswer" method="POST">
+              <input type="hidden" name="templ_id" id="templ_id" value="<?php echo $templ_id; ?>">
               <div class="box-body" id="">
                 <?php $answer_json = json_decode($answer['qa_emp_ans'],true); ?>
                 <?php $i=1; foreach($questions as $question){ ?>

@@ -36,12 +36,7 @@
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Welcome <?php echo $this->session->userdata['user_logged_in']['ed_emp_name'] ?> !</h3>
-              <!-- <a style="float: right;" href="<?php echo base_url() ?>user/editAnswer" class="btn btn-primary btn-xs">Edit Answers</a> -->
-              <?php if($test_stat==1){ ?>
-              <a class="nav-right btn btn-primary btn-xs" href="<?php echo base_url() ?>user/viewAnswer">View your Answers</a>
-              <?php } else { ?>
-              <a class="nav-right btn btn-primary btn-xs" href="<?php echo base_url() ?>user/showQuestions">Take your Questionnaire</a>
-              <?php } ?>
+              <a class="nav-right btn btn-primary btn-xs" href="<?php echo base_url() ?>user/availableQuestions">View Available Questionnaire</a>
             </div>
 
             <?php if($this->session->flashdata('flash_msg')) { echo $this->session->flashdata('flash_msg'); } ?>

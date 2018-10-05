@@ -234,11 +234,31 @@ class Ajax_pagination{
         function getUserResult(page){ 
             
             var search_key = $('#user_result_search').val();
+            var emp_type   = $('#emp_type_search').val();
             //alert(search_key); 
             $.ajax({
                 method: "POST",
                 url: "<?php echo $this->base_url; ?>"+page,
-                data: { page: page,search_key:search_key },
+                data: { page: page,search_key:search_key,emp_type:emp_type },
+                beforeSend: function(){
+                    $('<?php echo $this->loading; ?>').show();
+                },
+                success: function(data){
+                    $('<?php echo $this->loading; ?>').hide();
+                    $('<?php echo $this->target; ?>').html(data);
+                }
+            });
+        }
+
+        function getQuestionList(page)
+        {
+            var templ_id   = $('#qstn_tmpl_srch').val()
+            var search_key = $('#qstn_templ_key').val();
+            //alert(search_key); 
+            $.ajax({
+                method: "POST",
+                url: "<?php echo $this->base_url; ?>"+page,
+                data: { page:page,search_key:search_key,templ_id:templ_id },
                 beforeSend: function(){
                     $('<?php echo $this->loading; ?>').show();
                 },

@@ -16,6 +16,10 @@
       <ul class="sidebar-menu" data-widget="tree">
         <!-- <li class="header">MAIN NAVIGATION</li> -->
         <li><a href="<?php echo base_url() ?>user"><i class="fa fa-home"></i> <span>Home</span></a></li>
+
+        <li><a href="<?php echo base_url() ?>user/availableQuestions"><i class="fa fa-binoculars"></i> <span>Available Questionnaire</span></a></li>
+
+
       </ul>
     </section>
     <!-- /.sidebar -->

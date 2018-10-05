@@ -9,13 +9,15 @@ class User extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->model('Autoload_model'); 
 		$this->load->model('User_model');  
+		$this->load->library('Ajax_pagination'); 
+		$this->perPage = 10;
 	}
 
 	public function index()
 	{
 		if($this->session->userdata('user_logged_in')){
 			$data['title']     = "Home";
-			$data['test_stat'] = $this->User_model->getUserTestStatus(); 
+			//$data['test_stat'] = $this->User_model->getUserTestStatus(); 
 			$this->load->user_template('home',$data);
 
 		} else {
@@ -113,8 +115,11 @@ class User extends CI_Controller {
 	function showQuestions()
 	{
 		if($this->session->userdata('user_logged_in')){
+			$templ_enc_id  = $this->uri->segment(3);
+			$templ_id = $this->Autoload_model->encrypt_decrypt('dc',$templ_enc_id);
 			$data['title']     = "Questionnaire";
-			$data['questions'] = $this->User_model->getQuestions();
+			$data['templ_id']  = $templ_enc_id;
+			$data['questions'] = $this->User_model->getQuestions($templ_id);
 			$this->load->user_template('user_question',$data);
 		} else {
 			redirect('user/login');
@@ -125,15 +130,18 @@ class User extends CI_Controller {
 	{
 		$result = $this->User_model->saveQstnAns();
 		$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Successfully saved your answers',1));
-		redirect('user/viewAnswer');
+		redirect('user/availableQuestions');
 	}
 
 	function viewAnswer()
 	{
 		if($this->session->userdata('user_logged_in')){
 			$data['title']     = "View Answers";
-			$data['questions'] = $this->User_model->getAnswers();
-			$data['answer']    = $this->User_model->getUserAnswers();
+			$templ_enc_id      = $this->uri->segment(3);
+			$templ_id 		   = $this->Autoload_model->encrypt_decrypt('dc',$templ_enc_id);
+			$data['templ_id']  = $templ_enc_id;
+			$data['questions'] = $this->User_model->getAnswers($templ_id);
+			$data['answer']    = $this->User_model->getUserAnswers($templ_id);
 			$this->load->user_template('user_answers',$data);
 		} else {
 			redirect('user/login');
@@ -143,17 +151,20 @@ class User extends CI_Controller {
 	function editAnswer()
 	{
 		if($this->session->userdata('user_logged_in')){
-			$data['title']     = "View Answers";
-			$data['questions']   = $this->User_model->getAnswers();
-			$data['answer']      = $this->User_model->getUserAnswers();
+			$data['title']       = "View Answers";
+			$templ_enc_id        = $this->uri->segment(3);
+			$templ_id 		     = $this->Autoload_model->encrypt_decrypt('dc',$templ_enc_id);
+			$data['templ_id']    = $templ_enc_id;
+			$data['questions']   = $this->User_model->getAnswers($templ_id);
+			$data['answer']      = $this->User_model->getUserAnswers($templ_id);
 			$ext_date = date('Y-m-d H:i:s',strtotime($data['answer']['qa_add_on']));
 			$new_time = date('Y-m-d H:i:s',strtotime('+2 hour',strtotime($ext_date)));
 			
-			if(date('Y-m-d H:i:s') <= $new_time){
+			if(date('Y-m-d H:i:s') <= $new_time || $data['answer']['qa_edit_access']){
 				$this->load->user_template('answer_edit',$data);
 			} else {
 				$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('You can\'t edit your answer. The time limit is over' ,4));
-				redirect('user/viewAnswer');
+				redirect('user/viewAnswer/'.$templ_enc_id);
 			}
 			
 		} else {
@@ -165,7 +176,76 @@ class User extends CI_Controller {
 	{
 		$result = $this->User_model->updateQstnAns();
 		$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Successfully saved your answers',1));
-		redirect('user/viewAnswer');
+		redirect('user/availableQuestions');
+	}
+
+	function availableQuestions()
+	{
+		if($this->session->userdata('user_logged_in')){
+			$data['title'] = "Manage Available Questions";
+			$data = array();
+	    
+	        //total rows count
+	        $totalRec = @count($this->User_model->getUserTemplates());
+	        
+	        //pagination configuration
+	        $config['target']      = '#userTempList';
+	        $config['base_url']    = base_url().'user/availableQuestionsAjax';
+	        $config['total_rows']  = $totalRec;
+	        $config['per_page']    = $this->perPage;
+	        $this->ajax_pagination->initialize($config);
+	        
+	        //get the posts data
+	        $data['user_templ']    = $this->User_model->getUserTemplates(array('limit'=>$this->perPage));
+	        
+	        //load the view
+	        $this->load->user_template('manage_user_template', $data);
+		} else {
+			redirect('user/login');
+		}
+	}
+
+	function availableQuestionsAjax()
+	{
+		if($this->session->userdata('user_logged_in')){
+			
+			$page = $this->input->post('page');
+	        if(!$page){
+	            $offset = 0;
+	        }else{
+	            $offset = $page;
+	        }
+	        
+	        //total rows count
+	        $totalRec = @count($this->User_model->getUserTemplates());
+	        
+	        //pagination configuration
+	        $config['target']      = '#userTempList';
+	        $config['base_url']    = base_url().'user/availableQuestionsAjax';
+	        $config['total_rows']  = $totalRec;
+	        $config['per_page']    = $this->perPage;
+	        $this->ajax_pagination->initialize($config);
+	        
+	        //get the posts data
+	        $data['user_templ']    = $this->User_model->getUserTemplates(array('start'=>$offset,'limit'=>$this->perPage));
+	        
+	        //load the view
+	        $this->load->view('user/manage_user_template_ajax', $data, false);
+		}
+	}
+
+	function startQuestionnaire()
+	{
+		$templ_enc_id  = $this->uri->segment(3);
+		$templ_id = $this->Autoload_model->encrypt_decrypt('dc',$templ_enc_id);
+
+		$quest_status = $this->User_model->getUserTestStatus($templ_id);
+
+		if($quest_status==1){
+			redirect('user/viewAnswer/'.$templ_enc_id);
+		} else {
+			redirect('user/showQuestions/'.$templ_enc_id);
+		} 
 	}
 
 	function logout()

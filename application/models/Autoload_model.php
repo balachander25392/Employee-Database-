@@ -52,4 +52,13 @@ class Autoload_model extends CI_Model {
 
 	    return $output;
 	}
+
+	function getTemplateList()
+	{
+		$this->db->select('qt_id,qt_name,qt_desc,qt_templ_to,qt_add_on');
+        $this->db->from('be_emp_qstn_templ');
+        $this->db->where('qt_status','1');
+        $query = $this->db->get();
+        return ($query->num_rows() > 0)?$query->result_array():FALSE;
+	}
 }

@@ -4,6 +4,7 @@
       <th>Emp ID / Name</th>
       <th>Designation/Email</th>
       <th>Leader/DIV/Team</th>
+      <th>User Type</th>
       <th>Answered on</th>
       <th>Action</th>
     </tr>
@@ -18,15 +19,17 @@
       <td>
         <span class="label label-info"><?php echo $user_results['ed_emp_leader']; ?></span> <br><?php echo $user_results['ed_emp_div']; ?> - <?php echo $user_results['ed_emp_team']; ?>
       </td>
+      <td>
+        <?php echo $user_results['ed_emp_type']; ?>
+      </td>
       <td><?php echo $user_results['qa_add_on'] ?></td>
       <td>
         <div class="dropdown">
           <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
           <span class="caret"></span></button>
           <ul class="dropdown-menu">
-            <li><a href="<?php echo base_url() ?>employee/editEmployee/<?php echo $this->Autoload_model->encrypt_decrypt('en',$user_results['ed_id']) ?>">Edit</a></li>
-            <li><a href="#" data-toggle="modal" data-target="#ResetEmpPasswordModal" onclick="setEmpIdPassReset('<?php echo $this->Autoload_model->encrypt_decrypt('en',$user_results['ed_id']) ?>')">Reset Password</a></li>
-            <li><a href="#" data-toggle="modal" data-target="#DeleteEmpModal" onclick="setEmpIdDelete('<?php echo $this->Autoload_model->encrypt_decrypt('en',$user_results['ed_id']) ?>')">Delete</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#empAnswerModal" onclick="getEmpAnswers('<?php echo $this->Autoload_model->encrypt_decrypt('en',$user_results['ed_id']) ?>','<?php echo $user_results['ed_emp_type'] ?>')">View Answers</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#allowEditModal" onclick="allowEmpEditAns('<?php echo $this->Autoload_model->encrypt_decrypt('en',$user_results['ed_id']) ?>')">Allow Edit</a></li>
           </ul>
         </div> 
       </td>

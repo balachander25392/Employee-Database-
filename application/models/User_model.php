@@ -62,26 +62,27 @@ class User_model extends CI_Model {
 
     }
 
-    function getUserTestStatus()
+    function getUserTestStatus($templ_id)
     {
     	$user_id = $this->session->userdata['user_logged_in']['ed_id'];
 
     	$this->db->select('qa_id');
         $this->db->from('be_qstn_answer');
         $this->db->where('qa_emp_id',$user_id);
+        $this->db->where('qa_templ_id',$templ_id);
         $query = $this->db->get();
         //echo $this->db->last_query();exit;        
         return ($query->num_rows() > 0)?1:0;
     }
 
-    function getQuestions()
+    function getQuestions($templ_id)
     {
     	$question_to = $this->session->userdata['user_logged_in']['ed_emp_type'];
 
-    	$this->db->select('eq_id,eq_question,eq_question_to,eq_answer_type');
+    	$this->db->select('eq_id,eq_question,eq_templ_id,eq_answer_type');
         $this->db->from('be_emp_questions');
         $this->db->where('eq_status','1');
-        $this->db->where('eq_question_to',$question_to);
+        $this->db->where('eq_templ_id',$templ_id);
         $query = $this->db->get();
         //echo $this->db->last_query();exit;        
         return ($query->num_rows() > 0)?$query->result_array():FALSE;
@@ -121,26 +122,25 @@ class User_model extends CI_Model {
     	}
 
         $ans_data = array();
-        $ans_data['qa_emp_id']  = $this->session->userdata['user_logged_in']['ed_id'];
-        $ans_data['qa_emp_ans'] = json_encode($ans_arr);
-        $ans_data['qa_add_on']  = date('Y-m-d H:i:s');
+        $ans_data['qa_emp_id']    = $this->session->userdata['user_logged_in']['ed_id'];
+        $ans_data['qa_templ_id']  = $this->Autoload_model->encrypt_decrypt('dc',$this->input->post('templ_id'));
+        $ans_data['qa_emp_ans']   = json_encode($ans_arr);
+        $ans_data['qa_add_on']    = date('Y-m-d H:i:s');
         $this->db->insert('be_qstn_answer',$ans_data);
         
     }
 
-    function getAnswers()
+    function getAnswers($templ_id)
     {
-    	$user_id   = $this->session->userdata['user_logged_in']['ed_id'];
-    	$user_type = $this->session->userdata['user_logged_in']['ed_emp_type'];
     	
-        $query   = "SELECT A.eq_id,A.eq_question,A.eq_question_to,A.eq_answer_type,A.eq_status FROM be_emp_questions A WHERE A.eq_question_to='$user_type' AND A.eq_status='1'";
+        $query   = "SELECT A.eq_id,A.eq_question,A.eq_templ_id,A.eq_answer_type,A.eq_status FROM be_emp_questions A WHERE A.eq_templ_id='$templ_id' AND A.eq_status='1'";
     	return $this->db->query($query)->result_array();
     }
 
-    function getUserAnswers()
+    function getUserAnswers($templ_id)
     {
         $user_id = $this->session->userdata['user_logged_in']['ed_id'];
-        $query   = "SELECT qa_id,qa_emp_id,qa_emp_ans,qa_add_on FROM be_qstn_answer WHERE qa_emp_id='$user_id'";
+        $query   = "SELECT qa_id,qa_emp_id,qa_templ_id,qa_emp_ans,qa_edit_access,qa_add_on FROM be_qstn_answer WHERE qa_emp_id='$user_id' AND qa_templ_id='$templ_id'";
         return $this->db->query($query)->row_array();
     }
 
@@ -169,7 +169,7 @@ class User_model extends CI_Model {
     	$quest_id = $this->input->post('quest_id');
     	$ans_type = $this->input->post('ans_type');
     	$user_id  = $this->session->userdata['user_logged_in']['ed_id'];
-
+        $templ_id = $this->Autoload_model->encrypt_decrypt('dc',$this->input->post('templ_id'));
     	$ans_arr = array();
 
         for($i=0;$i<count($name_ref);$i++){
@@ -187,13 +187,36 @@ class User_model extends CI_Model {
         }
 
         $ans_data = array();
-        $ans_data['qa_emp_id']  = $this->session->userdata['user_logged_in']['ed_id'];
-        $ans_data['qa_emp_ans'] = json_encode($ans_arr);
-        $ans_data['qa_updt_on'] = date('Y-m-d H:i:s');
+        $ans_data['qa_emp_id']      = $this->session->userdata['user_logged_in']['ed_id'];
+        $ans_data['qa_emp_ans']     = json_encode($ans_arr);
+        $ans_data['qa_edit_access'] = "0";
+        $ans_data['qa_updt_on']     = date('Y-m-d H:i:s');
 
         $this->db->where('qa_emp_id',$user_id);
+        $this->db->where('qa_templ_id',$templ_id);
         $this->db->update('be_qstn_answer',$ans_data);
 
+    }
+
+    function getUserTemplates($params = array())
+    {
+        $user_type = $this->session->userdata['user_logged_in']['ed_emp_type'];
+
+        $this->db->select('qt_id,qt_name,qt_desc,qt_templ_to,qt_add_on');
+        $this->db->from('be_emp_qstn_templ');
+        $this->db->where('qt_status','1');
+        $this->db->where('qt_templ_to',$user_type);
+        $this->db->order_by('qt_add_on','desc');
+        
+        if(array_key_exists("start",$params) && array_key_exists("limit",$params)){
+            $this->db->limit($params['limit'],$params['start']);
+        }elseif(!array_key_exists("start",$params) && array_key_exists("limit",$params)){
+            $this->db->limit($params['limit']);
+        }
+        
+        $query = $this->db->get();
+        //echo $this->db->last_query();exit;        
+        return ($query->num_rows() > 0)?$query->result_array():FALSE;
     }
     
 }

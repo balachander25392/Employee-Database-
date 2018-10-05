@@ -40,11 +40,12 @@
 
                 <div class="col-md-2">
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Questions To</label>
-                    <select class="form-control" name="questn_to" required="">
+                    <label for="exampleInputPassword1">Template</label>
+                    <select class="form-control" name="questn_templ" required="">
                       <option value="">--Select--</option>
-                      <option value="teacher"<?php if($questn_detail['eq_question_to']=='teacher'){ echo 'Selected'; } ?>>Teacher</option>
-                      <option value="student"<?php if($questn_detail['eq_question_to']=='student'){ echo 'Selected'; } ?>>Student</option>
+                      <?php foreach($template as $templates){ ?>
+                      <option value="<?php echo $templates['qt_id'] ?>"<?php if($questn_detail['eq_templ_id']==$templates['qt_id']){ echo 'Selected'; } ?>><?php echo $templates['qt_name']; ?></option>  
+                      <?php } ?>
                     </select>
                   </div>
                 </div>

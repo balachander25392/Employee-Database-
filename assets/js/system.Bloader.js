@@ -145,6 +145,7 @@ function checkboxValidate(name){
 function userResultPage()
 {
   var search_key = $('#user_result_search').val();
+  var emp_type   = $('#emp_type_search').val();
   //alert(search_key);
 
   var page = 0;
@@ -152,7 +153,7 @@ function userResultPage()
   $.ajax({
         method: "POST",
         url: baseurl+"report/manageUserReportAjax/"+page,
-        data: { page:page,search_key:search_key },
+        data: { page:page,search_key:search_key,emp_type:emp_type },
         beforeSend: function(){
         },
         success: function(data){
@@ -161,10 +162,58 @@ function userResultPage()
   });
 }
 
-function refreshuserResult()
+function getEmpAnswers(emp_id,emp_type)
 {
-  var search_key = $('#user_result_search').val();
-  if(search_key=='' || search_key == ' '){
-    userResultPage();
-  }
+  $.ajax({
+        method: "POST",
+        url: baseurl+"report/getUserAnsers",
+        data: { emp_id:emp_id,emp_type:emp_type },
+        beforeSend: function(){
+        },
+        success: function(data){
+            $('#resultAnswers').html(data);
+        }
+  });
+}
+
+function allowEmpEditAns(emp_id)
+{
+  $('#ans_acc_emp_id').val(emp_id);
+}
+
+function setTemplEdit(templ_id)
+{
+  $.ajax({
+        method: "POST",
+        url: baseurl+"question/getTemplEdit",
+        data: { templ_id:templ_id },
+        beforeSend: function(){
+        },
+        success: function(data){
+            $('#editTemplDiv').html(data);
+        }
+  });
+}
+
+function setTemplDelete(templ_id)
+{
+  $('#templDeleteID').val(templ_id);
+}
+
+function manageQuestionPage()
+{
+  var templ_id   = $('#qstn_tmpl_srch').val()
+  var search_key = $('#qstn_templ_key').val();
+  var page = 0;
+
+  $.ajax({
+        method: "POST",
+        url: baseurl+"question/manageQuestionAjax/"+page,
+        data: { page:page,search_key:search_key,templ_id:templ_id },
+        beforeSend: function(){
+        },
+        success: function(data){
+            $('#questList').html(data);
+        }
+  });
 }

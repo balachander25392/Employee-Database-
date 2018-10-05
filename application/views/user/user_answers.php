@@ -50,7 +50,7 @@
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Employee Questionnaire</h3>
-              <a style="float: right;" href="<?php echo base_url() ?>user/editAnswer" class="btn btn-primary btn-xs">Edit Answers</a>
+              <a style="float: right;" href="<?php echo base_url() ?>user/editAnswer/<?php echo $templ_id ?>" class="btn btn-primary btn-xs">Edit Answers</a>
             </div>
 
             <?php if($this->session->flashdata('flash_msg')) { echo $this->session->flashdata('flash_msg'); } ?>
@@ -66,8 +66,7 @@
                           <h3 class="box-title"><?php echo $i.') '.$question['eq_question'] ?></h3>
 
                           <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
-                </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
                           </div>
                           <!-- /.box-tools -->
                         </div>

@@ -1,18 +1,22 @@
-<div class="box-body table-responsive no-padding">
+<div class="box-body table-responsive no-padding" style="overflow-x: inherit;">
   <table class="table table-hover">
     <tr>
       <th>SL.No</th>
       <th>Question</th>
-      <th>Question To</th>
+      <!-- <th>Question To</th> -->
       <th>Answer Type</th>
+      <th>Template</th>
+      <th>Template to</th>
       <th>Action</th>
     </tr>
     <?php $i=1; if(!empty($questions)): foreach($questions as $question): ?>
       <tr>
         <td><?php echo $i; ?></td>
         <td><?php echo $question['eq_question'] ?></td>
-        <td><?php echo $question['eq_question_to'] ?></td>
+        <!-- <td><?php echo $question['eq_question_to'] ?></td> -->
         <td><?php echo $question['eq_answer_type'] ?></td>
+        <td><?php echo $question['qt_name'] ?></td>
+        <td><?php echo $question['qt_templ_to'] ?></td>
         <td>
           <a href="<?php echo base_url() ?>question/editQuestion/<?php echo $this->Autoload_model->encrypt_decrypt('en',$question['eq_id']) ?>" class="btn btn-primary btn-sm">Edit</a>
           <button type="button" data-toggle="modal" data-target="#DeleteQuestionModal" onclick="setQuestionIdDelete('<?php echo $this->Autoload_model->encrypt_decrypt('en',$question['eq_id']) ?>')" class="btn btn-danger btn-sm">Delete</button>
