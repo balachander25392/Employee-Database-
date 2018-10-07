@@ -65,11 +65,27 @@ CREATE TABLE IF NOT EXISTS `be_emp_db` (
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
+-- Dumping structure for table be_emp_admin.be_emp_qstn_templ
+CREATE TABLE IF NOT EXISTS `be_emp_qstn_templ` (
+  `qt_id` int(11) NOT NULL AUTO_INCREMENT,
+  `qt_name` varchar(250) DEFAULT NULL,
+  `qt_templ_to` enum('student','teacher') DEFAULT NULL,
+  `qt_desc` text,
+  `qt_add_on` datetime DEFAULT NULL,
+  `qt_add_by` int(11) DEFAULT NULL,
+  `qt_updt_on` datetime DEFAULT NULL,
+  `qt_updt_by` int(11) DEFAULT NULL,
+  `qt_status` enum('0','1') DEFAULT '1',
+  PRIMARY KEY (`qt_id`),
+  UNIQUE KEY `qt_id` (`qt_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- Data exporting was unselected.
 -- Dumping structure for table be_emp_admin.be_emp_questions
 CREATE TABLE IF NOT EXISTS `be_emp_questions` (
   `eq_id` int(30) NOT NULL AUTO_INCREMENT,
   `eq_question` text,
-  `eq_question_to` enum('teacher','student') DEFAULT NULL,
+  `eq_templ_id` int(50) DEFAULT NULL,
   `eq_answer_type` enum('text','radio','check') DEFAULT NULL,
   `eq_added_by` int(11) DEFAULT NULL,
   `eq_add_on` datetime DEFAULT NULL,
@@ -80,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `be_emp_questions` (
   `eq_status` enum('0','1') DEFAULT NULL,
   PRIMARY KEY (`eq_id`),
   UNIQUE KEY `eq_id` (`eq_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
 -- Dumping structure for table be_emp_admin.be_emp_questn_option
@@ -91,14 +107,16 @@ CREATE TABLE IF NOT EXISTS `be_emp_questn_option` (
   `eqo_option_st` enum('0','1') DEFAULT NULL,
   PRIMARY KEY (`eqo_id`),
   UNIQUE KEY `eqo_id` (`eqo_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
 -- Dumping structure for table be_emp_admin.be_qstn_answer
 CREATE TABLE IF NOT EXISTS `be_qstn_answer` (
   `qa_id` int(11) NOT NULL AUTO_INCREMENT,
-  `qa_emp_id` varchar(50) NOT NULL,
+  `qa_emp_id` int(50) NOT NULL,
+  `qa_templ_id` int(50) NOT NULL,
   `qa_emp_ans` text NOT NULL,
+  `qa_edit_access` enum('0','1') NOT NULL DEFAULT '0',
   `qa_add_on` datetime DEFAULT NULL,
   `qa_updt_on` datetime DEFAULT NULL,
   `qa_status` enum('0','1') NOT NULL DEFAULT '1',
