@@ -20,6 +20,7 @@
             <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Action
             <span class="caret"></span></button>
             <ul class="dropdown-menu">
+              <li><a href="#" data-toggle="modal" data-target="#PreviewTemplModal" onclick="setTemplPreview('<?php echo $this->Autoload_model->encrypt_decrypt('en',$templates['qt_id']) ?>')">Preview</a></li>
               <li><a href="#" data-toggle="modal" data-target="#EditTemplModal" onclick="setTemplEdit('<?php echo $this->Autoload_model->encrypt_decrypt('en',$templates['qt_id']) ?>')">Edit</a></li>
               <li><a href="#" data-toggle="modal" data-target="#DeleteTemplModal" onclick="setTemplDelete('<?php echo $this->Autoload_model->encrypt_decrypt('en',$templates['qt_id']) ?>')">Delete</a></li>
             </ul>

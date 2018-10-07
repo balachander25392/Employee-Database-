@@ -216,11 +216,12 @@ class Ajax_pagination{
         function getEmployeeData(page){ 
             
             var search_key = $('#emp_tab_ssearch').val();
+            var user_type  = $('#emp_utype_search').val();
             //alert(search_key); 
             $.ajax({
                 method: "POST",
                 url: "<?php echo $this->base_url; ?>"+page,
-                data: { page: page,search_key:search_key },
+                data: { page:page,search_key:search_key,user_type:user_type },
                 beforeSend: function(){
                     $('<?php echo $this->loading; ?>').show();
                 },
@@ -235,11 +236,12 @@ class Ajax_pagination{
             
             var search_key = $('#user_result_search').val();
             var emp_type   = $('#emp_type_search').val();
+            var templ_id   = $('#emp_reprt_tmpl_srch').val();
             //alert(search_key); 
             $.ajax({
                 method: "POST",
                 url: "<?php echo $this->base_url; ?>"+page,
-                data: { page: page,search_key:search_key,emp_type:emp_type },
+                data: { page: page,search_key:search_key,emp_type:emp_type,templ_id:templ_id },
                 beforeSend: function(){
                     $('<?php echo $this->loading; ?>').show();
                 },
@@ -252,13 +254,66 @@ class Ajax_pagination{
 
         function getQuestionList(page)
         {
-            var templ_id   = $('#qstn_tmpl_srch').val()
+            var templ_id   = $('#qstn_tmpl_srch').val();
             var search_key = $('#qstn_templ_key').val();
             //alert(search_key); 
             $.ajax({
                 method: "POST",
                 url: "<?php echo $this->base_url; ?>"+page,
                 data: { page:page,search_key:search_key,templ_id:templ_id },
+                beforeSend: function(){
+                    $('<?php echo $this->loading; ?>').show();
+                },
+                success: function(data){
+                    $('<?php echo $this->loading; ?>').hide();
+                    $('<?php echo $this->target; ?>').html(data);
+                }
+            });
+        }
+
+        function getTemplateList(page)
+        {
+            var user_type  = $('#mang_tmpl_utype').val();
+            var search_key = $('#mang_templ_key').val();
+            //alert(search_key); 
+            $.ajax({
+                method: "POST",
+                url: "<?php echo $this->base_url; ?>"+page,
+                data: { page:page,search_key:search_key,user_type:user_type },
+                beforeSend: function(){
+                    $('<?php echo $this->loading; ?>').show();
+                },
+                success: function(data){
+                    $('<?php echo $this->loading; ?>').hide();
+                    $('<?php echo $this->target; ?>').html(data);
+                }
+            });
+        }
+
+        function getAdminList(page)
+        {
+            var search_key = $('#adminemp_tab_ssearch').val();
+            $.ajax({
+                method: "POST",
+                url: "<?php echo $this->base_url; ?>"+page,
+                data: { page:page,search_key:search_key },
+                beforeSend: function(){
+                    $('<?php echo $this->loading; ?>').show();
+                },
+                success: function(data){
+                    $('<?php echo $this->loading; ?>').hide();
+                    $('<?php echo $this->target; ?>').html(data);
+                }
+            });
+        }
+
+        function getUserTempltList(page)
+        {
+            var search_key = $('#emp_templ_srch').val();
+            $.ajax({
+                method: "POST",
+                url: "<?php echo $this->base_url; ?>"+page,
+                data: { page:page,search_key:search_key },
                 beforeSend: function(){
                     $('<?php echo $this->loading; ?>').show();
                 },

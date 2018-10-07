@@ -19,12 +19,39 @@
           <div class="col-xs-12">
             <?php if($this->session->flashdata('flash_msg')) { echo $this->session->flashdata('flash_msg'); } ?>
             <div class="box">
-              <div class="box-header">
-                <h3 class="box-title">Template Details</h3>
 
-                <div class="box-tools col-xs-2">
+      
+                  <div class="col-md-12">
+                  <div class="col-xs-4">
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Search by User Type</label>
+                      <select name="mang_tmpl_utype" id="mang_tmpl_utype" class="form-control" onchange="manageTemplatePage()">
+                        <option value="">All</option>
+                        <option value="teacher">Teacher</option>
+                        <option value="student">Student</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-xs-6">
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Search by keyword</label>
+                      <div class="input-group">
+                        <input type="text" name="mang_templ_key" id="mang_templ_key" onkeyup="manageTemplatePage()" class="form-control pull-right" placeholder="Template name, description">
+
+                        <div class="input-group-btn">
+                          <button type="submit" onclick="manageTemplatePage()" class="btn btn-default"><i class="fa fa-search"></i></button>
+                        </div>  
+                    </div>
+                    </div>
+                  </div>
+
+                  <div class="col-xs-2">
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Add Template</label>
                       <button type="submit" data-toggle="modal" data-target="#addTemplateModal" class="btn btn-primary btn-sm">Add new Template</button>
-                </div>
+                    </div>
+                  </div>
 
               </div>
               <!-- /.box-header -->
@@ -51,6 +78,7 @@
                             <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Action
                             <span class="caret"></span></button>
                             <ul class="dropdown-menu">
+                              <li><a href="#" data-toggle="modal" data-target="#PreviewTemplModal" onclick="setTemplPreview('<?php echo $this->Autoload_model->encrypt_decrypt('en',$templates['qt_id']) ?>')">Preview</a></li>
                               <li><a href="#" data-toggle="modal" data-target="#EditTemplModal" onclick="setTemplEdit('<?php echo $this->Autoload_model->encrypt_decrypt('en',$templates['qt_id']) ?>')">Edit</a></li>
                               <li><a href="#" data-toggle="modal" data-target="#DeleteTemplModal" onclick="setTemplDelete('<?php echo $this->Autoload_model->encrypt_decrypt('en',$templates['qt_id']) ?>')">Delete</a></li>
                             </ul>
@@ -172,6 +200,26 @@
           <button type="submit" class="btn btn-primary">Delete</button>
         </div>
       </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="PreviewTemplModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h5 class="modal-title" id="exampleModalLabel">Preview Questionnaire</h5>
+        </div>
+        <div class="modal-body" id="adminQstnPrevDiv">
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
     </div>
   </div>
 </div>

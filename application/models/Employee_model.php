@@ -65,10 +65,16 @@ class Employee_model extends CI_Model {
 	function getEmployeeUsers($params = array())
 	{
 		$search_key = addslashes($this->input->post('search_key'));
+		$user_type  = $this->input->post('user_type');
 
         $sql   = "SELECT A.ed_id,A.ed_emp_id,A.ed_emp_name,A.ed_emp_pass,A.ed_emp_email,A.ed_emp_desig,A.ed_emp_div,A.ed_emp_team,A.ed_emp_leader,A.ed_emp_dob,A.ed_emp_doj,A.ed_emp_add_on,A.ed_emp_add_by,A.ed_emp_name,B.ea_id,B.ea_name FROM be_emp_db A, be_emp_aduser B  ";
 
         $where = " WHERE A.ed_emp_add_by=B.ea_id AND A.ed_emp_st='1'";
+
+        if($user_type){
+
+        	$where .= " AND ed_emp_type='$user_type'";
+        }
 
         if($search_key){
 

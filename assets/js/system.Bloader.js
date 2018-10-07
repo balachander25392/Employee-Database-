@@ -42,6 +42,7 @@ $("#emp_doj").keydown(false);
 function empSearchPage()
 {
 	var search_key = $('#emp_tab_ssearch').val();
+  var user_type  = $('#emp_utype_search').val();
 	//alert(search_key);
 
 	var page = 0;
@@ -49,7 +50,7 @@ function empSearchPage()
 	$.ajax({
         method: "POST",
         url: baseurl+"employee/manageEmployeeAjax/"+page,
-        data: { page:page,search_key:search_key },
+        data: { page:page,search_key:search_key,user_type:user_type },
         beforeSend: function(){
         },
         success: function(data){
@@ -146,6 +147,7 @@ function userResultPage()
 {
   var search_key = $('#user_result_search').val();
   var emp_type   = $('#emp_type_search').val();
+  var templ_id   = $('#emp_reprt_tmpl_srch').val();
   //alert(search_key);
 
   var page = 0;
@@ -153,7 +155,7 @@ function userResultPage()
   $.ajax({
         method: "POST",
         url: baseurl+"report/manageUserReportAjax/"+page,
-        data: { page:page,search_key:search_key,emp_type:emp_type },
+        data: { page:page,search_key:search_key,emp_type:emp_type,templ_id:templ_id },
         beforeSend: function(){
         },
         success: function(data){
@@ -162,12 +164,14 @@ function userResultPage()
   });
 }
 
-function getEmpAnswers(emp_id,emp_type)
+function getEmpAnswers(emp_id,templ_id)
 {
+  //alert(emp_id);
+  //alert(templ_id);
   $.ajax({
         method: "POST",
         url: baseurl+"report/getUserAnsers",
-        data: { emp_id:emp_id,emp_type:emp_type },
+        data: { emp_id:emp_id,templ_id:templ_id },
         beforeSend: function(){
         },
         success: function(data){
@@ -214,6 +218,72 @@ function manageQuestionPage()
         },
         success: function(data){
             $('#questList').html(data);
+        }
+  });
+}
+
+function setTemplPreview(templ_id)
+{
+  $.ajax({
+        method: "POST",
+        url: baseurl+"question/getTemplprev",
+        data: { templ_id:templ_id },
+        beforeSend: function(){
+        },
+        success: function(data){
+            $('#adminQstnPrevDiv').html(data);
+        }
+  });
+}
+
+function manageTemplatePage()
+{
+  var user_type  = $('#mang_tmpl_utype').val()
+  var search_key = $('#mang_templ_key').val();
+  var page = 0;
+
+  $.ajax({
+        method: "POST",
+        url: baseurl+"question/manageTemplateAjax/"+page,
+        data: { page:page,search_key:search_key,user_type:user_type },
+        beforeSend: function(){
+        },
+        success: function(data){
+            $('#tempList').html(data);
+        }
+  });
+}
+
+function adminEmpSearchPage()
+{
+  var search_key = $('#adminemp_tab_ssearch').val();
+  var page = 0;
+
+  $.ajax({
+        method: "POST",
+        url: baseurl+"admin/manageAdminAjax/"+page,
+        data: { page:page,search_key:search_key },
+        beforeSend: function(){
+        },
+        success: function(data){
+            $('#adminList').html(data);
+        }
+  });
+}
+
+function empTemplateSearch()
+{
+  var search_key = $('#emp_templ_srch').val();
+  var page = 0;
+
+  $.ajax({
+        method: "POST",
+        url: baseurl+"user/availableQuestionsAjax/"+page,
+        data: { page:page,search_key:search_key },
+        beforeSend: function(){
+        },
+        success: function(data){
+            $('#userTempList').html(data);
         }
   });
 }

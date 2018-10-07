@@ -21,6 +21,17 @@
             <div class="box">
               <div class="box-header">
                 <h3 class="box-title">Template Details</h3>
+
+                <div class="box-tools col-xs-4">
+                  <div class="input-group input-group-sm">
+                    <input type="text" name="emp_templ_srch" id="emp_templ_srch" onkeyup="empTemplateSearch()" class="form-control pull-right" placeholder="Search">
+
+                    <div class="input-group-btn">
+                      <button type="submit" onclick="empTemplateSearch()" class="btn btn-default"><i class="fa fa-search"></i></button>
+                    </div>
+                  </div>
+                </div>
+
               </div>
               <!-- /.box-header -->
               <div id="userTempList">

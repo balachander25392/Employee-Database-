@@ -52,21 +52,30 @@ class Admin_model extends CI_Model {
 
 	function getAdminUsers($params = array())
     {
-        $this->db->select('ea_id,ea_emp_id,ea_name,ea_email,ea_designation,ea_added_on');
-        $this->db->from('be_emp_aduser');
-        $this->db->where('ea_role','2');
-        $this->db->where('ea_user_st','1');
-        $this->db->order_by('ea_added_on','desc');
-        
-        if(array_key_exists("start",$params) && array_key_exists("limit",$params)){
-            $this->db->limit($params['limit'],$params['start']);
-        }elseif(!array_key_exists("start",$params) && array_key_exists("limit",$params)){
-            $this->db->limit($params['limit']);
+        $search_key = addslashes($this->input->post('search_key'));
+
+        $sql   = "SELECT ea_id,ea_emp_id,ea_name,ea_email,ea_designation,ea_added_on FROM be_emp_aduser";
+
+        $where = " WHERE ea_role='2' AND ea_user_st='1'";
+
+        if($search_key){
+
+        	$where .= " AND (ea_emp_id LIKE '%$search_key%' || ea_name LIKE '%$search_key%' || ea_email LIKE '%$search_key%' || ea_designation LIKE '%$search_key%') ";
         }
-        
-        $query = $this->db->get();
-        //echo $this->db->last_query();exit;        
+
+        $order_by = " ORDER BY ea_added_on";
+
+        $sql .= $where.$order_by;
+
+        if(array_key_exists("start",$params) && array_key_exists("limit",$params)){
+            $sql .= " LIMIT ".$params['start'].",".$params['limit'];
+        }elseif(!array_key_exists("start",$params) && array_key_exists("limit",$params)){
+            $sql .= " LIMIT ".$params['limit'];
+        }
+        //echo $sql;exit;
+        $query = $this->db->query($sql);        
         return ($query->num_rows() > 0)?$query->result_array():FALSE;
+
     }
 
     function getAdminDetail($id)

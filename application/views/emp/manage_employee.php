@@ -21,18 +21,34 @@
             <?php if($this->session->flashdata('eu_succ_flash_msg')) { echo $this->session->flashdata('eu_succ_flash_msg'); } ?>
             <?php if($this->session->flashdata('eu_fail_flash_msg')) { echo $this->session->flashdata('eu_fail_flash_msg'); } ?>
             <div class="box">
-              <div class="box-header">
-                <h3 class="box-title">Employee Details</h3>
-                <div class="box-tools col-xs-4">
-                  <div class="input-group input-group-sm">
-                    <input type="text" name="emp_tab_ssearch" id="emp_tab_ssearch" onkeyup="refreshEmpSearch()" class="form-control pull-right" placeholder="Search">
 
-                    <div class="input-group-btn">
-                      <button type="submit" onclick="empSearchPage()" class="btn btn-default"><i class="fa fa-search"></i></button>
+
+              <div class="col-md-12">
+                  <div class="col-xs-4">
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Search by User Type</label>
+                      <select name="emp_utype_search" id="emp_utype_search" class="form-control" onchange="empSearchPage()">
+                        <option value="">All</option>
+                        <option value="teacher">Teacher</option>
+                        <option value="student">Student</option>
+                      </select>
                     </div>
                   </div>
-                </div>
+
+                  <div class="col-xs-6">
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Search by keyword</label>
+                      <div class="input-group">
+                        <input type="text" name="emp_tab_ssearch" id="emp_tab_ssearch" onkeyup="empSearchPage()" class="form-control pull-right" placeholder="Search">
+
+                        <div class="input-group-btn">
+                          <button type="submit" onclick="empSearchPage()" class="btn btn-default"><i class="fa fa-search"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
               </div>
+
               <!-- /.box-header -->
               <div id="empList">
                 <div class="box-body table-responsive no-padding" style="overflow-x: inherit;">

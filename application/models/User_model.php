@@ -201,21 +201,28 @@ class User_model extends CI_Model {
     function getUserTemplates($params = array())
     {
         $user_type = $this->session->userdata['user_logged_in']['ed_emp_type'];
+        $search_key = addslashes($this->input->post('search_key'));
 
-        $this->db->select('qt_id,qt_name,qt_desc,qt_templ_to,qt_add_on');
-        $this->db->from('be_emp_qstn_templ');
-        $this->db->where('qt_status','1');
-        $this->db->where('qt_templ_to',$user_type);
-        $this->db->order_by('qt_add_on','desc');
-        
-        if(array_key_exists("start",$params) && array_key_exists("limit",$params)){
-            $this->db->limit($params['limit'],$params['start']);
-        }elseif(!array_key_exists("start",$params) && array_key_exists("limit",$params)){
-            $this->db->limit($params['limit']);
+        $sql   = "SELECT qt_id,qt_name,qt_desc,qt_templ_to,qt_add_on FROM be_emp_qstn_templ";
+
+        $where = " WHERE qt_status='1' AND qt_templ_to='$user_type' ";
+
+        if($search_key){
+
+            $where .= " AND (qt_name LIKE '%$search_key%' || qt_desc LIKE '%$search_key%') ";
         }
-        
-        $query = $this->db->get();
-        //echo $this->db->last_query();exit;        
+
+        $order_by = " ORDER BY qt_add_on";
+
+        $sql .= $where.$order_by;
+
+        if(array_key_exists("start",$params) && array_key_exists("limit",$params)){
+            $sql .= " LIMIT ".$params['start'].",".$params['limit'];
+        }elseif(!array_key_exists("start",$params) && array_key_exists("limit",$params)){
+            $sql .= " LIMIT ".$params['limit'];
+        }
+        //echo $sql;exit;
+        $query = $this->db->query($sql);        
         return ($query->num_rows() > 0)?$query->result_array():FALSE;
     }
     

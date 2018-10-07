@@ -19,13 +19,14 @@ class Admin extends CI_Controller {
 			$data = array();
         
 	        //total rows count
-	        $totalRec = count($this->Admin_model->getAdminUsers());
+	        $totalRec = @count($this->Admin_model->getAdminUsers());
 	        
 	        //pagination configuration
 	        $config['target']      = '#adminList';
 	        $config['base_url']    = base_url().'admin/manageAdminAjax';
 	        $config['total_rows']  = $totalRec;
 	        $config['per_page']    = $this->perPage;
+	        $config['link_func']   = 'getAdminList';
 	        $this->ajax_pagination->initialize($config);
 	        
 	        //get the posts data
@@ -50,13 +51,14 @@ class Admin extends CI_Controller {
 	        }
 	        
 	        //total rows count
-	        $totalRec = count($this->Admin_model->getAdminUsers());
+	        $totalRec = @count($this->Admin_model->getAdminUsers());
 	        
 	        //pagination configuration
 	        $config['target']      = '#adminList';
 	        $config['base_url']    = base_url().'admin/manageAdminAjax';
 	        $config['total_rows']  = $totalRec;
 	        $config['per_page']    = $this->perPage;
+	        $config['link_func']   = 'getAdminList';
 	        $this->ajax_pagination->initialize($config);
 	        
 	        //get the posts data

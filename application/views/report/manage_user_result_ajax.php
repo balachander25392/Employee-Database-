@@ -4,6 +4,7 @@
       <th>Emp ID / Name</th>
       <th>Designation/Email</th>
       <th>Leader/DIV/Team</th>
+      <th>Template</th>
       <th>User Type</th>
       <th>Answered on</th>
       <th>Action</th>
@@ -19,6 +20,7 @@
       <td>
         <span class="label label-info"><?php echo $user_results['ed_emp_leader']; ?></span> <br><?php echo $user_results['ed_emp_div']; ?> - <?php echo $user_results['ed_emp_team']; ?>
       </td>
+      <td><?php echo $user_results['qt_name'] ?></td>
       <td>
         <?php echo $user_results['ed_emp_type']; ?>
       </td>

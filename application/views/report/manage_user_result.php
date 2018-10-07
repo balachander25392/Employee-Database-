@@ -3,12 +3,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Manage Employee
-        <small>Results</small>
+        Employee
+        <small>Report</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?php echo base_url() ?>employee"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Manage Employee Results</li>
+        <li class="active">Employee Questionnaire Results</li>
       </ol>
     </section>
 
@@ -35,9 +35,21 @@
 
                   <div class="col-xs-4">
                     <div class="form-group">
+                      <label for="exampleInputPassword1">Search by Template</label>
+                      <select name="emp_reprt_tmpl_srch" id="emp_reprt_tmpl_srch" class="form-control" onchange="userResultPage()">
+                        <option value="">All</option>
+                        <?php foreach($template as $templates){ ?>
+                        <option value="<?php echo $templates['qt_id'] ?>"><?php echo $templates['qt_name'] ?></option>  
+                        <?php } ?> 
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-xs-4">
+                    <div class="form-group">
                       <label for="exampleInputPassword1">Search by Keywords</label>
                       <div class="input-group">
-                        <input type="text" name="user_result_search" id="user_result_search" onkeyup="userResultPage()" class="form-control pull-right" placeholder="Name,Designation,Leader,Team">
+                        <input type="text" name="user_result_search" id="user_result_search" onkeyup="userResultPage()" class="form-control pull-right" placeholder="Emp ID, Name etc.,">
 
                         <div class="input-group-btn">
                           <button type="submit" onclick="userResultPage()" class="btn btn-default"><i class="fa fa-search"></i></button>
@@ -45,6 +57,7 @@
                     </div>
                     </div>
                   </div>
+
                 </div>
               <!-- </div>  -->
               <!-- /.box-header -->
@@ -55,7 +68,8 @@
                       <th>Emp ID / Name</th>
                       <th>Designation/Email</th>
                       <th>Leader/DIV/Team</th>
-                      <th>User Type</th>
+                      <th>Template</th>
+                      <th>User Type</th>                      
                       <th>Answered on</th>
                       <th>Action</th>
                     </tr>
@@ -70,17 +84,18 @@
                       <td>
                         <span class="label label-info"><?php echo $user_results['ed_emp_leader']; ?></span> <br><?php echo $user_results['ed_emp_div']; ?> - <?php echo $user_results['ed_emp_team']; ?>
                       </td>
+                      <td><?php echo $user_results['qt_name'] ?></td>  
                       <td>
                         <?php echo $user_results['ed_emp_type']; ?>
-                      </td>
+                      </td>                      
                       <td><?php echo $user_results['qa_add_on'] ?></td>
                       <td>
                         <div class="dropdown">
                           <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
                           <span class="caret"></span></button>
                           <ul class="dropdown-menu">
-                            <li><a href="#" data-toggle="modal" data-target="#empAnswerModal" onclick="getEmpAnswers('<?php echo $this->Autoload_model->encrypt_decrypt('en',$user_results['ed_id']) ?>','<?php echo $user_results['ed_emp_type'] ?>')">View Answers</a></li>
-                            <li><a href="#" data-toggle="modal" data-target="#allowEditModal" onclick="allowEmpEditAns('<?php echo $this->Autoload_model->encrypt_decrypt('en',$user_results['ed_id']) ?>')">Allow Edit</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#empAnswerModal" onclick="getEmpAnswers('<?php echo $this->Autoload_model->encrypt_decrypt('en',$user_results['ed_id']) ?>','<?php echo $this->Autoload_model->encrypt_decrypt('en',$user_results['qt_id']) ?>')">View Answers</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#allowEditModal" onclick="allowEmpEditAns('<?php echo $this->Autoload_model->encrypt_decrypt('en',$user_results['qa_id']) ?>')">Allow Edit</a></li>
                           </ul>
                         </div> 
                       </td>

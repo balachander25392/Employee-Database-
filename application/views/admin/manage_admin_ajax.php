@@ -23,8 +23,8 @@
           <button type="button" data-toggle="modal" data-target="#DeleteAdminModal" onclick="setAdminIdDelete('<?php echo $this->Autoload_model->encrypt_decrypt('en',$aduser['ea_id']) ?>')" class="btn btn-danger btn-sm">Delete</button>
         </td>
       </tr>
-      <?php endforeach; else: ?>
-      <tr><td colspan="7">No User Available</td></tr>
+      <?php $i++; endforeach; else: ?>
+      <tr><td align="center" colspan="7"><p style="color: red;">No User Available</p></td></tr>
       <?php endif; ?>
   </table>
 </div>

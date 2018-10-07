@@ -21,6 +21,17 @@
             <div class="box">
               <div class="box-header">
                 <h3 class="box-title">Admin User Details</h3>
+
+                <div class="box-tools col-xs-4">
+                  <div class="input-group input-group-sm">
+                    <input type="text" name="adminemp_tab_ssearch" id="adminemp_tab_ssearch" onkeyup="adminEmpSearchPage()" class="form-control pull-right" placeholder="Search">
+
+                    <div class="input-group-btn">
+                      <button type="submit" onclick="adminEmpSearchPage()" class="btn btn-default"><i class="fa fa-search"></i></button>
+                    </div>
+                  </div>
+                </div>
+
               </div>
               <!-- /.box-header -->
               <div id="adminList">

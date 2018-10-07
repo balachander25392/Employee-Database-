@@ -22,11 +22,12 @@ class Report extends CI_Controller {
 	function userReport()
 	{
 		if($this->session->userdata('logged_in')){
-			$data['title'] = "Manage User Results";
+			
 			$data = array();
-        
+        	$data['title']    = "Manage User Results";
+			$data['template'] = $this->Autoload_model->getTemplateList();
 	        //total rows count
-	        $totalRec = count($this->Report_model->getUsersResults());
+	        $totalRec = @count($this->Report_model->getUsersResults());
 	        
 	        //pagination configuration
 	        $config['target']      = '#resultList';
@@ -79,9 +80,13 @@ class Report extends CI_Controller {
 	function getUserAnsers()
 	{
 		if($this->session->userdata('logged_in')){
-			$data['questions'] = $this->Report_model->getUserQuestions();
-			$data['answer']    = $this->Report_model->getUserAnswers();
-	        //load the view
+			$this->load->model('User_model');
+			$templ_enc_id      = $this->input->post('templ_id');
+			$templ_id 		   = $this->Autoload_model->encrypt_decrypt('dc',$templ_enc_id);
+			$user_id 		   = $this->Autoload_model->encrypt_decrypt('dc',$this->input->post('emp_id'));
+			$data['templ_id']  = $templ_enc_id;
+			$data['questions'] = $this->User_model->getAnswers($templ_id);
+			$data['answer']    = $this->Report_model->getUserAnswersReport($templ_id,$user_id);
 	        $this->load->view('report/view_user_answers', $data, false);
 		}
 	}

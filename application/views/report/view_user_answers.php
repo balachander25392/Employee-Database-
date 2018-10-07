@@ -56,7 +56,7 @@
 
             <?php } else {
                   if(array_key_exists($question['eq_id'], $answer_json)) {
-                  $options = $this->Report_model->getOptionsforAnswer($question['eq_id']);
+                  $options = $this->User_model->getOptionsforAnswer($question['eq_id']);
                   foreach($options as $option){ 
                     if($option['eqo_option_st']=='1'){
                   ?>

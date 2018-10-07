@@ -193,6 +193,7 @@ class User extends CI_Controller {
 	        $config['base_url']    = base_url().'user/availableQuestionsAjax';
 	        $config['total_rows']  = $totalRec;
 	        $config['per_page']    = $this->perPage;
+	        $config['link_func']   = 'getUserTempltList';
 	        $this->ajax_pagination->initialize($config);
 	        
 	        //get the posts data
@@ -224,6 +225,7 @@ class User extends CI_Controller {
 	        $config['base_url']    = base_url().'user/availableQuestionsAjax';
 	        $config['total_rows']  = $totalRec;
 	        $config['per_page']    = $this->perPage;
+	        $config['link_func']   = 'getUserTempltList';
 	        $this->ajax_pagination->initialize($config);
 	        
 	        //get the posts data

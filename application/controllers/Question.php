@@ -152,6 +152,7 @@ class Question extends CI_Controller {
 	        $config['base_url']    = base_url().'question/manageTemplateAjax';
 	        $config['total_rows']  = $totalRec;
 	        $config['per_page']    = $this->perPage;
+	        $config['link_func']   = 'getTemplateList';
 	        $this->ajax_pagination->initialize($config);
 	        
 	        //get the posts data
@@ -183,6 +184,7 @@ class Question extends CI_Controller {
 	        $config['base_url']    = base_url().'question/manageTemplateAjax';
 	        $config['total_rows']  = $totalRec;
 	        $config['per_page']    = $this->perPage;
+	        $config['link_func']   = 'getTemplateList';
 	        $this->ajax_pagination->initialize($config);
 	        
 	        //get the posts data
@@ -235,6 +237,15 @@ class Question extends CI_Controller {
 			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Unable to delete template. Try again!',3));
 			redirect('question/manageTemplate');
 		}
+	}
+
+	function getTemplprev()
+	{
+		$this->load->model('User_model'); 
+		$templ_enc_id  = $this->input->post('templ_id');
+		$templ_id = $this->Autoload_model->encrypt_decrypt('dc',$templ_enc_id);
+		$data['questions'] = $this->User_model->getQuestions($templ_id);
+		$this->load->view('question/admin_question_prev', $data, false);
 	}
 
 }
