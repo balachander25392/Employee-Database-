@@ -77,7 +77,7 @@ class User_model extends CI_Model {
 
     function getQuestions($templ_id)
     {
-    	$question_to = $this->session->userdata['user_logged_in']['ed_emp_type'];
+    	//$question_to = $this->session->userdata['user_logged_in']['ed_emp_type'];
 
     	$this->db->select('eq_id,eq_question,eq_templ_id,eq_answer_type');
         $this->db->from('be_emp_questions');
@@ -122,10 +122,11 @@ class User_model extends CI_Model {
     	}
 
         $ans_data = array();
-        $ans_data['qa_emp_id']    = $this->session->userdata['user_logged_in']['ed_id'];
-        $ans_data['qa_templ_id']  = $this->Autoload_model->encrypt_decrypt('dc',$this->input->post('templ_id'));
-        $ans_data['qa_emp_ans']   = json_encode($ans_arr);
-        $ans_data['qa_add_on']    = date('Y-m-d H:i:s');
+        $ans_data['qa_emp_id']        = $this->session->userdata['user_logged_in']['ed_id'];
+        $ans_data['qa_templ_id']      = $this->Autoload_model->encrypt_decrypt('dc',$this->input->post('templ_id'));
+        $ans_data['qa_ans_for_user']  = $this->input->post('ans_for_usr');
+        $ans_data['qa_emp_ans']       = json_encode($ans_arr);
+        $ans_data['qa_add_on']        = date('Y-m-d H:i:s');
         $this->db->insert('be_qstn_answer',$ans_data);
         
     }
@@ -137,10 +138,10 @@ class User_model extends CI_Model {
     	return $this->db->query($query)->result_array();
     }
 
-    function getUserAnswers($templ_id)
+    function getUserAnswers($templ_id,$ans_for_usr_id)
     {
         $user_id = $this->session->userdata['user_logged_in']['ed_id'];
-        $query   = "SELECT qa_id,qa_emp_id,qa_templ_id,qa_emp_ans,qa_edit_access,qa_add_on FROM be_qstn_answer WHERE qa_emp_id='$user_id' AND qa_templ_id='$templ_id'";
+        $query   = "SELECT qa_id,qa_emp_id,qa_templ_id,qa_ans_for_user,qa_emp_ans,qa_edit_access,qa_add_on FROM be_qstn_answer WHERE qa_emp_id='$user_id' AND qa_templ_id='$templ_id' AND qa_ans_for_user='$ans_for_usr_id'";
         return $this->db->query($query)->row_array();
     }
 
@@ -170,6 +171,7 @@ class User_model extends CI_Model {
     	$ans_type = $this->input->post('ans_type');
     	$user_id  = $this->session->userdata['user_logged_in']['ed_id'];
         $templ_id = $this->Autoload_model->encrypt_decrypt('dc',$this->input->post('templ_id'));
+        $ans_for_usr_id = $this->Autoload_model->encrypt_decrypt('dc',$this->input->post('ans_for_usr_id'));
     	$ans_arr = array();
 
         for($i=0;$i<count($name_ref);$i++){
@@ -187,13 +189,15 @@ class User_model extends CI_Model {
         }
 
         $ans_data = array();
-        $ans_data['qa_emp_id']      = $this->session->userdata['user_logged_in']['ed_id'];
-        $ans_data['qa_emp_ans']     = json_encode($ans_arr);
-        $ans_data['qa_edit_access'] = "0";
-        $ans_data['qa_updt_on']     = date('Y-m-d H:i:s');
+        $ans_data['qa_emp_id']        = $this->session->userdata['user_logged_in']['ed_id'];
+        $ans_data['qa_ans_for_user']  = $this->input->post('ans_for_usr');
+        $ans_data['qa_emp_ans']       = json_encode($ans_arr);
+        $ans_data['qa_edit_access']   = "0";
+        $ans_data['qa_updt_on']       = date('Y-m-d H:i:s');
 
         $this->db->where('qa_emp_id',$user_id);
         $this->db->where('qa_templ_id',$templ_id);
+        $this->db->where('qa_ans_for_user',$ans_for_usr_id);
         $this->db->update('be_qstn_answer',$ans_data);
 
     }
@@ -213,6 +217,84 @@ class User_model extends CI_Model {
         }
 
         $order_by = " ORDER BY qt_add_on";
+
+        $sql .= $where.$order_by;
+
+        if(array_key_exists("start",$params) && array_key_exists("limit",$params)){
+            $sql .= " LIMIT ".$params['start'].",".$params['limit'];
+        }elseif(!array_key_exists("start",$params) && array_key_exists("limit",$params)){
+            $sql .= " LIMIT ".$params['limit'];
+        }
+        //echo $sql;exit;
+        $query = $this->db->query($sql);        
+        return ($query->num_rows() > 0)?$query->result_array():FALSE;
+    }
+
+    function getUserDetails($restr_users)
+    {
+        $rest_usr_id ='';
+        if($restr_users){
+
+            $restr_arr = array();
+            foreach($restr_users as $restr_user){
+                array_push($restr_arr, $restr_user['qa_ans_for_user']);
+            }
+            $rest_usr_id = implode(',', $restr_arr);
+        }
+        
+        $ed_emp_type = $this->session->userdata['user_logged_in']['ed_emp_type'];
+
+        if($ed_emp_type=='student'){
+          $sel_user = 'teacher';
+        } else {
+          $sel_user = 'student';
+        }
+
+        $sql   = "SELECT ed_id,ed_emp_id,ed_emp_name,ed_emp_email,ed_emp_type FROM be_emp_db WHERE ed_emp_st='1' AND ed_emp_type='$sel_user'";
+        
+        if($rest_usr_id){
+
+            $sql .= " AND ed_id NOT IN ($rest_usr_id)";
+        }
+        
+        $query = $this->db->query($sql);        
+        return ($query->num_rows() > 0)?$query->result_array():FALSE;
+    }
+
+    function getRetrictUserEdit($templ_id,$ans_for_usr_id)
+    {
+        $user_id    = $this->session->userdata['user_logged_in']['ed_id'];
+
+        $sql = "SELECT A.qa_ans_for_user FROM be_qstn_answer A WHERE A.qa_templ_id='$templ_id' AND qa_emp_id='$user_id' AND qa_ans_for_user!='$ans_for_usr_id' ";
+        $query = $this->db->query($sql);        
+        return ($query->num_rows() > 0)?$query->result_array():FALSE;
+    }
+
+    function getRetrictUser($templ_id)
+    {
+        $user_id    = $this->session->userdata['user_logged_in']['ed_id'];
+
+        $sql = "SELECT A.qa_ans_for_user FROM be_qstn_answer A WHERE A.qa_templ_id='$templ_id' AND qa_emp_id='$user_id'";
+        $query = $this->db->query($sql);        
+        return ($query->num_rows() > 0)?$query->result_array():FALSE;
+    }
+
+    function getUserAnswerManage($params = array())
+    {
+        $user_id    = $this->session->userdata['user_logged_in']['ed_id'];
+        
+        $search_key = addslashes($this->input->post('search_key'));
+
+        $sql   = "SELECT A.qa_id,A.qa_emp_id,A.qa_templ_id,A.qa_ans_for_user,A.qa_add_on,B.ed_id,B.ed_emp_id,B.ed_emp_name,C.qt_id,C.qt_name,C.qt_templ_to,C.qt_desc FROM be_qstn_answer A,be_emp_db B,be_emp_qstn_templ C ";
+
+        $where = " WHERE A.qa_ans_for_user=B.ed_id AND A.qa_emp_id='$user_id' AND A.qa_status='1' AND B.ed_emp_st='1' AND A.qa_templ_id=C.qt_id ";
+
+        if($search_key){
+
+            $where .= " AND (B.ed_emp_id LIKE '%$search_key%' || B.ed_emp_name LIKE '%$search_key%' || C.qt_name LIKE '%$search_key%' || C.qt_desc LIKE '%$search_key%') ";
+        }
+
+        $order_by = " ORDER BY A.qa_add_on";
 
         $sql .= $where.$order_by;
 

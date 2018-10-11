@@ -4,11 +4,11 @@
     <section class="content-header">
       <h1>
         Manage
-        <small>Questionnaire</small>
+        <small>Answers</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?php echo base_url() ?>/employee"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Available Questionnaire</li>
+        <li class="active">Manage Answers</li>
       </ol>
     </section>
 
@@ -20,29 +20,38 @@
             <?php if($this->session->flashdata('flash_msg')) { echo $this->session->flashdata('flash_msg'); } ?>
             <div class="box">
               <div class="box-header">
-                <h3 class="box-title">Template Details</h3>
+                <h3 class="box-title">Answer Details</h3>
 
                 <div class="box-tools col-xs-4">
                   <div class="input-group input-group-sm">
-                    <input type="text" name="emp_templ_srch" id="emp_templ_srch" onkeyup="empTemplateSearch()" class="form-control pull-right" placeholder="Search">
+                    <input type="text" name="emp_ansfd_srch" id="emp_ansfd_srch" onkeyup="empAnswerSearch()" class="form-control pull-right" placeholder="Search">
 
                     <div class="input-group-btn">
-                      <button type="submit" onclick="empTemplateSearch()" class="btn btn-default"><i class="fa fa-search"></i></button>
+                      <button type="submit" onclick="empAnswerSearch()" class="btn btn-default"><i class="fa fa-search"></i></button>
                     </div>
                   </div>
                 </div>
 
               </div>
               <!-- /.box-header -->
-              <div id="userTempList">
+              <div id="userAnsList">
+                 <?php
+                    $ed_emp_type = $this->session->userdata['user_logged_in']['ed_emp_type'];
+
+                    if($ed_emp_type=='student'){
+                      $sel_user = 'Teacher';
+                    } else {
+                      $sel_user = 'Student';
+                    }
+                  ?>
                 <div class="box-body table-responsive no-padding" style="overflow-x: inherit;">
                   <table class="table table-hover">
                     <tr>
                       <th>SL.No</th>
-                      <th>Name</th>
+                      <th>Template</th>
                       <th>Description</th>
-                      <th>Template for</th>
-                      <th>Added On</th>
+                      <th><?= $sel_user ?> Name</th>
+                      <th>Answered On</th>
                       <th>Action</th>
                     </tr>
                     <?php $i=1; if(!empty($user_templ)): foreach($user_templ as $templates): ?>
@@ -50,14 +59,13 @@
                         <td><?php echo $i; ?></td>
                         <td><?php echo stripslashes($templates['qt_name']) ?></td>
                         <td><?php echo $templates['qt_desc'] ?></td>
-                        <td><?php echo $templates['qt_templ_to'] ?></td>
-                        <td><?php echo $templates['qt_add_on'] ?></td>
-                        <td><!-- <a class="btn btn-primary btn-sm" href="<?php echo base_url() ?>user/startQuestionnaire/<?php echo $this->Autoload_model->encrypt_decrypt('en',$templates['qt_id']) ?>">Take Questionnaire</a> -->
-                          <a class="btn btn-primary btn-sm" href="<?php echo base_url() ?>user/showQuestions/<?php echo $this->Autoload_model->encrypt_decrypt('en',$templates['qt_id']) ?>">Take Questionnaire</a>
+                        <td><?php echo $templates['ed_emp_id'].' - '.$templates['ed_emp_name'] ?></td>
+                        <td><?php echo $templates['qa_add_on'] ?></td>
+                        <td><a class="btn btn-primary btn-sm" href="<?php echo base_url() ?>user/viewAnswer/<?php echo $this->Autoload_model->encrypt_decrypt('en',$templates['qt_id']) ?>/<?php echo $this->Autoload_model->encrypt_decrypt('en',$templates['qa_ans_for_user']) ?>">Show Answers</a>
                         </td>
                       </tr>
                       <?php $i++; endforeach; else: ?>
-                      <tr><td align="center" colspan="7"><p style="color: red;">No Templates Available</p></td></tr>
+                      <tr><td align="center" colspan="7"><p style="color: red;">No Answers Available</p></td></tr>
                       <?php endif; ?>
                   </table>
                 </div>

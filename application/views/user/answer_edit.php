@@ -1,5 +1,15 @@
   <style type="text/css"></style>
 
+  <?php
+    $ed_emp_type = $this->session->userdata['user_logged_in']['ed_emp_type'];
+
+    if($ed_emp_type=='student'){
+      $sel_user = 'Teacher';
+    } else {
+      $sel_user = 'Student';
+    }
+  ?>
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -32,7 +42,20 @@
             <!-- form start -->
             <form role="form" name="question_form" id="question_form" action="<?php echo base_url() ?>user/updateAnswer" method="POST">
               <input type="hidden" name="templ_id" id="templ_id" value="<?php echo $templ_id; ?>">
+              <input type="hidden" name="ans_for_usr_id" id="ans_for_usr_id" value="<?php echo $ans_for_usr_id; ?>">
               <div class="box-body" id="">
+
+                <div class="form-group">  
+                  <label for="exampleInputPassword1">Select your <?= $sel_user ?> </label>
+                  <select name="ans_for_usr" id="ans_for_usr" class="form-control" required="">
+                    <option value="">--Select--</option>
+                    <?php foreach($user_details as $user_detail){ ?>
+                      <option value="<?= $user_detail['ed_id'] ?>"<?php if($user_detail['ed_id'] == $answer['qa_ans_for_user']){ echo 'Selected'; } ?>><?= $user_detail['ed_emp_id'].'-'.$user_detail['ed_emp_name'] ?></option>
+                    <?php } ?>  
+                  </select>
+                  <p id="ans_for_usr_error" style="color: red;display: none;">Please choose your <?= $sel_user ?></p>
+                </div>
+
                 <?php $answer_json = json_decode($answer['qa_emp_ans'],true); ?>
                 <?php $i=1; foreach($questions as $question){ ?>
 

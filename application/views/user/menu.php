@@ -19,6 +19,8 @@
 
         <li><a href="<?php echo base_url() ?>user/availableQuestions"><i class="fa fa-binoculars"></i> <span>Available Questionnaire</span></a></li>
 
+        <li><a href="<?php echo base_url() ?>user/userAnswerManage"><i class="fa fa-binoculars"></i> <span>Manage Answers</span></a></li>
+
 
       </ul>
     </section>

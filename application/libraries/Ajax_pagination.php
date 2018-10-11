@@ -324,6 +324,23 @@ class Ajax_pagination{
             });
         }
 
+        function getUserTempltList(page)
+        {
+            var search_key = $('#emp_ansfd_srch').val();
+            $.ajax({
+                method: "POST",
+                url: "<?php echo $this->base_url; ?>"+page,
+                data: { page:page,search_key:search_key },
+                beforeSend: function(){
+                    $('<?php echo $this->loading; ?>').show();
+                },
+                success: function(data){
+                    $('<?php echo $this->loading; ?>').hide();
+                    $('<?php echo $this->target; ?>').html(data);
+                }
+            });
+        }
+
 
         </script>
         <?php

@@ -80,7 +80,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?php echo base_url() ?>report/userReport"><i class="fa fa-users"></i> User Report</a></li>
+            <li><a href="<?php echo base_url() ?>report/userReport"><i class="fa fa-users"></i> Questionnaire Results</a></li>
+            <li><a href="<?php echo base_url() ?>report/questionReport"><i class="fa fa-users"></i> Question Report</a></li>
+            <li><a href="<?php echo base_url() ?>report/userFeedback"><i class="fa fa-users"></i> Employee Report</a></li>
           </ul>
         </li>
 

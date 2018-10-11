@@ -115,11 +115,13 @@ class User extends CI_Controller {
 	function showQuestions()
 	{
 		if($this->session->userdata('user_logged_in')){
-			$templ_enc_id  = $this->uri->segment(3);
-			$templ_id = $this->Autoload_model->encrypt_decrypt('dc',$templ_enc_id);
-			$data['title']     = "Questionnaire";
-			$data['templ_id']  = $templ_enc_id;
-			$data['questions'] = $this->User_model->getQuestions($templ_id);
+			$templ_enc_id  		  = $this->uri->segment(3);
+			$templ_id 			  = $this->Autoload_model->encrypt_decrypt('dc',$templ_enc_id);
+			$data['title']        = "Questionnaire";
+			$data['templ_id']     = $templ_enc_id;
+			$data['questions']    = $this->User_model->getQuestions($templ_id);
+			$data['restr_user']   = $this->User_model->getRetrictUser($templ_id);
+			$data['user_details'] = $this->User_model->getUserDetails($data['restr_user']);
 			$this->load->user_template('user_question',$data);
 		} else {
 			redirect('user/login');
@@ -136,12 +138,15 @@ class User extends CI_Controller {
 	function viewAnswer()
 	{
 		if($this->session->userdata('user_logged_in')){
-			$data['title']     = "View Answers";
-			$templ_enc_id      = $this->uri->segment(3);
-			$templ_id 		   = $this->Autoload_model->encrypt_decrypt('dc',$templ_enc_id);
-			$data['templ_id']  = $templ_enc_id;
-			$data['questions'] = $this->User_model->getAnswers($templ_id);
-			$data['answer']    = $this->User_model->getUserAnswers($templ_id);
+			$data['title']     		= "View Answers";
+			$templ_enc_id      		= $this->uri->segment(3);
+			$ans_for_usr_enc        = $this->uri->segment(4);
+			$templ_id 		   		= $this->Autoload_model->encrypt_decrypt('dc',$templ_enc_id);
+			$ans_for_usr_id   		= $this->Autoload_model->encrypt_decrypt('dc',$ans_for_usr_enc);
+			$data['templ_id']  		= $templ_enc_id;
+			$data['ans_for_usr_id'] = $ans_for_usr_enc;
+			$data['questions'] 		= $this->User_model->getAnswers($templ_id);
+			$data['answer']    		= $this->User_model->getUserAnswers($templ_id,$ans_for_usr_id);
 			$this->load->user_template('user_answers',$data);
 		} else {
 			redirect('user/login');
@@ -151,12 +156,17 @@ class User extends CI_Controller {
 	function editAnswer()
 	{
 		if($this->session->userdata('user_logged_in')){
-			$data['title']       = "View Answers";
-			$templ_enc_id        = $this->uri->segment(3);
-			$templ_id 		     = $this->Autoload_model->encrypt_decrypt('dc',$templ_enc_id);
-			$data['templ_id']    = $templ_enc_id;
-			$data['questions']   = $this->User_model->getAnswers($templ_id);
-			$data['answer']      = $this->User_model->getUserAnswers($templ_id);
+			$data['title']       	= "View Answers";
+			$templ_enc_id        	= $this->uri->segment(3);
+			$ans_for_usr_enc        = $this->uri->segment(4);
+			$templ_id 		     	= $this->Autoload_model->encrypt_decrypt('dc',$templ_enc_id);
+			$ans_for_usr_id   		= $this->Autoload_model->encrypt_decrypt('dc',$ans_for_usr_enc);
+			$data['templ_id']    	= $templ_enc_id;
+			$data['ans_for_usr_id'] = $ans_for_usr_enc;
+			$data['questions']   	= $this->User_model->getAnswers($templ_id);
+			$data['restr_user']     = $this->User_model->getRetrictUserEdit($templ_id,$ans_for_usr_id);
+			$data['user_details']   = $this->User_model->getUserDetails($data['restr_user']);
+			$data['answer']      	= $this->User_model->getUserAnswers($templ_id,$ans_for_usr_id);
 			$ext_date = date('Y-m-d H:i:s',strtotime($data['answer']['qa_add_on']));
 			$new_time = date('Y-m-d H:i:s',strtotime('+2 hour',strtotime($ext_date)));
 			
@@ -164,7 +174,7 @@ class User extends CI_Controller {
 				$this->load->user_template('answer_edit',$data);
 			} else {
 				$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('You can\'t edit your answer. The time limit is over' ,4));
-				redirect('user/viewAnswer/'.$templ_enc_id);
+				redirect('user/viewAnswer/'.$templ_enc_id.'/'.$ans_for_usr_enc);
 			}
 			
 		} else {
@@ -176,7 +186,7 @@ class User extends CI_Controller {
 	{
 		$result = $this->User_model->updateQstnAns();
 		$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Successfully saved your answers',1));
-		redirect('user/availableQuestions');
+		redirect('user/userAnswerManage');
 	}
 
 	function availableQuestions()
@@ -248,6 +258,64 @@ class User extends CI_Controller {
 		} else {
 			redirect('user/showQuestions/'.$templ_enc_id);
 		} 
+	}
+
+
+	function userAnswerManage()
+	{
+		if($this->session->userdata('user_logged_in')){
+			$data['title'] = "Manage Available Questions";
+			$data = array();
+	    
+	        //total rows count
+	        $totalRec = @count($this->User_model->getUserAnswerManage());
+	        
+	        //pagination configuration
+	        $config['target']      = '#userAnsList';
+	        $config['base_url']    = base_url().'user/availableQuestionsAjax';
+	        $config['total_rows']  = $totalRec;
+	        $config['per_page']    = $this->perPage;
+	        $config['link_func']   = 'getUserAnswerList';
+	        $this->ajax_pagination->initialize($config);
+	        
+	        //get the posts data
+	        $data['user_templ']    = $this->User_model->getUserAnswerManage(array('limit'=>$this->perPage));
+	        
+	        //load the view
+	        $this->load->user_template('manage_user_answers', $data);
+		} else {
+			redirect('user/login');
+		}
+	}
+
+	function userAnswerManageAjax()
+	{
+		if($this->session->userdata('user_logged_in')){
+			
+			$page = $this->input->post('page');
+	        if(!$page){
+	            $offset = 0;
+	        }else{
+	            $offset = $page;
+	        }
+	        
+	        //total rows count
+	        $totalRec = @count($this->User_model->getUserAnswerManage());
+	        
+	        //pagination configuration
+	        $config['target']      = '#userAnsList';
+	        $config['base_url']    = base_url().'user/availableQuestionsAjax';
+	        $config['total_rows']  = $totalRec;
+	        $config['per_page']    = $this->perPage;
+	        $config['link_func']   = 'getUserAnswerList';
+	        $this->ajax_pagination->initialize($config);
+	        
+	        //get the posts data
+	        $data['user_templ']    = $this->User_model->getUserAnswerManage(array('start'=>$offset,'limit'=>$this->perPage));
+	        
+	        //load the view
+	        $this->load->view('user/manage_user_answers_ajax', $data, false);
+		}
 	}
 
 	function logout()

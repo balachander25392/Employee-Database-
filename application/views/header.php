@@ -20,6 +20,8 @@
 
   <!-- Date Picker -->
    <link rel="stylesheet" href="<?php echo asset_url('css/jquery.datetimepicker.css'); ?>">  
+  <!-- Multiple select -->
+   <link href="<?=base_url();?>assets/multiselect/bootstrap-chosen.css" rel="stylesheet" type="text/css" />
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

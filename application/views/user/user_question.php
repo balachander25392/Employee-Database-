@@ -1,5 +1,18 @@
-  <style type="text/css"></style>
+  <style type="text/css">
+    .chosen-container{
+      width: 70% !important;
+    }
+  </style>
 
+  <?php
+    $ed_emp_type = $this->session->userdata['user_logged_in']['ed_emp_type'];
+
+    if($ed_emp_type=='student'){
+      $sel_user = 'Teacher';
+    } else {
+      $sel_user = 'Student';
+    }
+  ?>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -30,9 +43,21 @@
             <?php if($this->session->flashdata('flash_msg')) { echo $this->session->flashdata('flash_msg'); } ?>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" name="question_form" id="question_form" action="<?php echo base_url() ?>user/saveAnswer" method="POST">
+            <form role="form" name="question_form" id="question_form" enctype="multipart/form-data" action="<?php echo base_url() ?>user/saveAnswer" method="POST">
               <input type="hidden" name="templ_id" id="templ_id" value="<?php echo $templ_id; ?>">
               <div class="box-body" id="">
+
+                <div class="form-group">  
+                  <label for="exampleInputPassword1">Select your <?= $sel_user ?> </label>
+                  <select name="ans_for_usr" id="ans_for_usr" class="form-control" required="">
+                    <option value="">--Select--</option>
+                    <?php foreach($user_details as $user_detail){ ?>
+                      <option value="<?= $user_detail['ed_id'] ?>"><?= $user_detail['ed_emp_id'].'-'.$user_detail['ed_emp_name'] ?></option>
+                    <?php } ?>  
+                  </select>
+                  <p id="ans_for_usr_error" style="color: red;display: none;">Please choose your <?= $sel_user ?></p>
+                </div>
+
                 <?php $i=1; if($questions){ foreach($questions as $question){ ?>
 
                   <input type="hidden" name="name_ref[]" value="<?php echo $question['eq_answer_type'].$question['eq_id']; ?>">

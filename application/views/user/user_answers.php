@@ -50,7 +50,7 @@
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Employee Questionnaire</h3>
-              <a style="float: right;" href="<?php echo base_url() ?>user/editAnswer/<?php echo $templ_id ?>" class="btn btn-primary btn-xs">Edit Answers</a>
+              <a style="float: right;" href="<?php echo base_url() ?>user/editAnswer/<?php echo $templ_id ?>/<?php echo $ans_for_usr_id ?>" class="btn btn-primary btn-xs">Edit Answers</a>
             </div>
 
             <?php if($this->session->flashdata('flash_msg')) { echo $this->session->flashdata('flash_msg'); } ?>

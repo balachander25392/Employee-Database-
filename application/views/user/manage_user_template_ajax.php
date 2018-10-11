@@ -15,7 +15,7 @@
         <td><?php echo $templates['qt_desc'] ?></td>
         <td><?php echo $templates['qt_templ_to'] ?></td>
         <td><?php echo $templates['qt_add_on'] ?></td>
-        <td><a class="btn btn-primary btn-sm" href="<?php echo base_url() ?>user/startQuestionnaire/<?php echo $this->Autoload_model->encrypt_decrypt('en',$templates['qt_id']) ?>">Take Questionnaire</a></td>
+        <td><a class="btn btn-primary btn-sm" href="<?php echo base_url() ?>user/showQuestions/<?php echo $this->Autoload_model->encrypt_decrypt('en',$templates['qt_id']) ?>">Take Questionnaire</a></td>
       </tr>
       <?php $i++; endforeach; else: ?>
       <tr><td align="center" colspan="7"><p style="color: red;">No Templates Available</p></td></tr>

@@ -6,6 +6,7 @@
       <th>Leader/DIV/Team</th>
       <th>Template</th>
       <th>User Type</th>
+      <th>Answered For</th>
       <th>Answered on</th>
       <th>Action</th>
     </tr>
@@ -24,14 +25,15 @@
       <td>
         <?php echo $user_results['ed_emp_type']; ?>
       </td>
+      <td><?php echo $user_results['ans_for_user_empid'].' - '.$user_results['ans_for_user_name'] ?></td>
       <td><?php echo $user_results['qa_add_on'] ?></td>
       <td>
         <div class="dropdown">
           <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
           <span class="caret"></span></button>
           <ul class="dropdown-menu">
-            <li><a href="#" data-toggle="modal" data-target="#empAnswerModal" onclick="getEmpAnswers('<?php echo $this->Autoload_model->encrypt_decrypt('en',$user_results['ed_id']) ?>','<?php echo $user_results['ed_emp_type'] ?>')">View Answers</a></li>
-            <li><a href="#" data-toggle="modal" data-target="#allowEditModal" onclick="allowEmpEditAns('<?php echo $this->Autoload_model->encrypt_decrypt('en',$user_results['ed_id']) ?>')">Allow Edit</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#empAnswerModal" onclick="getEmpAnswers('<?php echo $this->Autoload_model->encrypt_decrypt('en',$user_results['ed_id']) ?>','<?php echo $this->Autoload_model->encrypt_decrypt('en',$user_results['qt_id']) ?>','<?php echo $this->Autoload_model->encrypt_decrypt('en',$user_results['qa_ans_for_user']) ?>')">View Answers</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#allowEditModal" onclick="allowEmpEditAns('<?php echo $this->Autoload_model->encrypt_decrypt('en',$user_results['qa_id']) ?>')">Allow Edit</a></li>
           </ul>
         </div> 
       </td>

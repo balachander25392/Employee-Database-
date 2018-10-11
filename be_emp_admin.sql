@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `be_emp_db` (
   PRIMARY KEY (`ed_id`),
   UNIQUE KEY `ed_id` (`ed_id`),
   UNIQUE KEY `ed_emp_id` (`ed_emp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
 -- Dumping structure for table be_emp_admin.be_emp_qstn_templ
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `be_emp_qstn_templ` (
   `qt_status` enum('0','1') DEFAULT '1',
   PRIMARY KEY (`qt_id`),
   UNIQUE KEY `qt_id` (`qt_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
 -- Dumping structure for table be_emp_admin.be_emp_questions
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `be_emp_questions` (
   `eq_status` enum('0','1') DEFAULT NULL,
   PRIMARY KEY (`eq_id`),
   UNIQUE KEY `eq_id` (`eq_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
 -- Dumping structure for table be_emp_admin.be_emp_questn_option
@@ -115,6 +115,7 @@ CREATE TABLE IF NOT EXISTS `be_qstn_answer` (
   `qa_id` int(11) NOT NULL AUTO_INCREMENT,
   `qa_emp_id` int(50) NOT NULL,
   `qa_templ_id` int(50) NOT NULL,
+  `qa_ans_for_user` int(30) NOT NULL,
   `qa_emp_ans` text NOT NULL,
   `qa_edit_access` enum('0','1') NOT NULL DEFAULT '0',
   `qa_add_on` datetime DEFAULT NULL,
@@ -122,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `be_qstn_answer` (
   `qa_status` enum('0','1') NOT NULL DEFAULT '1',
   PRIMARY KEY (`qa_id`),
   UNIQUE KEY `qa_id` (`qa_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

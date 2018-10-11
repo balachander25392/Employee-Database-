@@ -23,6 +23,13 @@
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Add Employee</h3>
+
+              <div class="box-tools col-xs-3">
+                <div class="input-group input-group-sm">
+                  <a href="<?php echo base_url() ?>assets/ebulk/employee-bulk.xlsx">Download Template</a>
+                </div>
+              </div>
+              
             </div>
 
             <?php if($this->session->flashdata('flash_msg')) { echo $this->session->flashdata('flash_msg'); } ?>
@@ -54,6 +61,20 @@
             </form>
           </div>
         </div>
+
+        <div class="col-md-12"> 
+          <div class="box-header with-border"><h3>Instructions</h3></div>
+          <div>
+            <ul>
+              <li>Download the given format and fill all the columns marked in <b>red color</b>.</li>
+              <li>Date should be in the format of <b>mm/dd/yyyy</b>.</li>
+              <li>Action type <b>New Entry</b> Will only register the employee who is not already registred and this will not update existing.</li>
+              <li>Action type <b>Update Existing</b> will only update the employees already registered and this is will not make a new registration.</li>
+              <li>Action Type <b>Both</b> will register the employee if he/she is not already registered and if already register it will update the details.</li>
+            </ul>
+          </div>
+        </div>
+      
       </div>
 
     </section>

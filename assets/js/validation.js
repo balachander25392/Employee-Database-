@@ -57,3 +57,19 @@ $(document).ready(function () {
 
 });
 
+function questValidation()
+{
+    alert('check');
+    var aaa = $('#ans_for_usr').val(); 
+    //alert(aaa);
+    if(aaa!=null && aaa!=''){
+        //alert('ok');
+        $('#ans_for_usr_error').hide();
+        return true;
+    } else {
+        //alert('not ok');
+        $('#ans_for_usr_error').show();
+        return false;
+    }
+    
+}

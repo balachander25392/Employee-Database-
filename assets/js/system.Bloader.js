@@ -13,6 +13,13 @@ function getBaseurl() {
     return url;
 }
 
+
+$(function() {
+
+  //$('#ans_for_usr').chosen();
+});
+
+
 function setAdminIdPassReset(adminid)
 {
     $('#adminUserPassResetID').val(adminid);
@@ -164,14 +171,14 @@ function userResultPage()
   });
 }
 
-function getEmpAnswers(emp_id,templ_id)
+function getEmpAnswers(emp_id,templ_id,ans_for_usr)
 {
   //alert(emp_id);
   //alert(templ_id);
   $.ajax({
         method: "POST",
         url: baseurl+"report/getUserAnsers",
-        data: { emp_id:emp_id,templ_id:templ_id },
+        data: { emp_id:emp_id,templ_id:templ_id,ans_for_usr:ans_for_usr },
         beforeSend: function(){
         },
         success: function(data){
@@ -285,5 +292,143 @@ function empTemplateSearch()
         success: function(data){
             $('#userTempList').html(data);
         }
+  });
+}
+
+function questionResultPage()
+{
+  var templ_id = $('#qstn_reprt_tmpl_srch').val();
+  $.ajax({
+        method: "POST",
+        url: baseurl+"report/getQuestionReport/",
+        data: { templ_id:templ_id },
+        beforeSend: function(){
+        },
+        success: function(data){
+            $('#questionReport').html(data);
+        }
+  });
+}
+
+function empAnswerSearch()
+{
+  var search_key = $('#emp_ansfd_srch').val();
+  var page = 0;
+  $.ajax({
+        method: "POST",
+        url: baseurl+"user/userAnswerManageAjax/",
+        data: { page:page,search_key:search_key },
+        beforeSend: function(){
+        },
+        success: function(data){
+            $('#userAnsList').html(data);
+        }
+  });
+}
+
+function loadEmpTemplate()
+{
+  var emp_id = $('#ufedb_usr_srch').val();
+  
+  if(emp_id!=''){
+    $('#feedbackReport').html('<div><p style="text-align: center;color: red;">Please choose template to get feedback</p></div>');
+  } else {
+    $('#feedbackReport').html('<div><p style="text-align: center;color: red;">Please Enter the Employee ID and choose Template to get feelback</p></div>');
+  }
+  
+  $.ajax({
+        method: "POST",
+        url: baseurl+"report/getAvailFeedTemplt/",
+        data: { emp_id:emp_id },
+        beforeSend: function(){
+        },
+        dataType : "json",
+        success: function(data){
+          if(data.result==1){
+
+            $('#qstn_reprt_tmpl_srch')
+                .find('option')
+                .remove()
+                .end()
+                .append('<option value="">--Select--</option>')
+                .val('');
+           
+            $('#qstn_reprt_tmpl_srch').append($("<option></option>").attr("value",data.option_all).text('All'));    
+           
+            $.each(data.templ_data, function(i, el){
+              $('#qstn_reprt_tmpl_srch').append($("<option></option>").attr("value",el.templ_id).text(el.templ_name)); 
+            });
+
+          } else {
+            $('#qstn_reprt_tmpl_srch')
+                .find('option')
+                .remove()
+                .end()
+                .append('<option value="">--Select--</option>')
+                .val('');    
+          }
+        }
+  });
+}
+
+function getEmployeesFedbck()
+{
+  var emp_id   = $('#ufedb_usr_srch').val();
+  var templ_id = $('#qstn_reprt_tmpl_srch').val();
+  
+  if(templ_id==''){
+
+    if(emp_id!=''){
+      $('#feedbackReport').html('<div><p style="text-align: center;color: red;">Please choose template to get feedback</p></div>');
+    } else {
+      $('#feedbackReport').html('<div><p style="text-align: center;color: red;">Please Enter the Employee ID and choose Template to get feelback</p></div>');
+    }
+  }
+  
+
+  $.ajax({
+    method: "POST",
+    url: baseurl+"report/getuserFeedback/",
+    data: { emp_id:emp_id,templ_id:templ_id },
+    beforeSend: function(){
+    },
+    success: function(data){
+        $('#feedbackReport').html(data);
+    }
+  });
+}
+
+function loadQstnTextAns(qstn_id,templ_id)
+{
+  //alert(qstn_id);
+  //alert(templ_id);
+
+  $.ajax({
+    method: "POST",
+    url: baseurl+"report/loadTxtAnsQstn/",
+    data: { qstn_id:qstn_id,templ_id:templ_id },
+    beforeSend: function(){
+    },
+    success: function(data){
+        $('#QstnTextAns').html(data);
+    }
+  });
+}
+
+function loadFeedTextAns(qstn_id,templ_id)
+{
+  //alert(qstn_id);
+  //alert(templ_id);
+  var emp_id = $('#ufedb_usr_srch').val();
+
+  $.ajax({
+    method: "POST",
+    url: baseurl+"report/loadTxtAnsFeed/",
+    data: { qstn_id:qstn_id,templ_id:templ_id,emp_id:emp_id },
+    beforeSend: function(){
+    },
+    success: function(data){
+        $('#FeedTextAns').html(data);
+    }
   });
 }
