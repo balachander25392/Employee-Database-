@@ -123,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `be_qstn_answer` (
   `qa_status` enum('0','1') NOT NULL DEFAULT '1',
   PRIMARY KEY (`qa_id`),
   UNIQUE KEY `qa_id` (`qa_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
