@@ -159,4 +159,317 @@ class Report extends CI_Controller {
 		$this->load->view('report/text_ans_qstn', $data, false);
 	}
 
+	function exportQuestionRprt()
+	{
+		$this->load->model('User_model');
+        $this->load->library('excel');
+        $empInfo = $this->Autoload_model->getTemplateList();
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        // set Header
+        $objPHPExcel->getActiveSheet()->SetCellValue('A1', 'Question');
+        $objPHPExcel->getActiveSheet()->SetCellValue('B1', 'Answer Type');
+        $objPHPExcel->getActiveSheet()->SetCellValue('C1', 'Options');
+        $objPHPExcel->getActiveSheet()->SetCellValue('D1', 'Count'); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('E1', 'Text Answer');    
+
+        $questions = $this->Report_model->getQuestions();
+		$answers   = $this->Report_model->getAnsForTemplate();
+
+		$quest_ids = array();
+        $quest_id  = array();
+        foreach($answers as $answer){
+
+	        $answer_json = json_decode($answer['qa_emp_ans']);
+	        foreach($answer_json as $qstn_ID => $qstn_txt){
+	          
+	          if(!in_array($qstn_ID, $quest_ids)){
+	            $quest_id[$qstn_ID] = array();
+	            array_push($quest_ids,$qstn_ID);
+	          }
+	          array_push($quest_id[$qstn_ID],$qstn_txt);
+	        }
+	    }
+
+	    $i=1; 
+	    $rowCount = 3;
+
+	    foreach($questions as $question){
+
+	    	$objPHPExcel->getActiveSheet()->SetCellValue('A' . $rowCount, $i.') '.$question['eq_question']);
+	    	$objPHPExcel->getActiveSheet()->SetCellValue('B' . $rowCount, $question['eq_answer_type']);
+
+			if($question['eq_answer_type']=='text'){
+
+				if (array_key_exists($question['eq_id'],$quest_id)) {
+
+					count($quest_id[$question['eq_id']]);
+
+					foreach($quest_id[$question['eq_id']] as $txt_ans){
+
+						$objPHPExcel->getActiveSheet()->SetCellValue('E' . $rowCount, $txt_ans);
+						$rowCount++;
+					}
+				}
+
+			} else {
+
+				$options = $this->User_model->getOptionsforAnswer($question['eq_id']);             
+                $option_ids = '';
+                $option_arr = array();
+
+                if (array_key_exists($question['eq_id'],$quest_id)) {
+
+                    $option_ids = implode(',', $quest_id[$question['eq_id']]);
+                }
+
+                $option_arr = explode(',', $option_ids);
+                $opti_count = array_count_values($option_arr);
+                        
+                foreach($options as $option){ 
+                  	if($option['eqo_option_st']=='1'){
+
+	                  	$objPHPExcel->getActiveSheet()->SetCellValue('C' . $rowCount, $option['eqo_option']);
+	                  	$opti_ans_count = (@$opti_count[$option['eqo_id']]) ? $opti_count[$option['eqo_id']] : '0';
+	                  	$objPHPExcel->getActiveSheet()->SetCellValue('D' . $rowCount, $opti_ans_count);
+						$rowCount++;
+					}
+              	}
+          	}
+
+        	$i++;
+        	$rowCount++; 
+    	}
+
+ 		$fileName = 'Question-Report-'.time().'.xlsx';  
+        header('Content-Type: application/vnd.ms-excel'); //mime type 
+        header('Content-Disposition: attachment;filename="'.$fileName.'"'); //tell browser what's the file name 
+        header('Cache-Control: max-age=0'); //no cache                
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007'); 
+        $objWriter->save('php://output');   
+	}
+
+
+	function exportFeedbkRprt()
+	{
+		$this->load->model('User_model');
+        $this->load->library('excel');
+        $empInfo = $this->Autoload_model->getTemplateList();
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        // set Header
+        $objPHPExcel->getActiveSheet()->SetCellValue('A1', 'Question');
+        $objPHPExcel->getActiveSheet()->SetCellValue('B1', 'Answer Type');
+        $objPHPExcel->getActiveSheet()->SetCellValue('C1', 'Options');
+        $objPHPExcel->getActiveSheet()->SetCellValue('D1', 'Count'); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('E1', 'Text Answer');    
+
+        $questions = $this->Report_model->getQuestionsFeedbk();
+		$answers   = $this->Report_model->getAnsForTemplateFeedbk();
+
+		$quest_ids = array();
+        $quest_id  = array();
+        foreach($answers as $answer){
+
+	        $answer_json = json_decode($answer['qa_emp_ans']);
+	        foreach($answer_json as $qstn_ID => $qstn_txt){
+	          
+	          if(!in_array($qstn_ID, $quest_ids)){
+	            $quest_id[$qstn_ID] = array();
+	            array_push($quest_ids,$qstn_ID);
+	          }
+	          array_push($quest_id[$qstn_ID],$qstn_txt);
+	        }
+	    }
+
+	    $i=1; 
+	    $rowCount = 3;
+
+	    foreach($questions as $question){
+
+	    	$objPHPExcel->getActiveSheet()->SetCellValue('A' . $rowCount, $i.') '.$question['eq_question']);
+	    	$objPHPExcel->getActiveSheet()->SetCellValue('B' . $rowCount, $question['eq_answer_type']);
+
+			if($question['eq_answer_type']=='text'){
+
+				if (array_key_exists($question['eq_id'],$quest_id)) {
+
+					count($quest_id[$question['eq_id']]);
+
+					foreach($quest_id[$question['eq_id']] as $txt_ans){
+
+						$objPHPExcel->getActiveSheet()->SetCellValue('E' . $rowCount, $txt_ans);
+						$rowCount++;
+					}
+				}
+
+			} else {
+
+				$options = $this->User_model->getOptionsforAnswer($question['eq_id']);             
+                $option_ids = '';
+                $option_arr = array();
+
+                if (array_key_exists($question['eq_id'],$quest_id)) {
+
+                    $option_ids = implode(',', $quest_id[$question['eq_id']]);
+                }
+
+                $option_arr = explode(',', $option_ids);
+                $opti_count = array_count_values($option_arr);
+                        
+                foreach($options as $option){ 
+                  	if($option['eqo_option_st']=='1'){
+
+	                  	$objPHPExcel->getActiveSheet()->SetCellValue('C' . $rowCount, $option['eqo_option']);
+	                  	$opti_ans_count = (@$opti_count[$option['eqo_id']]) ? $opti_count[$option['eqo_id']] : '0';
+	                  	$objPHPExcel->getActiveSheet()->SetCellValue('D' . $rowCount, $opti_ans_count);
+						$rowCount++;
+					}
+              	}
+          	}
+
+        	$i++;
+        	$rowCount++; 
+		}
+
+		$fileName = 'Feedback-Report-'.time().'.xlsx';  
+        header('Content-Type: application/vnd.ms-excel'); //mime type 
+        header('Content-Disposition: attachment;filename="'.$fileName.'"'); //tell browser what's the file name 
+        header('Cache-Control: max-age=0'); //no cache                
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007'); 
+        $objWriter->save('php://output');
+	}	
+
+
+	function exportUserResult()
+	{
+		$this->load->model('User_model');
+        $this->load->library('excel');
+        $empInfo = $this->Autoload_model->getTemplateList();
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        // set Header
+        $objPHPExcel->getActiveSheet()->SetCellValue('A1', 'Question');
+        $objPHPExcel->getActiveSheet()->SetCellValue('B1', 'Answer Type');
+        $objPHPExcel->getActiveSheet()->SetCellValue('C1', 'Options');
+        $objPHPExcel->getActiveSheet()->SetCellValue('D1', 'Count'); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('E1', 'Text Answer');    
+
+		$templ_id 		= $this->Autoload_model->encrypt_decrypt('dc',$this->input->post('usr_rslt_exprt_templid'));
+		$user_id 		= $this->Autoload_model->encrypt_decrypt('dc',$this->input->post('usr_rslt_exprt_empid'));
+		$ans_for_usr	= $this->Autoload_model->encrypt_decrypt('dc',$this->input->post('usr_rslt_exprt_ans_usr'));
+		$questions 		= $this->User_model->getAnswers($templ_id);
+		$answer    		= $this->Report_model->getUserAnswersReport($templ_id,$user_id,$ans_for_usr);
+
+		$answer_json = json_decode($answer['qa_emp_ans'],true);
+
+	    $i=1; 
+	    $rowCount = 3;
+
+	    foreach($questions as $question){
+
+	    	$objPHPExcel->getActiveSheet()->SetCellValue('A' . $rowCount, $i.') '.$question['eq_question']);
+	    	$objPHPExcel->getActiveSheet()->SetCellValue('B' . $rowCount, $question['eq_answer_type']);
+
+			if($question['eq_answer_type']=='text'){
+
+				if (array_key_exists($question['eq_id'],$answer_json)) {
+
+					$objPHPExcel->getActiveSheet()->SetCellValue('E' . $rowCount, $answer_json[$question['eq_id']]);
+					$rowCount++;
+				}
+
+			} else {
+
+				           
+                if (array_key_exists($question['eq_id'],$answer_json)) {
+
+                	$options = $this->User_model->getOptionsforAnswer($question['eq_id']);  
+
+                	foreach($options as $option){
+
+                		$objPHPExcel->getActiveSheet()->SetCellValue('C' . $rowCount, $option['eqo_option']);
+
+                		if($option['eqo_option_st']=='1'){
+                		
+                		
+	                		if(in_array($option['eqo_id'], explode(',', $answer_json[$question['eq_id']]))) {
+	                			
+	                			$objPHPExcel->getActiveSheet()->SetCellValue('D' . $rowCount, 1);
+	                		} else {
+
+	                			$objPHPExcel->getActiveSheet()->SetCellValue('D' . $rowCount, 0);
+	                		}
+	                	} else if($option['eqo_option_st']=='0' && in_array($option['eqo_id'], explode(',', $answer_json[$question['eq_id']]))) {
+
+	                		$objPHPExcel->getActiveSheet()->SetCellValue('D' . $rowCount, '1'.'(This option is deleted)');
+	                	}
+
+	                	$rowCount++;
+                	}
+                    
+                }
+
+          	}
+
+        	$i++;
+        	$rowCount++; 
+		}
+
+		$fileName = 'User-Result-'.time().'.xlsx';  
+        header('Content-Type: application/vnd.ms-excel'); //mime type 
+        header('Content-Disposition: attachment;filename="'.$fileName.'"'); //tell browser what's the file name 
+        header('Cache-Control: max-age=0'); //no cache                
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007'); 
+        $objWriter->save('php://output');
+	}
+
+
+	public function createXLS() {
+		// create file name
+        $fileName = 'data-'.time().'.xlsx';  
+		// load excel library
+        $this->load->library('excel');
+        $empInfo = $this->Autoload_model->getTemplateList();
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        // set Header
+        $objPHPExcel->getActiveSheet()->SetCellValue('A1', 'Tempate');
+        $objPHPExcel->getActiveSheet()->SetCellValue('B1', 'Template to');
+        $objPHPExcel->getActiveSheet()->SetCellValue('C1', 'Description');
+        $objPHPExcel->getActiveSheet()->SetCellValue('D1', 'Added On');      
+        // set Row
+        $rowCount = 2;
+        foreach ($empInfo as $element) {
+            $objPHPExcel->getActiveSheet()->SetCellValue('A' . $rowCount, $element['qt_name']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('B' . $rowCount, $element['qt_templ_to']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('C' . $rowCount, $element['qt_desc']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('D' . $rowCount, $element['qt_add_on']);
+            $rowCount++;
+        }
+        //$objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
+        //$objWriter->save(ROOT_UPLOAD_IMPORT_PATH.$fileName);
+		// download file
+        //header("Content-Type: application/vnd.ms-excel");
+        //redirect(HTTP_UPLOAD_IMPORT_PATH.$fileName);   
+
+		//$this->excel->getActiveSheet()->fromArray($empInfo);
+ 
+        $filename='just_some_random_name.xls'; //save our workbook as this file name
+ 
+        header('Content-Type: application/vnd.ms-excel'); //mime type
+ 
+        header('Content-Disposition: attachment;filename="'.$fileName.'"'); //tell browser what's the file name
+ 
+        header('Cache-Control: max-age=0'); //no cache
+                    
+        //save it to Excel5 format (excel 2003 .XLS file), change this to 'Excel2007' (and adjust the filename extension, also the header mime type)
+        //if you want to save it as.XLSX Excel 2007 format
+ 
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007'); 
+ 
+        //force user to download the Excel file without writing it to server's HD
+        $objWriter->save('php://output');   
+    }
+
 }

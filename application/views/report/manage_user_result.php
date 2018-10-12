@@ -131,11 +131,17 @@
 <div class="modal fade" id="empAnswerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" style="width: 77%;" role="document">
     <div class="modal-content">
-        <div class="modal-header">
-          <!-- <h5 class="modal-title" id="exampleModalLabel">Employee Answers</h5> -->
+        <div class="modal-header">          
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
+          <form method="POST" action="<?php echo base_url() ?>report/exportUserResult">
+            <input type="hidden" name="usr_rslt_exprt_templid" id="usr_rslt_exprt_templid">
+            <input type="hidden" name="usr_rslt_exprt_empid" id="usr_rslt_exprt_empid">
+            <input type="hidden" name="usr_rslt_exprt_ans_usr" id="usr_rslt_exprt_ans_usr">
+            <button type="submit" class="btn btn-primary btn-sm">Export to Excel</button>
+          </form>
+          
         </div>
         <div class="modal-body" id="resultAnswers">
 

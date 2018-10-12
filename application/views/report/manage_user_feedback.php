@@ -39,6 +39,19 @@
                       </select>
                     </div>
                   </div>
+
+                  <div class="col-md-2"></div>
+                  <div class="col-md-2" id="fedexcl_export_div" style="display: none;">
+                    <form method="POST" action="<?php echo base_url() ?>report/exportFeedbkRprt">
+                      <input type="hidden" name="feed_emp_expt_id" id="feed_emp_expt_id">
+                      <input type="hidden" name="feed_templ_expt_id" id="feed_templ_expt_id">
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Download</label>
+                        <button type="submit" class="btn btn-primary btn-sm">Export to Excel</button>
+                      </div>
+                    </form>
+                  </div>
+
                 </div>
 
               <!-- </div>  -->

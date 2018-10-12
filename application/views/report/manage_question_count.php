@@ -23,8 +23,6 @@
               <!-- <div class="box-header"> -->
                 <div class="col-md-12">
 
-                  <div class="col-md-4"><h4 class="box-title">Question Report</h4></div>
-                  <div class="col-md-4"></div>
                   <div class="col-xs-4">
                     <div class="form-group">
                       <label for="exampleInputPassword1">Search by Template</label>
@@ -36,6 +34,20 @@
                       </select>
                     </div>
                   </div>
+
+                  <div class="col-md-6"></div>
+
+                  <div class="col-md-2">
+                    <form method="POST" action="<?php echo base_url() ?>report/exportQuestionRprt">
+                      <input type="hidden" name="qstn_templ_expt_id" id="qstn_templ_expt_id">
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Download</label>
+                        <button type="submit" class="btn btn-primary btn-sm">Export to Excel</button>
+                      </div>
+                    </form>
+                  </div>
+                
+                </div>
 
                 </div>
               <!-- </div>  -->
@@ -84,7 +96,7 @@
                                 <p>
                                   <?php if (array_key_exists($question['eq_id'],$quest_id)) { ?> 
 
-                                    <a data-toggle="modal" data-target="#loadQstnTextAnsModal" onclick="loadQstnTextAns('<?php echo $question['eq_id'] ?>','<?php echo $question['eq_templ_id'] ?>')" href="#"><?= count($quest_id[$question['eq_id']]); ?> Answers</a>
+                                    <a data-toggle="modal" data-target="#loadQstnTextAnsModal" onclick="loadQstnTextAns('<?php echo $question['eq_id'] ?>','<?php echo $question['eq_templ_id'] ?>')" href="#"><?= count($quest_id[$question['eq_id']]);  ?> Answers</a>
 
                                   <?php } ?>
                                 </p>

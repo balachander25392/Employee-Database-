@@ -175,6 +175,20 @@ function getEmpAnswers(emp_id,templ_id,ans_for_usr)
 {
   //alert(emp_id);
   //alert(templ_id);
+  if(emp_id!='' && templ_id!='' && ans_for_usr!=''){
+
+    $('#usr_rslt_exprt_templid').val(templ_id);
+    $('#usr_rslt_exprt_empid').val(emp_id);
+    $('#usr_rslt_exprt_ans_usr').val(ans_for_usr);
+
+  } else {
+
+    $('#usr_rslt_exprt_templid').val('');
+    $('#usr_rslt_exprt_empid').val('');
+    $('#usr_rslt_exprt_ans_usr').val('');
+  }
+  
+
   $.ajax({
         method: "POST",
         url: baseurl+"report/getUserAnsers",
@@ -298,6 +312,7 @@ function empTemplateSearch()
 function questionResultPage()
 {
   var templ_id = $('#qstn_reprt_tmpl_srch').val();
+  $('#qstn_templ_expt_id').val(templ_id);
   $.ajax({
         method: "POST",
         url: baseurl+"report/getQuestionReport/",
@@ -329,6 +344,10 @@ function empAnswerSearch()
 function loadEmpTemplate()
 {
   var emp_id = $('#ufedb_usr_srch').val();
+
+  $('#feed_emp_expt_id').val('');
+  $('#feed_templ_expt_id').val('');
+  $('#fedexcl_export_div').hide();
   
   if(emp_id!=''){
     $('#feedbackReport').html('<div><p style="text-align: center;color: red;">Please choose template to get feedback</p></div>');
@@ -375,6 +394,15 @@ function getEmployeesFedbck()
 {
   var emp_id   = $('#ufedb_usr_srch').val();
   var templ_id = $('#qstn_reprt_tmpl_srch').val();
+
+  $('#feed_emp_expt_id').val(emp_id);
+  $('#feed_templ_expt_id').val(templ_id);
+
+  if(emp_id!='' && templ_id!=''){
+    $('#fedexcl_export_div').show();
+  } else {
+    $('#fedexcl_export_div').hide();
+  }
   
   if(templ_id==''){
 
@@ -384,18 +412,22 @@ function getEmployeesFedbck()
       $('#feedbackReport').html('<div><p style="text-align: center;color: red;">Please Enter the Employee ID and choose Template to get feelback</p></div>');
     }
   }
-  
 
-  $.ajax({
-    method: "POST",
-    url: baseurl+"report/getuserFeedback/",
-    data: { emp_id:emp_id,templ_id:templ_id },
-    beforeSend: function(){
-    },
-    success: function(data){
-        $('#feedbackReport').html(data);
-    }
-  });
+  if(templ_id!=''){
+    
+    $.ajax({
+      method: "POST",
+      url: baseurl+"report/getuserFeedback/",
+      data: { emp_id:emp_id,templ_id:templ_id },
+      beforeSend: function(){
+      },
+      success: function(data){
+          $('#feedbackReport').html(data);
+      }
+    });
+
+  }
+
 }
 
 function loadQstnTextAns(qstn_id,templ_id)

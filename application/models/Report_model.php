@@ -61,7 +61,8 @@ class Report_model extends CI_Model {
 
     function getQuestions()
     {
-        $templ_enc_id  = $this->input->post('templ_id');
+        $templ_enc_id        = $this->input->post('templ_id');
+        $qstn_templ_expt_id  = $this->input->post('qstn_templ_expt_id');
 
         $this->db->select('eq_id,eq_question,eq_templ_id,eq_answer_type');
         $this->db->from('be_emp_questions');
@@ -69,20 +70,27 @@ class Report_model extends CI_Model {
         if($templ_enc_id){
             $this->db->where('eq_templ_id',$templ_enc_id);
         }
+        if($qstn_templ_expt_id){
+            $this->db->where('eq_templ_id',$qstn_templ_expt_id);
+        }
         $query = $this->db->get();
-        //echo $this->db->last_query();exit;        
+        //$this->db->last_query();   
         return ($query->num_rows() > 0)?$query->result_array():FALSE;
     }
 
     function getAnsForTemplate()
     {
         $where = '';
-        $templ_enc_id  = $this->input->post('templ_id');
+        $templ_enc_id        = $this->input->post('templ_id');
+        $qstn_templ_expt_id  = $this->input->post('qstn_templ_expt_id');
 
         $sql   = "SELECT qa_id,qa_emp_id,qa_templ_id,qa_emp_ans,qa_edit_access,qa_add_on FROM be_qstn_answer WHERE qa_status='1'";
 
         if($templ_enc_id){
             $where .= " AND qa_templ_id='$templ_enc_id'";
+        }
+         if($qstn_templ_expt_id){
+            $where .= " AND qa_templ_id='$qstn_templ_expt_id'";
         }
 
         $query = $sql.$where;
@@ -123,12 +131,20 @@ class Report_model extends CI_Model {
 
     function getQuestionsFeedbk()
     {
-        $templ_enc_id  = $this->input->post('templ_id');
+        $templ_enc_id        = $this->input->post('templ_id');
+        $feed_templ_expt_id  = $this->input->post('feed_templ_expt_id');
 
         $this->db->select('eq_id,eq_question,eq_templ_id,eq_answer_type');
         $this->db->from('be_emp_questions');
         $this->db->where('eq_status','1');
-        $this->db->where_in('eq_templ_id', explode(',', $templ_enc_id));
+
+        if($templ_enc_id){
+            $this->db->where_in('eq_templ_id', explode(',', $templ_enc_id));
+        }
+        if($feed_templ_expt_id){
+            $this->db->where_in('eq_templ_id', explode(',', $feed_templ_expt_id));
+        }
+        
         $query = $this->db->get();
         //echo $this->db->last_query();exit;        
         return ($query->num_rows() > 0)?$query->result_array():FALSE;
@@ -137,12 +153,22 @@ class Report_model extends CI_Model {
     function getAnsForTemplateFeedbk()
     {
         $where = '';
-        $templ_enc_id  = $this->input->post('templ_id');
-        $emp_id        = $this->input->post('emp_id');
+        $templ_enc_id        = $this->input->post('templ_id');
+        $feed_templ_expt_id  = $this->input->post('feed_templ_expt_id');
+        $emp_id              = $this->input->post('emp_id');
+        $feed_emp_expt_id    = $this->input->post('feed_emp_expt_id');
 
-        $sql   = "SELECT A.qa_id,A.qa_emp_id,A.qa_templ_id,A.qa_ans_for_user,A.qa_emp_ans,B.qt_id,B.qt_name,B.qt_desc,C.ed_id,C.ed_emp_id,C.ed_emp_name,C.ed_emp_type FROM be_qstn_answer A,be_emp_qstn_templ B,be_emp_db C WHERE A.qa_ans_for_user=C.ed_id AND A.qa_templ_id=B.qt_id AND C.ed_emp_id='$emp_id' AND A.qa_templ_id IN ($templ_enc_id) ";
+        $sql   = "SELECT A.qa_id,A.qa_emp_id,A.qa_templ_id,A.qa_ans_for_user,A.qa_emp_ans,B.qt_id,B.qt_name,B.qt_desc,C.ed_id,C.ed_emp_id,C.ed_emp_name,C.ed_emp_type FROM be_qstn_answer A,be_emp_qstn_templ B,be_emp_db C WHERE A.qa_ans_for_user=C.ed_id AND A.qa_templ_id=B.qt_id ";
 
-        $query = $sql;
+        if($templ_enc_id && $emp_id){
+            $where = " AND C.ed_emp_id='$emp_id' AND A.qa_templ_id IN ($templ_enc_id)";
+        }
+
+        if($feed_templ_expt_id && $feed_emp_expt_id){
+            $where = " AND C.ed_emp_id='$feed_emp_expt_id' AND A.qa_templ_id IN ($feed_templ_expt_id)";
+        }
+
+        $query = $sql.$where;
        
         return $this->db->query($query)->result_array();
     }
