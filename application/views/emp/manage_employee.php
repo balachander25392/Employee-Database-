@@ -55,9 +55,10 @@
                   <table class="table table-hover">
                     <tr>
                       <th>Emp ID / Name</th>
-                      <th>Designation/Email</th>
-                      <th>Leader/DIV/Team</th>
-                      <th>DOB / DOJ</th>
+                      <th>Grade/Designation/Email</th>
+                      <th>Leader/DIV</th>
+                      <th>Team/Section</th>
+                      <th>DOJ / DOB</th>
                       <th>Added On</th>
                       <th>Action</th>
                     </tr>
@@ -67,13 +68,51 @@
                         <span class="label label-success"><?php echo $emp_detail['ed_emp_id']; ?></span> <br><?php echo $emp_detail['ed_emp_name']; ?>
                       </td>
                       <td>
-                        <span class="label label-warning"><?php echo $emp_detail['ed_emp_desig']; ?></span> <br><?php echo $emp_detail['ed_emp_email']; ?>
+                        <?php 
+                          if($emp_detail['ed_emp_grade']){
+                             echo '<span class="label label-danger">'.$emp_detail['ed_emp_grade'].'</span>';
+                          } 
+
+                          if($emp_detail['ed_emp_desig']) {
+                            echo ' <span class="label label-warning">'.$emp_detail['ed_emp_desig'].'</span>';
+                          }
+
+                          if($emp_detail['ed_emp_email']) {
+                            echo '<br>'.$emp_detail['ed_emp_email'];
+                          }
+
+                        ?> 
                       </td>
                       <td>
-                        <span class="label label-info"><?php echo $emp_detail['ed_emp_leader']; ?></span> <br><?php echo $emp_detail['ed_emp_div']; ?> - <?php echo $emp_detail['ed_emp_team']; ?>
+                        <?php 
+                          if($emp_detail['ed_emp_leader']) {
+                            echo '<span class="label label-info">'.$emp_detail['ed_emp_leader'].'</span>';
+                          }
+
+                          if($emp_detail['ed_emp_div']) {
+                            echo '<br>'.$emp_detail['ed_emp_div'];
+                          }
+                        ?>
                       </td>
                       <td>
-                        <?php echo $emp_detail['ed_emp_dob']; ?><br><?php echo $emp_detail['ed_emp_doj']; ?>
+                        <?php 
+                          if($emp_detail['ed_emp_team']) {
+                            echo '<span class="label label-warning">'.$emp_detail['ed_emp_team'].'</span>';
+                          }
+
+                          if($emp_detail['ed_emp_section']) {
+                            echo '<br>'.$emp_detail['ed_emp_section'];
+                          }
+                        ?>
+                      <td>
+                        <?php 
+                          if($emp_detail['ed_emp_doj']!='' && $emp_detail['ed_emp_doj']!='0000-00-00') {
+                            echo '<span class="label label-info" >'.$emp_detail['ed_emp_doj'].'</span>';
+                          }
+                          if($emp_detail['ed_emp_dob']!='' && $emp_detail['ed_emp_dob']!='0000-00-00') {
+                            echo '<br>'.$emp_detail['ed_emp_dob'];
+                          }
+                        ?>
                       </td>
                       <td>
                         <?php echo $emp_detail['ed_emp_add_on']; ?><br> <font style="font-style: italic;"> by <?php echo $emp_detail['ea_name']; ?> </font> 

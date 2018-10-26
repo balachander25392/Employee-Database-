@@ -51,25 +51,37 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputPassword1">Email</label>
-                    <input type="email" class="form-control" id="emp_email" name="emp_email" required="true" placeholder="Email" autocomplete="off">
+                    <input type="email" class="form-control" id="emp_email" name="emp_email" placeholder="Email" autocomplete="off">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputPassword1">Designation</label>
-                    <input type="text" class="form-control" id="emp_desig" name="emp_desig" placeholder="Designation" autocomplete="off">
+                    <input type="text" class="form-control" id="emp_desig" name="emp_desig" placeholder="Designation (Software Engineer)" autocomplete="off">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Grade</label>
+                    <input type="text" class="form-control" id="emp_grade" name="emp_grade" placeholder="Grade (E级)" autocomplete="off">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputPassword1">Division</label>
-                    <input type="text" class="form-control" id="emp_div" name="emp_div" placeholder="Division" autocomplete="off">
+                    <input type="text" class="form-control" id="emp_div" name="emp_div" placeholder="Division (DIV-5)" autocomplete="off">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputPassword1">Team</label>
-                    <input type="text" class="form-control" id="emp_team" name="emp_team" placeholder="Team" autocomplete="off">
+                    <input type="text" class="form-control" id="emp_team" name="emp_team" placeholder="Team (软件中心)" autocomplete="off">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Section</label>
+                    <input type="text" class="form-control" id="emp_section" name="emp_section" placeholder="Section (第五事业部)" autocomplete="off">
                   </div>
                 </div>
                 <div class="col-md-6">

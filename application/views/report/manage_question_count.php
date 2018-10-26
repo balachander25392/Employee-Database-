@@ -83,7 +83,7 @@
                 ?>
                 <?php $i=1; foreach($questions as $question){ ?>
                   <div class="row">
-                   <div class="col-md-12">
+                    <div class="col-md-12">
                       <div class="box box-default box-solid">
                         <div class="box-header with-border">
                           <h3 class="box-title"><?php echo $i.') '.$question['eq_question'] ?></h3>
