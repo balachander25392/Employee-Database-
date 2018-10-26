@@ -1,3 +1,10 @@
+  <style type="text/css">
+    .desig-span{
+      font-style: italic;
+      font-size: 12px;
+      font-weight: bold;
+    }
+  </style>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -55,10 +62,10 @@
                   <table class="table table-hover">
                     <tr>
                       <th>Emp ID / Name</th>
-                      <th>Grade/Designation/Email</th>
-                      <th>Leader/DIV</th>
-                      <th>Team/Section</th>
-                      <th>DOJ / DOB</th>
+                      <th>Designation/Email</th>
+                      <th>Grade/Leader</th>
+                      <th>Team/DIV</th>
+                      <th>DOJ</th>
                       <th>Added On</th>
                       <th>Action</th>
                     </tr>
@@ -69,12 +76,8 @@
                       </td>
                       <td>
                         <?php 
-                          if($emp_detail['ed_emp_grade']){
-                             echo '<span class="label label-danger">'.$emp_detail['ed_emp_grade'].'</span>';
-                          } 
-
                           if($emp_detail['ed_emp_desig']) {
-                            echo ' <span class="label label-warning">'.$emp_detail['ed_emp_desig'].'</span>';
+                            echo ' <span class="desig-span">'.$emp_detail['ed_emp_desig'].'</span>';
                           }
 
                           if($emp_detail['ed_emp_email']) {
@@ -85,33 +88,32 @@
                       </td>
                       <td>
                         <?php 
-                          if($emp_detail['ed_emp_leader']) {
-                            echo '<span class="label label-info">'.$emp_detail['ed_emp_leader'].'</span>';
-                          }
 
-                          if($emp_detail['ed_emp_div']) {
-                            echo '<br>'.$emp_detail['ed_emp_div'];
+                          if($emp_detail['ed_emp_grade']){
+                             echo '<span class="label label-danger">'.$emp_detail['ed_emp_grade'].'</span><br>';
+                          } 
+
+                          if($emp_detail['ed_emp_leader']) {
+                            echo $emp_detail['ed_emp_leader'];
                           }
                         ?>
                       </td>
                       <td>
                         <?php 
                           if($emp_detail['ed_emp_team']) {
-                            echo '<span class="label label-warning">'.$emp_detail['ed_emp_team'].'</span>';
+                            echo '<span class="label label-warning">'.$emp_detail['ed_emp_team'].'</span><br>';
                           }
 
-                          if($emp_detail['ed_emp_section']) {
-                            echo '<br>'.$emp_detail['ed_emp_section'];
+                          if($emp_detail['ed_emp_div']) {
+                            echo $emp_detail['ed_emp_div'];
                           }
                         ?>
                       <td>
                         <?php 
                           if($emp_detail['ed_emp_doj']!='' && $emp_detail['ed_emp_doj']!='0000-00-00') {
-                            echo '<span class="label label-info" >'.$emp_detail['ed_emp_doj'].'</span>';
+                            echo '<span class="desig-span" >'.$emp_detail['ed_emp_doj'].'</span>';
                           }
-                          if($emp_detail['ed_emp_dob']!='' && $emp_detail['ed_emp_dob']!='0000-00-00') {
-                            echo '<br>'.$emp_detail['ed_emp_dob'];
-                          }
+                          
                         ?>
                       </td>
                       <td>
