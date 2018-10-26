@@ -18,7 +18,7 @@ class Employee_model extends CI_Model {
 		$emp_grade  	= $this->input->post('emp_grade');
 		$emp_div    	= $this->input->post('emp_div');
 		$emp_team   	= $this->input->post('emp_team');
-		$emp_section 	= $this->input->post('emp_section');
+		//$emp_section 	= $this->input->post('emp_section');
 		$emp_leader 	= $this->input->post('emp_leader');
 		$emp_type		= $this->input->post('emp_type');
 		$emp_dob    	= $this->input->post('emp_dob');
@@ -41,7 +41,7 @@ class Employee_model extends CI_Model {
 			 	"ed_emp_grade" 		=> $emp_grade,
 			 	"ed_emp_div" 		=> $emp_div,
 			 	"ed_emp_team" 		=> $emp_team,
-			 	"ed_emp_section"	=> $emp_section,
+			 	/*"ed_emp_section"	=> $emp_section,*/
 			 	"ed_emp_leader" 	=> $emp_leader,
 			 	"ed_emp_type"		=> $emp_type,
 			 	"ed_emp_dob" 		=> $emp_dob,
@@ -120,7 +120,7 @@ class Employee_model extends CI_Model {
 		$emp_grade 		= $this->input->post('emp_grade');
 		$emp_div    	= $this->input->post('emp_div');
 		$emp_team   	= $this->input->post('emp_team');
-		$emp_section 	= $this->input->post('emp_section');
+		//$emp_section 	= $this->input->post('emp_section');
 		$emp_leader 	= $this->input->post('emp_leader');
 		$emp_type		= $this->input->post('emp_type');
 		$emp_dob    	= $this->input->post('emp_dob');
@@ -143,7 +143,7 @@ class Employee_model extends CI_Model {
 			 	"ed_emp_grade" 		=> $emp_grade,
 			 	"ed_emp_div" 		=> $emp_div,
 			 	"ed_emp_team" 		=> $emp_team,
-			 	"ed_emp_section"	=> $emp_section,
+			 	/*"ed_emp_section"	=> $emp_section,*/
 			 	"ed_emp_leader" 	=> $emp_leader,
 			 	"ed_emp_type"		=> $emp_type,
 			 	"ed_emp_dob" 		=> $emp_dob,
@@ -265,10 +265,10 @@ class Employee_model extends CI_Model {
 	        $data_emp['ed_emp_grade']		= $objWorksheet->getCellByColumnAndRow(6,$i)->getCalculatedValue();
 	        $data_emp['ed_emp_div']			= $objWorksheet->getCellByColumnAndRow(7,$i)->getCalculatedValue();
 	        $data_emp['ed_emp_team']		= $objWorksheet->getCellByColumnAndRow(8,$i)->getCalculatedValue();
-	        $data_emp['ed_emp_section']		= $objWorksheet->getCellByColumnAndRow(9,$i)->getCalculatedValue();
-	        $data_emp['ed_emp_leader']		= $objWorksheet->getCellByColumnAndRow(10,$i)->getCalculatedValue();
-	        $data_emp['ed_emp_dob']			= date($format = "Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($objWorksheet->getCellByColumnAndRow(11,$i)->getCalculatedValue()));
-	        $data_emp['ed_emp_doj']			= date($format = "Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($objWorksheet->getCellByColumnAndRow(12,$i)->getCalculatedValue()));
+	        //$data_emp['ed_emp_section']		= $objWorksheet->getCellByColumnAndRow(9,$i)->getCalculatedValue();
+	        $data_emp['ed_emp_leader']		= $objWorksheet->getCellByColumnAndRow(9,$i)->getCalculatedValue();
+	        $data_emp['ed_emp_dob']			= date($format = "Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($objWorksheet->getCellByColumnAndRow(10,$i)->getCalculatedValue()));
+	        $data_emp['ed_emp_doj']			= date($format = "Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($objWorksheet->getCellByColumnAndRow(11,$i)->getCalculatedValue()));
 	        $data_emp['ed_emp_add_from']	= 'bulk';
 
 	        if($data_emp['ed_emp_id']!='' && $data_emp['ed_emp_name']!='' && $data_emp['ed_emp_pass']!=''){

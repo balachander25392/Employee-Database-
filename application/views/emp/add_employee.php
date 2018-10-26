@@ -69,7 +69,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputPassword1">Division</label>
-                    <input type="text" class="form-control" id="emp_div" name="emp_div" placeholder="Division (DIV-5)" autocomplete="off">
+                    <input type="text" class="form-control" id="emp_div" name="emp_div" placeholder="Division (第五事业部)" autocomplete="off">
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -78,12 +78,12 @@
                     <input type="text" class="form-control" id="emp_team" name="emp_team" placeholder="Team (软件中心)" autocomplete="off">
                   </div>
                 </div>
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputPassword1">Section</label>
                     <input type="text" class="form-control" id="emp_section" name="emp_section" placeholder="Section (第五事业部)" autocomplete="off">
                   </div>
-                </div>
+                </div> -->
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputPassword1">Leader</label>
