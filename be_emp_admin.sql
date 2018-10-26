@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `be_emp_aduser` (
   PRIMARY KEY (`ea_id`),
   UNIQUE KEY `ea_id` (`ea_id`),
   UNIQUE KEY `ea_emp_id` (`ea_emp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
 -- Dumping structure for table be_emp_admin.be_emp_db
@@ -44,8 +44,10 @@ CREATE TABLE IF NOT EXISTS `be_emp_db` (
   `ed_emp_pass` varchar(250) NOT NULL,
   `ed_emp_email` varchar(100) NOT NULL,
   `ed_emp_desig` varchar(100) DEFAULT NULL,
+  `ed_emp_grade` varchar(100) DEFAULT NULL,
   `ed_emp_div` varchar(50) DEFAULT NULL,
   `ed_emp_team` varchar(100) DEFAULT NULL,
+  `ed_emp_section` varchar(100) DEFAULT NULL,
   `ed_emp_leader` varchar(250) DEFAULT NULL,
   `ed_emp_type` enum('student','teacher','none') NOT NULL DEFAULT 'none',
   `ed_emp_dob` date DEFAULT NULL,
@@ -57,12 +59,13 @@ CREATE TABLE IF NOT EXISTS `be_emp_db` (
   `ed_emp_pas_rt_on` datetime DEFAULT NULL,
   `ed_emp_pas_tr_by` int(30) DEFAULT NULL,
   `ed_emp_st` enum('0','1') NOT NULL DEFAULT '1',
+  `ed_emp_add_from` enum('single','bulk') NOT NULL DEFAULT 'single',
   `ed_emp_deac_on` datetime NOT NULL,
   `ed_emp_deac_by` int(30) NOT NULL,
   PRIMARY KEY (`ed_id`),
   UNIQUE KEY `ed_id` (`ed_id`),
   UNIQUE KEY `ed_emp_id` (`ed_emp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
 -- Dumping structure for table be_emp_admin.be_emp_qstn_templ
@@ -123,7 +126,35 @@ CREATE TABLE IF NOT EXISTS `be_qstn_answer` (
   `qa_status` enum('0','1') NOT NULL DEFAULT '1',
   PRIMARY KEY (`qa_id`),
   UNIQUE KEY `qa_id` (`qa_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+
+-- Data exporting was unselected.
+-- Dumping structure for table be_emp_admin.keys
+CREATE TABLE IF NOT EXISTS `keys` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `key` varchar(40) NOT NULL,
+  `level` int(2) NOT NULL,
+  `ignore_limits` tinyint(1) NOT NULL DEFAULT '0',
+  `is_private_key` tinyint(1) NOT NULL DEFAULT '0',
+  `ip_addresses` text,
+  `date_created` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- Data exporting was unselected.
+-- Dumping structure for table be_emp_admin.users
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `last_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `phone` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  `status` enum('1','0') COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Data exporting was unselected.
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
