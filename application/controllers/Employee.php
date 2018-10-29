@@ -186,7 +186,7 @@ class Employee extends CI_Controller {
 		}
 
 		if(count($result['failed_list'])>0) {
-			$this->session->set_flashdata('eu_fail_flash_msg', $this->Autoload_model->genAlertMsg('Failed to '.$fail_msg.count($result['success_list']).' Employee(s). Find the list below <br>'.implode('<br>', $result['failed_list']),4));
+			$this->session->set_flashdata('eu_fail_flash_msg', $this->Autoload_model->genAlertMsg('Failed to '.$fail_msg.count($result['failed_list']).' Employee(s). Find the list below <br>'.implode('<br>', $result['failed_list']),4));
 		}
 
 		redirect('Employee');

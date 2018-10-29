@@ -225,7 +225,8 @@
 <!-- Datetime picker -->
 <script src="<?php echo asset_url('js/jquery.datetimepicker.js'); ?>"></script>
 <!-- Multiple Select -->
-<script type="text/javascript" src="<?php echo base_url() ?>assets/multiselect/chosen.jquery.js"></script> 
+<script type="text/javascript" src="<?php echo base_url() ?>assets/multiselect/chosen.jquery.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>assets/js/jquery-customselect.js"></script>
 <!-- Our Script -->
 <script src="<?php echo asset_url('js/system.Bloader.js'); ?>"></script>
 

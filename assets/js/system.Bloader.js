@@ -19,6 +19,10 @@ $(function() {
   //$('#ans_for_usr').chosen();
 });
 
+$(function() {
+       // $("#ans_for_usr").customselect();
+      });
+
 
 function setAdminIdPassReset(adminid)
 {
