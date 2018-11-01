@@ -3,12 +3,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Question
-        <small>Report</small>
+        <?= $language['report']['ques_repo'] ?>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?php echo base_url() ?>employee"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Questionnaire Report</li>
+        <li><a href="<?php echo base_url() ?>employee"><i class="fa fa-dashboard"></i> <?= $language['common']['home'] ?></a></li>
+        <li class="active"><?= $language['report']['ques_repo'] ?></li>
       </ol>
     </section>
 
@@ -25,7 +24,7 @@
 
                   <div class="col-xs-4">
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Search by Template</label>
+                      <label for="exampleInputPassword1"><?= $language['report']['sear_by_temp'] ?></label>
                       <select name="qstn_reprt_tmpl_srch" id="qstn_reprt_tmpl_srch" class="form-control" onchange="questionResultPage()">
                         <option value="">All</option>
                         <?php foreach($template as $templates){ ?>
@@ -41,8 +40,8 @@
                     <form method="POST" action="<?php echo base_url() ?>report/exportQuestionRprt">
                       <input type="hidden" name="qstn_templ_expt_id" id="qstn_templ_expt_id">
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Download</label>
-                        <button type="submit" class="btn btn-primary btn-sm">Export to Excel</button>
+                      <label for="exampleInputPassword1"><?= $language['report']['down'] ?></label>
+                        <button type="submit" class="btn btn-primary btn-sm"><?= $language['report']['expo_to_exce'] ?></button>
                       </div>
                     </form>
                   </div>
@@ -168,7 +167,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><?= $language['common']['clos'] ?></button>
         </div>
     </div>
   </div>

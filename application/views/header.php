@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>BYD Employee Database</title>
+  <title><?= $language['header']['page_titl']; ?></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -48,9 +48,9 @@
     <!-- Logo -->
     <a href="#" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>EMP</b></span>
+      <span class="logo-mini"><b><?= $language['header']['head_titl_shor']; ?></b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Employee</b> DB</span>
+      <span class="logo-lg"><b><?= $language['header']['head_titl']; ?></b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -61,6 +61,36 @@
 
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">      
+
+
+          <li class="dropdown tasks-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-flag-o"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                  <li><!-- Task item -->
+                    <a href="<?= base_url() ?>LanguageSwitcher/switchLang/en">
+                      <h3>
+                        English
+                      </h3>
+                    </a>
+                  </li>
+                  <li><!-- Task item -->
+                    <a href="<?= base_url() ?>LanguageSwitcher/switchLang/zh">
+                      <h3>
+                        Chinese
+                      </h3>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+
+
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -73,18 +103,18 @@
                 <img src="<?php echo asset_url('img/logo.jpg'); ?>" class="img-circle" alt="User Image">
 
                 <p>
-                  BYD <?php if($this->session->userdata['logged_in']['ea_role']=='1'){ echo ' Super '; } ?>Admin - Employee database Manage
-                  <small>since 2018</small>
+                  BYD <?php if($this->session->userdata['logged_in']['ea_role']=='1'){ echo ' Super '; } ?><?= $language['header']['head_user_mess']; ?>
+                  <!-- <small>since 2018</small> -->
                 </p>
               </li>
             
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="<?php echo base_url() ?>admin/changePassword" class="btn btn-default btn-flat">Change Password</a>
+                  <a href="<?php echo base_url() ?>admin/changePassword" class="btn btn-default btn-flat"><?= $language['header']['chang_pass']; ?></a>
                 </div>
                 <div class="pull-right">
-                  <a href="<?php echo base_url() ?>welcome/logout" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?php echo base_url() ?>welcome/logout" class="btn btn-default btn-flat"><?= $language['header']['sign_out']; ?></a>
                 </div>
               </li>
             </ul>

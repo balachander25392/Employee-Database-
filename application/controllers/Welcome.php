@@ -33,6 +33,9 @@ class Welcome extends CI_Controller {
 		} else {
 
 			$data['title'] = "Login";
+			//get language
+	        $language = MY_Loader::$add_data;
+			$data     = array_merge($data,$language);
 			$this->load->view('login',$data);
 		}
 
@@ -58,7 +61,9 @@ class Welcome extends CI_Controller {
 	{
 	   $emp_id = $this->input->post('emp_id');
 	   $result = $this->Welcome_model->signin_check($emp_id, $pass);
-	 
+	   
+	   $language 	= MY_Loader::$add_data['language'];
+
 	   if($result)
 	   {
 		    foreach($result as $row)
@@ -76,7 +81,7 @@ class Welcome extends CI_Controller {
 	   }
 	   else
 	   {
-			$this->session->set_flashdata('message_failed', 'Invalid username or password');
+			$this->session->set_flashdata('message_failed', $language['login_flash']['1']);
 			redirect('welcome/login');
 			return false;
 	   }

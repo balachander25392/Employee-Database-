@@ -3,12 +3,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Add
-        <small>Question</small>
+        <?= $language['question_tab']['add_ques'] ?>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?php echo base_url() ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Add Question</li>
+        <li><a href="<?php echo base_url() ?>"><i class="fa fa-dashboard"></i> <?= $language['common']['home'] ?></a></li>
+        <li class="active"><?= $language['question_tab']['add_ques'] ?></li>
       </ol>
     </section>
 
@@ -22,7 +21,7 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Add Question</h3>
+              <h3 class="box-title"><?= $language['question_tab']['add_ques'] ?></h3>
             </div>
 
             <?php if($this->session->flashdata('flash_msg')) { echo $this->session->flashdata('flash_msg'); } ?>
@@ -32,14 +31,14 @@
               <div class="box-body" id="">
                 <div class="col-md-8">
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Question</label>
+                    <label for="exampleInputPassword1"><?= $language['question_tab']['ques'] ?></label>
                     <input type="text" class="form-control" name="question" required="" autocomplete="off">
                   </div>
                 </div>
 
                 <div class="col-md-2">
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Template</label>
+                    <label for="exampleInputPassword1"><?= $language['question_tab']['temp'] ?></label>
                     <select class="form-control" name="questn_templ" required="">
                       <option value="">--Select--</option>
                       <?php foreach($template as $templates){ ?>
@@ -51,12 +50,12 @@
 
                 <div class="col-md-2">
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Answer Type</label>
+                    <label for="exampleInputPassword1"><?= $language['question_tab']['answ_type'] ?></label>
                     <select class="form-control" name="ques_type" id="ques_type" required="" onchange="addOptiontoQuestn()">
-                      <option value="">--Select--</option>
-                      <option value="text">Text box</option>
-                      <option value="radio">Radio button</option>
-                      <option value="check">Check Box</option>
+                      <option value="">--<?= $language['common']['sele'] ?>--</option>
+                      <option value="text"><?= $language['question_tab']['text_box'] ?></option>
+                      <option value="radio"><?= $language['question_tab']['radi_butt'] ?></option>
+                      <option value="check"><?= $language['question_tab']['chec_box'] ?></option>
                     </select>
                   </div>
                 </div>
@@ -66,7 +65,7 @@
               </div>
               <!-- /.box-body -->
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary"><?= $language['common']['subm'] ?></button>
               </div>
             </form>
           </div>

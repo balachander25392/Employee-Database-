@@ -64,7 +64,9 @@ class Employee extends CI_Controller {
 	        
 	        //get the posts data
 	        $data['emps'] = $this->Employee_model->getEmployeeUsers(array('start'=>$offset,'limit'=>$this->perPage));
-	        
+	        //get language
+	        $language = MY_Loader::$add_data;
+			$data     = array_merge($data,$language);
 	        //load the view
 	        $this->load->view('emp/manage_employee_ajax', $data, false);
 		} 
@@ -82,16 +84,17 @@ class Employee extends CI_Controller {
 
 	function saveEmployee()
 	{
-		$result = $this->Employee_model->saveEmployeeUser();
+		$language 	= MY_Loader::$add_data['language'];
+		$result 	= $this->Employee_model->saveEmployeeUser();
 
 		if($result==1){
-			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Successfully Created Employee',1));
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['empl_flash']['1'],1));
 			redirect('Employee');
 		} else if($result==2) {
-			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Unable to create employee due to database error',3));
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['empl_flash']['2'],3));
 			redirect('Employee/addEmployee');
 		} else {
-			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('User already exists with same Employee ID. Check the information entered',4));
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['empl_flash']['3'],4));
 			redirect('Employee/addEmployee');
 		}
 	}
@@ -112,42 +115,45 @@ class Employee extends CI_Controller {
 
 	function updateEmployee()
 	{
-		$result = $this->Employee_model->updateEmpUser();
+		$language 	= MY_Loader::$add_data['language'];
+		$result 	= $this->Employee_model->updateEmpUser();
 
 		if($result==1){
-			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Successfully Updated Employee',1));
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['empl_flash']['4'],1));
 			redirect('Employee');
 		} else if($result==2) {
-			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Unable to update Employee due to database error',3));
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['empl_flash']['5'],3));
 			redirect('Employee');
 		} else {
-			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Employee already exists with same Employee ID. Check the information',4));
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['empl_flash']['6'],4));
 			redirect('Employee');
 		}
 	}
 
 	function resetPassword()
 	{
-		$result = $this->Employee_model->updateEmpUserPassword();
+		$language 	= MY_Loader::$add_data['language'];
+		$result 	= $this->Employee_model->updateEmpUserPassword();
 
 		if($result==1){
-			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Successfully Updated Employee Password',1));
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['empl_flash']['7'],1));
 			redirect('Employee');
 		} else {
-			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Unable to update Employee Password. Try again',4));
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['empl_flash']['8'],4));
 			redirect('Employee');
 		}
 	}
 
 	function deleteEmployee()
 	{
-		$result = $this->Employee_model->deleteEmpUser();
+		$language 	= MY_Loader::$add_data['language'];
+		$result	 	= $this->Employee_model->deleteEmpUser();
 
 		if($result==1){
-			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Successfully Deleted Employee',1));
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['empl_flash']['9'],1));
 			redirect('Employee');
 		} else {
-			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Unable to Delete Employee. Try again',4));
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['empl_flash']['10'],4));
 			redirect('Employee');
 		}
 	}
@@ -164,29 +170,30 @@ class Employee extends CI_Controller {
 
 	function saveEmployeeBulk()
 	{
-		$result = $this->Employee_model->saveBulkEmployee();
-		$action_type = $this->input->post('eadd_act_type');
+		$language 	   = MY_Loader::$add_data['language'];
+		$result 	   = $this->Employee_model->saveBulkEmployee();
+		$action_type   = $this->input->post('eadd_act_type');
 
 		if($action_type=='insert'){
-			$succ_msg  = 'Registered ';
-			$fail_msg  = 'Register ';
+			$succ_msg  = $language['empl_flash']['regi_ed'].' ';
+			$fail_msg  = $language['empl_flash']['regi'].' ';
 		} else if($action_type=='update') {
-			$succ_msg  = 'Updated ';
-			$fail_msg  = 'Update ';
+			$succ_msg  = $language['empl_flash']['upda_ed'].' ';
+			$fail_msg  = $language['empl_flash']['upda'].' ';
 		} else if($action_type=='both') {
-			$succ_msg  = 'Registered/Updated ';
-			$fail_msg  = 'Register/Update ';
+			$succ_msg  = $language['empl_flash']['rege_updd'].' ';
+			$fail_msg  = $language['empl_flash']['rege_upda'].' ';
 		} else {
-			$succ_msg  = 'Registered/Updated ';
-			$fail_msg  = 'Register/Update ';
+			$succ_msg  = $language['empl_flash']['rege_updd'].' ';
+			$fail_msg  = $language['empl_flash']['rege_upda'].' ';
 		}
 
 		if(count($result['success_list'])>0){
-			$this->session->set_flashdata('eu_succ_flash_msg', $this->Autoload_model->genAlertMsg('Successfully '.$succ_msg.count($result['success_list']).' Employee(s)',1));
+			$this->session->set_flashdata('eu_succ_flash_msg', $this->Autoload_model->genAlertMsg($language['empl_flash']['succ'].' '.$succ_msg.count($result['success_list']).' '.$language['empl_flash']['empl'],1));
 		}
 
 		if(count($result['failed_list'])>0) {
-			$this->session->set_flashdata('eu_fail_flash_msg', $this->Autoload_model->genAlertMsg('Failed to '.$fail_msg.count($result['failed_list']).' Employee(s). Find the list below <br>'.implode('<br>', $result['failed_list']),4));
+			$this->session->set_flashdata('eu_fail_flash_msg', $this->Autoload_model->genAlertMsg($language['empl_flash']['fail_to'].' '.$fail_msg.count($result['failed_list']).' '.$language['empl_flash']['empl'].' '.$language['empl_flash']['find_list'].'<br>'.implode('<br>', $result['failed_list']),4));
 		}
 
 		redirect('Employee');

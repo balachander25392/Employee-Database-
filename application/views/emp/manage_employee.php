@@ -10,12 +10,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Manage
-        <small>Employee</small>
+        <?= $language['emp_tab']['mana_empl'] ?>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?php echo base_url() ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Manage Employee</li>
+        <li><a href="<?php echo base_url() ?>"><i class="fa fa-dashboard"></i> <?= $language['header']['home'] ?></a></li>
+        <li class="active"><?= $language['emp_tab']['mana_empl'] ?></li>
       </ol>
     </section>
 
@@ -33,20 +32,20 @@
               <div class="col-md-12">
                   <div class="col-xs-4">
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Search by User Type</label>
+                      <label for="exampleInputPassword1"><?= $language['emp_tab']['sear_by_user_type'] ?></label>
                       <select name="emp_utype_search" id="emp_utype_search" class="form-control" onchange="empSearchPage()">
-                        <option value="">All</option>
-                        <option value="teacher">Teacher</option>
-                        <option value="student">Student</option>
+                        <option value=""><?= $language['common']['all'] ?></option>
+                        <option value="teacher"><?= $language['common']['teac'] ?></option>
+                        <option value="student"><?= $language['common']['stud'] ?></option>
                       </select>
                     </div>
                   </div>
 
                   <div class="col-xs-6">
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Search by keyword</label>
+                      <label for="exampleInputPassword1"><?= $language['emp_tab']['sear_by_keyw'] ?></label>
                       <div class="input-group">
-                        <input type="text" name="emp_tab_ssearch" id="emp_tab_ssearch" onkeyup="empSearchPage()" class="form-control pull-right" placeholder="Search">
+                        <input type="text" name="emp_tab_ssearch" id="emp_tab_ssearch" onkeyup="empSearchPage()" class="form-control pull-right" placeholder="<?= $language['header']['sear'] ?>">
 
                         <div class="input-group-btn">
                           <button type="submit" onclick="empSearchPage()" class="btn btn-default"><i class="fa fa-search"></i></button>
@@ -61,13 +60,13 @@
                 <div class="box-body table-responsive no-padding" style="overflow-x: inherit;">
                   <table class="table table-hover">
                     <tr>
-                      <th>Emp ID / Name</th>
-                      <th>Designation/Email</th>
-                      <th>Grade/Leader</th>
-                      <th>Team/DIV</th>
-                      <th>DOJ</th>
-                      <th>Added On</th>
-                      <th>Action</th>
+                      <th><?= $language['emp_tab']['empl_id_name'] ?></th>
+                      <th><?= $language['emp_tab']['desi_emai'] ?></th>
+                      <th><?= $language['emp_tab']['grad_lead'] ?></th>
+                      <th><?= $language['emp_tab']['team_divi'] ?></th>
+                      <th><?= $language['emp_tab']['doj'] ?></th>
+                      <th><?= $language['emp_tab']['adde_on'] ?></th>
+                      <th><?= $language['emp_tab']['acti'] ?></th>
                     </tr>
                     <?php $i=1; if(!empty($emps)): foreach($emps as $emp_detail): ?>
                     <tr>
@@ -133,7 +132,7 @@
                     </tr>
 
                     <?php $i++; endforeach; else: ?>
-                    <tr><td align="center" colspan="7"><p style="color: red;">No User Available</p></td></tr>
+                    <tr><td align="center" colspan="7"><p style="color: red;"><?= $language['emp_tab']['no_user_avai'] ?></p></td></tr>
                     <?php endif; ?>
                     
                   </table>
@@ -163,7 +162,7 @@
     <div class="modal-content">
       <form method="POST" action="<?php echo base_url() ?>employee/resetPassword">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Reset User Password</h5>
+          <h5 class="modal-title" id="exampleModalLabel"><?= $language['emp_tab']['rese_empl_pass'] ?></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -172,14 +171,14 @@
           <!-- <div class="box-body"> -->
             <input type="hidden" name="empUserPassResetID" id="empUserPassResetID">
             <div class="form-group">
-              <label for="exampleInputEmail1">New Password</label>
+              <label for="exampleInputEmail1"><?= $language['emp_tab']['new_pass'] ?></label>
               <input type="password" class="form-control" id="emp_new_pass" name="emp_new_pass" required="true" placeholder="Enter New Password" autocomplete="off" style="width: 37%;">
             </div>
           <!-- </div> -->
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><?= $language['common']['clos'] ?></button>
+          <button type="submit" class="btn btn-primary"><?= $language['common']['save_chan'] ?></button>
         </div>
       </form>
     </div>
@@ -192,15 +191,15 @@
       <form method="POST" action="<?php echo base_url() ?>employee/deleteEmployee">
         <input type="hidden" name="empUserDeelteID" id="empUserDeelteID">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Delete Employee Account</h5>
+          <h5 class="modal-title" id="exampleModalLabel"><?= $language['emp_tab']['dele_empl_acco'] ?></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body"><p style="color: red;">Are you sure want to delete this employee?</p></div>
+        <div class="modal-body"><p style="color: red;"><?= $language['emp_tab']['dele_empl_aler'] ?>?</p></div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Delete</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><?= $language['common']['clos'] ?></button>
+          <button type="submit" class="btn btn-primary"><?= $language['common']['dele'] ?></button>
         </div>
       </form>
     </div>

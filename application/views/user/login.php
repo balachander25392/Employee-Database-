@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>BYD | Log in</title>
+  <title><?= $language['header']['user_page_titl'] ?></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -24,12 +24,12 @@
   <![endif]-->
 
   <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link rel="stylesheet" href="<?php echo asset_url('css/google-font.css'); ?>">
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>BYD</b> Student Teacher</a>
+    <a href="../../index2.html"><b><?= $language['header']['user_page_titl'] ?></b></a>
   </div>
 
   <?php if($this->session->flashdata('message_failed')) { ?>
@@ -41,25 +41,25 @@
 
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Sign in to take your questionnaire</p>
+    <p class="login-box-msg"><?= $language['header']['sign_in_to_take_ques'] ?></p>
 
     <form action="<?php echo base_url() ?>user/signin" method="post">
       <div class="form-group has-feedback">
-        <input type="text" name="emp_id" id="emp_id" required="true" class="form-control" placeholder="Employee ID" autocomplete="off">
+        <input type="text" name="emp_id" id="emp_id" required="true" class="form-control" placeholder="<?= $language['header']['empl_id'] ?>" autocomplete="off">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" name="password" id="password" required="true" class="form-control" placeholder="Password" autocomplete="off">
+        <input type="password" name="password" id="password" required="true" class="form-control" placeholder="<?= $language['header']['pass'] ?>" autocomplete="off">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
         <!-- /.col -->
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat"><?= $language['header']['sign_in'] ?></button>
         </div>
         <div class="col-xs-3"></div>
         <div class="col-xs-5">
-          <a href="<?php echo base_url() ?>welcome">Sign in as Admin</a>
+          <a href="<?php echo base_url() ?>welcome"><?= $language['header']['sign_in_as_admin'] ?></a>
         </div>
         <!-- /.col -->
       </div>

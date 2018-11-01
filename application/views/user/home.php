@@ -22,7 +22,7 @@
         <small></small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> <?= $language['common']['home'] ?></a></li>
       </ol>
     </section>
 
@@ -36,7 +36,7 @@
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Welcome <?php echo $this->session->userdata['user_logged_in']['ed_emp_name'] ?> !</h3>
-              <a class="nav-right btn btn-primary btn-xs" href="<?php echo base_url() ?>user/availableQuestions">View Available Questionnaire</a>
+              <a class="nav-right btn btn-primary btn-xs" href="<?php echo base_url() ?>user/availableQuestions"><?= $language['user']['view_avai_ques'] ?></a>
             </div>
 
             <?php if($this->session->flashdata('flash_msg')) { echo $this->session->flashdata('flash_msg'); } ?>

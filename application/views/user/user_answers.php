@@ -30,12 +30,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Employee
-        <small>Questionnaire</small>
+        <?= $language['user']['ques_answ'] ?>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?php echo base_url() ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Questionnaire</li>
+        <li><a href="<?php echo base_url() ?>"><i class="fa fa-dashboard"></i> <?= $language['common']['home'] ?></a></li>
+        <li class="active"><?= $language['user']['ques_answ'] ?></li>
       </ol>
     </section>
 
@@ -49,8 +48,8 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Employee Questionnaire</h3>
-              <a style="float: right;" href="<?php echo base_url() ?>user/editAnswer/<?php echo $templ_id ?>/<?php echo $ans_for_usr_id ?>" class="btn btn-primary btn-xs">Edit Answers</a>
+              <h3 class="box-title"><?= $language['user']['ques_answ'] ?></h3>
+              <a style="float: right;" href="<?php echo base_url() ?>user/editAnswer/<?php echo $templ_id ?>/<?php echo $ans_for_usr_id ?>" class="btn btn-primary btn-xs"><?= $language['user']['edit_answ'] ?></a>
             </div>
 
             <?php if($this->session->flashdata('flash_msg')) { echo $this->session->flashdata('flash_msg'); } ?>

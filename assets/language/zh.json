@@ -1,0 +1,92 @@
+{
+	"language":"English",
+
+	"flash_common":{
+		"1":"Success!",
+		"2":"Information!",
+		"3":"Warning!",
+		"4":"Failed!"
+	},
+
+	"pagination":{
+		"firs":"First",
+		"next":"Next",
+		"show":"Showing",
+		"last":"Last",
+		"to":"to",
+		"of":"of"
+	},
+
+	"header":{
+		"page_titl":"BYD Teacher-Student Evaluation System",
+		"head_titl_shor":"TSE",
+		"head_titl":"TSE System Admin",
+		"head_user_mess":"Admin - Student Teacher Evaluation System Manage",
+		"chang_pass":"Change Password",
+		"sign_out":"Sign Out",
+		"home":"Home",
+		"sear":"Search",
+		"clos":"Close",
+		"save_chang":"Save changes",
+		"dele":"Delete",
+		"subm":"Submit"
+	},
+
+	"menu":{
+		"admi":"Admin",
+		"mana_admi":"Manage Admin",
+		"add_admi":"Add Admin",
+		"empl":"Employee",
+		"mana_empl":"Manage Employee",
+		"add_empl_sing":"Add Employee Single",
+		"add_empl_bulk":"Add Employee Bulk",
+		"ques_aire":"Questionnaire",
+		"mana_temp":"Manage Template",
+		"mana_ques":"Manage Questions",
+		"add_ques":"Add Question",
+		"repo":"Report",
+		"empl_repo":"Employee Report",
+		"ques_repo":"Questionnaire Report",
+		"feed_repo":"Feedback Report"
+	},
+
+	"admin_tab":{
+		"titl":"Manage Admin User",
+		"user_deta":"Admin User Details",
+		"sl_no":"SL.NO",
+		"empl_id":"Employee ID",
+		"name":"Name",
+		"emai":"Email",
+		"desi":"Designation",
+		"adde_on":"Added On",
+		"acti":"Action",
+		"edit":"Edit",
+		"rese_pass":"Reset Password",
+		"dele":"Delete",
+		"no_user":"No User Available",
+		"rese_user_pass":"Reset User Password",
+		"new_pass":"New Password",
+		"dele_user_acco":"Delete User Account",
+		"dele_user_aler":"Are you sure want, to delete this user",
+		"add_admi_user":"Add Admin User",
+		"pass":"Password",
+		"edit_admi_user":"Edit Admin User"
+	},
+
+	"admin_flash":{
+		"1":"Successfully Created Admin User",
+		"2":"Unable to create user due to database error",
+		"3":"User already exists with same Employee ID. Check the information",
+		"4":"Successfully Updated Admin User",
+		"5":"Unable to update user due to database error",
+		"6":"User already exists with same Employee ID. Check the information",
+		"7":"Successfully Updated Admin Password",
+		"8":"Unable to update Admin user Password. Try again",
+		"9":"Successfully Deleted Admin user",
+		"10":"Unable to Delete Adminuser. Try again",
+		"11":"Successfully updated your Password",
+		"12":"Unable to update due to technical error",
+		"13":"Invalid current Password. Try Again!"
+	}
+
+}

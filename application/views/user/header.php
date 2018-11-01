@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>BYD Employee Database</title>
+  <title><?= $language['header']['page_titl'] ?></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -49,9 +49,9 @@
     <!-- Logo -->
     <a href="#" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>EMPQ</b></span>
+      <span class="logo-mini"><b><?= $language['header']['head_titl_shor'] ?></b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Questionnaire</b></span>
+      <span class="logo-lg"><b><?= $language['header']['eval_syst'] ?></b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -74,18 +74,17 @@
                 <img src="<?php echo asset_url('img/logo.jpg'); ?>" class="img-circle" alt="User Image">
 
                 <p>
-                  BYD Employee questionnaire
-                  <small>since 2018</small>
+                  <?= $language['header']['user_page_titl'] ?>
                 </p>
               </li>
             
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="<?php echo base_url() ?>user/changePassword" class="btn btn-default btn-flat">Change Password</a>
+                  <a href="<?php echo base_url() ?>user/changePassword" class="btn btn-default btn-flat"><?= $language['header']['chang_pass'] ?></a>
                 </div>
                 <div class="pull-right">
-                  <a href="<?php echo base_url() ?>user/logout" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?php echo base_url() ?>user/logout" class="btn btn-default btn-flat"><?= $language['header']['sign_out'] ?></a>
                 </div>
               </li>
             </ul>

@@ -2,14 +2,11 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        Edit
-        <small>Admin user</small>
-      </h1>
+      <?= $language['admin_tab']['edit_admi_user']; ?>
       <ol class="breadcrumb">
-        <li><a href="<?php echo base_url() ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="<?php echo base_url() ?>admin"> Manage Admin Users</a></li>
-        <li class="active">Edit Admin User</li>
+        <li><a href="<?php echo base_url() ?>"><i class="fa fa-dashboard"></i> <?= $language['header']['home']; ?></a></li>
+        <li><a href="<?php echo base_url() ?>admin"> <?= $language['admin_tab']['titl']; ?></a></li>
+        <li class="active"><?= $language['admin_tab']['edit_admi_user']; ?></li>
       </ol>
     </section>
 
@@ -23,7 +20,7 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Edit Admin User</h3>
+              <h3 class="box-title"><?= $language['admin_tab']['edit_admi_user']; ?></h3>
             </div>
 
             <?php if($this->session->flashdata('flash_msg')) { echo $this->session->flashdata('flash_msg'); } ?>
@@ -33,26 +30,26 @@
               <input type="hidden" name="admin_idd" value="<?php echo $admin_id; ?>">
               <div class="box-body">
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Employee ID</label>
+                  <label for="exampleInputEmail1"><?= $language['admin_tab']['empl_id']; ?></label>
                   <input type="text" class="form-control" id="emp_id" name="emp_id" required="true" value="<?php echo $admin_detail['ea_emp_id'] ?>" placeholder="Enter Employee ID" autocomplete="off">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Name</label>
+                  <label for="exampleInputPassword1"><?= $language['admin_tab']['name']; ?></label>
                   <input type="text" class="form-control" id="emp_name" name="emp_name" value="<?php echo $admin_detail['ea_name'] ?>" required="true" placeholder="Name" autocomplete="off">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Email</label>
+                  <label for="exampleInputPassword1"><?= $language['admin_tab']['emai']; ?></label>
                   <input type="email" class="form-control" id="emp_email" name="emp_email" value="<?php echo $admin_detail['ea_email'] ?>" required="true" placeholder="Email" autocomplete="off">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Designation</label>
+                  <label for="exampleInputPassword1"><?= $language['admin_tab']['desi']; ?></label>
                   <input type="text" class="form-control" id="emp_desig" name="emp_desig" value="<?php echo $admin_detail['ea_designation'] ?>" placeholder="Designation" autocomplete="off">
                 </div>
               </div>
               <!-- /.box-body -->
 
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary"><?= $language['header']['subm']; ?></button>
               </div>
             </form>
           </div>

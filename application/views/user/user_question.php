@@ -8,9 +8,9 @@
     $ed_emp_type = $this->session->userdata['user_logged_in']['ed_emp_type'];
 
     if($ed_emp_type=='student'){
-      $sel_user = 'Teacher';
+      $sel_user = $this->Autoload_model->getUserType('teacher');
     } else {
-      $sel_user = 'Student';
+      $sel_user = $this->Autoload_model->getUserType('student');
     }
   ?>
   <!-- Content Wrapper. Contains page content -->
@@ -18,12 +18,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Employee
-        <small>Questionnaire</small>
+        <?= $language['user']['empl_ques'] ?>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?php echo base_url() ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Questionnaire</li>
+        <li><a href="<?php echo base_url() ?>"><i class="fa fa-dashboard"></i> <?= $language['common']['home'] ?></a></li>
+        <li class="active"><?= $language['user']['empl_ques'] ?></li>
       </ol>
     </section>
 
@@ -37,7 +36,7 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Employee Questionnaire</h3>
+              <h3 class="box-title"><?= $language['user']['empl_ques'] ?></h3>
             </div>
 
             <?php if($this->session->flashdata('flash_msg')) { echo $this->session->flashdata('flash_msg'); } ?>
@@ -48,14 +47,14 @@
               <div class="box-body" id="">
 
                 <div class="form-group">  
-                  <label for="exampleInputPassword1">Select your <?= $sel_user ?> </label>
+                  <label for="exampleInputPassword1"><?= $language['user']['sele_your'] ?> <?= $sel_user ?> </label>
                   <select name="ans_for_usr" id="ans_for_usr" class="form-control" required="">
-                    <option value="">--Select--</option>
+                    <option value="">--<?= $language['common']['sele'] ?>--</option>
                     <?php foreach($user_details as $user_detail){ ?>
                       <option value="<?= $user_detail['ed_id'] ?>"><?= $user_detail['ed_emp_id'].'-'.$user_detail['ed_emp_name'] ?></option>
                     <?php } ?>  
                   </select>
-                  <p id="ans_for_usr_error" style="color: red;display: none;">Please choose your <?= $sel_user ?></p>
+                  <p id="ans_for_usr_error" style="color: red;display: none;"><?= $language['user']['sele_your'] ?> <?= $sel_user ?></p>
                 </div>
 
                 <?php $i=1; if($questions){ foreach($questions as $question){ ?>
@@ -101,7 +100,7 @@
               </div>
               <!-- /.box-body -->
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary"><?= $language['common']['subm'] ?></button>
               </div>
             </form>
           </div>

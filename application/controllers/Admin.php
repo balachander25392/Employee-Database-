@@ -62,7 +62,11 @@ class Admin extends CI_Controller {
 	        $this->ajax_pagination->initialize($config);
 	        
 	        //get the posts data
-	        $data['admins'] = $this->Admin_model->getAdminUsers(array('start'=>$offset,'limit'=>$this->perPage));
+	        $data['admins'] 	= $this->Admin_model->getAdminUsers(array('start'=>$offset,'limit'=>$this->perPage));
+
+	        //get language
+	        $language = MY_Loader::$add_data;
+			$data     = array_merge($data,$language);
 	        
 	        //load the view
 	        $this->load->view('admin/manage_admin_ajax', $data, false);
@@ -81,16 +85,18 @@ class Admin extends CI_Controller {
 
 	function saveAdmin()
 	{
+		$language = MY_Loader::$add_data['language'];
+
 		$result = $this->Admin_model->saveAdminUser();
 
 		if($result==1){
-			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Successfully Created Admin User',1));
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['admin_flash']['1'],1));
 			redirect('Admin');
 		} else if($result==2) {
-			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Unable to create user due to database error',3));
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['admin_flash']['2'],3));
 			redirect('Admin/addAdmin');
 		} else {
-			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('User already exists with same Employee ID. Check the information',4));
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['admin_flash']['3'],4));
 			redirect('Admin/addAdmin');
 		}
 	}
@@ -111,42 +117,45 @@ class Admin extends CI_Controller {
 
 	function updateAdmin()
 	{
-		$result = $this->Admin_model->updateAdminUser();
+		$language = MY_Loader::$add_data['language'];
+		$result   = $this->Admin_model->updateAdminUser();
 
 		if($result==1){
-			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Successfully Updated Admin User',1));
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['admin_flash']['4'],1));
 			redirect('Admin');
 		} else if($result==2) {
-			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Unable to update user due to database error',3));
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['admin_flash']['5'],3));
 			redirect('Admin');
 		} else {
-			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('User already exists with same Employee ID. Check the information',4));
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['admin_flash']['6'],4));
 			redirect('Admin');
 		}
 	}
 
 	function resetPassword()
 	{
-		$result = $this->Admin_model->updateAdminUserPassword();
+		$language = MY_Loader::$add_data['language'];
+		$result   = $this->Admin_model->updateAdminUserPassword();
 
 		if($result==1){
-			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Successfully Updated Admin Password',1));
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['admin_flash']['7'],1));
 			redirect('Admin');
 		} else {
-			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Unable to update Admin user Password. Try again',4));
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['admin_flash']['8'],4));
 			redirect('Admin');
 		}
 	}
 
 	function deleteAdmin()
 	{
-		$result = $this->Admin_model->deleteAdminUser();
+		$language = MY_Loader::$add_data['language'];
+		$result   = $this->Admin_model->deleteAdminUser();
 
 		if($result==1){
-			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Successfully Deleted Admin user',1));
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['admin_flash']['9'],1));
 			redirect('Admin');
 		} else {
-			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Unable to Delete Adminuser. Try again',4));
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['admin_flash']['10'],4));
 			redirect('Admin');
 		}
 	}
@@ -163,16 +172,17 @@ class Admin extends CI_Controller {
 
 	function updatePassword()
 	{
-		$result = $this->Admin_model->changeAdminUserPassword();
+		$language = MY_Loader::$add_data['language'];
+		$result   = $this->Admin_model->changeAdminUserPassword();
 
 		if($result==1){
-			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Successfully updated your Password',1));
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['admin_flash']['11'],1));
 			redirect('Admin/changePassword');
 		} else if($result==2) {
-			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Unable to update due to technical error',3));
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['admin_flash']['12'],3));
 			redirect('Admin/changePassword');
 		} else {
-			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Invalid current Password. Try Again!',4));
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['admin_flash']['13'],4));
 			redirect('Admin/changePassword');
 		}
 	}

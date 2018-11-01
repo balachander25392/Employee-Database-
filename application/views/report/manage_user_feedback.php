@@ -3,12 +3,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Feedback
-        <small>Report</small>
+        <?= $language['report']['feed_repo'] ?>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?php echo base_url() ?>employee"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Feedback Report</li>
+        <li><a href="<?php echo base_url() ?>employee"><i class="fa fa-dashboard"></i> <?= $language['common']['home'] ?></a></li>
+        <li class="active"><?= $language['report']['feed_repo'] ?></li>
       </ol>
     </section>
 
@@ -25,7 +24,7 @@
                 
                   <div class="col-md-4">
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Enter Employee Id</label>
+                        <label for="exampleInputPassword1"><?= $language['report']['ente_empl_id'] ?></label>
                         <input type="text" name="ufedb_usr_srch" id="ufedb_usr_srch" class="form-control" onkeyup="loadEmpTemplate()">
                       </div>
                   </div>  
@@ -33,9 +32,9 @@
 
                   <div class="col-xs-4">
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Choose Template</label>
+                      <label for="exampleInputPassword1"><?= $language['report']['choo_temp'] ?></label>
                       <select name="qstn_reprt_tmpl_srch" id="qstn_reprt_tmpl_srch" class="form-control" onchange="getEmployeesFedbck()">
-                        <option value="">--Select--</option>
+                        <option value="">--<?= $language['common']['sele'] ?>--</option>
                       </select>
                     </div>
                   </div>
@@ -46,8 +45,8 @@
                       <input type="hidden" name="feed_emp_expt_id" id="feed_emp_expt_id">
                       <input type="hidden" name="feed_templ_expt_id" id="feed_templ_expt_id">
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Download</label>
-                        <button type="submit" class="btn btn-primary btn-sm">Export to Excel</button>
+                      <label for="exampleInputPassword1"><?= $language['report']['down'] ?></label>
+                        <button type="submit" class="btn btn-primary btn-sm"><?= $language['report']['expo_to_exce'] ?></button>
                       </div>
                     </form>
                   </div>
@@ -60,7 +59,7 @@
               <div id="feedbackReport">
                 
                 <div>
-                  <p style="text-align: center;color: red;">Please Enter the Employee ID and choose Template to get feelback</p>
+                  <p style="text-align: center;color: red;"><?= $language['report']['aler_1'] ?></p>
                 <div>
 
               </div>
@@ -89,7 +88,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><?= $language['common']['clos'] ?></button>
         </div>
     </div>
   </div>

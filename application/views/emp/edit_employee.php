@@ -3,12 +3,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Add
-        <small>Employee Details</small>
+        <?= $language['emp_tab']['edit_empl'] ?>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?php echo base_url() ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Add Employee Details</li>
+        <li><a href="<?php echo base_url() ?>"><i class="fa fa-dashboard"></i> <?= $language['common']['home'] ?></a></li>
+        <li class="active"><?= $language['emp_tab']['edit_empl'] ?></li>
       </ol>
     </section>
 
@@ -22,7 +21,7 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Add Employee</h3>
+              <h3 class="box-title"><?= $language['emp_tab']['edit_empl'] ?></h3>
             </div>
 
             <?php if($this->session->flashdata('flash_msg')) { echo $this->session->flashdata('flash_msg'); } ?>
@@ -33,43 +32,43 @@
               <div class="box-body">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Employee ID</label>
+                    <label for="exampleInputEmail1"><?= $language['emp_tab']['empl_id'] ?></label>
                     <input type="text" class="form-control" id="emp_id" name="emp_id" required="true" placeholder="Enter Employee ID" autocomplete="off" value="<?php echo $emp_detail['ed_emp_id'] ?>">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Name</label>
+                    <label for="exampleInputPassword1"><?= $language['emp_tab']['name'] ?></label>
                     <input type="text" class="form-control" id="emp_name" name="emp_name" required="true" placeholder="Name" autocomplete="off" value="<?php echo $emp_detail['ed_emp_name'] ?>">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Email</label>
+                    <label for="exampleInputPassword1"><?= $language['emp_tab']['emai'] ?></label>
                     <input type="email" class="form-control" id="emp_email" name="emp_email" placeholder="Email" autocomplete="off" value="<?php echo $emp_detail['ed_emp_email'] ?>">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Designation</label>
+                    <label for="exampleInputPassword1"><?= $language['emp_tab']['desi'] ?></label>
                     <input type="text" class="form-control" id="emp_desig" name="emp_desig" placeholder="Designation" autocomplete="off" value="<?php echo $emp_detail['ed_emp_desig'] ?>">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Grade</label>
+                    <label for="exampleInputPassword1"><?= $language['emp_tab']['grad'] ?></label>
                     <input type="text" class="form-control" id="emp_grade" name="emp_grade" placeholder="Grade (E级)" autocomplete="off" value="<?php echo $emp_detail['ed_emp_grade'] ?>">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Division</label>
+                    <label for="exampleInputPassword1"><?= $language['emp_tab']['divi'] ?></label>
                     <input type="text" class="form-control" id="emp_div" name="emp_div" placeholder="Division (第五事业部)" autocomplete="off" value="<?php echo $emp_detail['ed_emp_div'] ?>">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Team</label>
+                    <label for="exampleInputPassword1"><?= $language['emp_tab']['team'] ?></label>
                     <input type="text" class="form-control" id="emp_team" name="emp_team" placeholder="Team" autocomplete="off" value="<?php echo $emp_detail['ed_emp_team'] ?>">
                   </div>
                 </div>
@@ -81,30 +80,30 @@
                 </div> -->
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Leader</label>
+                    <label for="exampleInputPassword1"><?= $language['emp_tab']['lead'] ?></label>
                     <input type="text" class="form-control" id="emp_leader" name="emp_leader" placeholder="Leader" autocomplete="off" value="<?php echo $emp_detail['ed_emp_leader'] ?>">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="exampleInputPassword1">DOB</label>
+                    <label for="exampleInputPassword1"><?= $language['emp_tab']['dob'] ?></label>
                     <input type="text" class="form-control" id="emp_dob" name="emp_dob" placeholder="Date of Birth" autocomplete="off" value="<?php echo $emp_detail['ed_emp_dob'] ?>">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="exampleInputPassword1">DOJ</label>
+                    <label for="exampleInputPassword1"><?= $language['emp_tab']['doj'] ?></label>
                     <input type="text" class="form-control" id="emp_doj" name="emp_doj" placeholder="Date of Joining" autocomplete="off" value="<?php echo $emp_detail['ed_emp_doj'] ?>">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Type</label>
+                    <label for="exampleInputPassword1"><?= $language['emp_tab']['type'] ?></label>
                     <select class="form-control" name="emp_type" id="emp_type" required="">
-                      <option value="">--Select--</option>
-                      <option value="student"<?php if($emp_detail['ed_emp_type']=='student'){ echo 'Selected'; } ?>>Student</option>
-                      <option value="teacher"<?php if($emp_detail['ed_emp_type']=='teacher'){ echo 'Selected'; } ?>>Teacher</option>
-                      <option value="none"<?php if($emp_detail['ed_emp_type']=='none'){ echo 'Selected'; } ?>>None</option>
+                      <option value="">--<?= $language['common']['sele'] ?>--</option>
+                      <option value="student"<?php if($emp_detail['ed_emp_type']=='student'){ echo 'Selected'; } ?>><?= $language['common']['stud'] ?></option>
+                      <option value="teacher"<?php if($emp_detail['ed_emp_type']=='teacher'){ echo 'Selected'; } ?>><?= $language['common']['teac'] ?></option>
+                      <option value="none"<?php if($emp_detail['ed_emp_type']=='none'){ echo 'Selected'; } ?>><?= $language['common']['none'] ?></option>
                     </select>
                   </div>
                 </div>
@@ -113,7 +112,7 @@
 
               <div class="box-footer">
                 <div class="col-md-6">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-primary"><?= $language['common']['subm'] ?></button>
                 </div>
               </div>
             </form>

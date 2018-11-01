@@ -9,22 +9,23 @@ class Autoload_model extends CI_Model {
 	}
 	public function genAlertMsg($message,$msg_type)
 	{
+		$language = MY_Loader::$add_data['language'];
 		//Success
 		if($msg_type==1) {
 
-			return '<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> '.$message.'.</div>';
-			//Information
+			return '<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>'.$language['flash_common']['1'].'</strong> '.$message.'.</div>';
+		//Information
 		} else if($msg_type==2) {
 
-			return '<div class="alert alert-info alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Info!</strong> '.$message.'.</div>';
+			return '<div class="alert alert-info alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>'.$language['flash_common']['2'].'</strong> '.$message.'.</div>';
 		//Warning
 		} else if($msg_type==3) {
 
-			return '<div class="alert alert-warning alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Warning!</strong> '.$message.'.</div>';
+			return '<div class="alert alert-warning alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>'.$language['flash_common']['3'].'</strong> '.$message.'.</div>';
 		//Danger-Error
 		} else {
 
-			return '<div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Failed!</strong> '.$message.'.</div>';
+			return '<div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>'.$language['flash_common']['4'].'</strong> '.$message.'.</div>';
 
 		}
 	}
@@ -60,5 +61,42 @@ class Autoload_model extends CI_Model {
         $this->db->where('qt_status','1');
         $query = $this->db->get();
         return ($query->num_rows() > 0)?$query->result_array():FALSE;
+	}
+
+	function getAnswerType($ans_type)
+	{
+		$language 	= MY_Loader::$add_data['language'];
+
+		$answer = '';
+
+		if($ans_type=='text'){
+			$answer = $language['question_tab']['text_box'];
+		}
+
+		if($ans_type=='radio'){
+			$answer = $language['question_tab']['radi_butt'];
+		}
+
+		if($ans_type=='check'){
+			$answer = $language['question_tab']['chec_box'];
+		}
+
+		return $answer;
+	}
+
+	function getUserType($user)
+	{
+		$language 	= MY_Loader::$add_data['language'];
+		$user_type  = '';
+
+		if($user=='teacher'){
+			$user_type = $language['common']['teac'];
+		}
+
+		if($user=='student'){
+			$user_type = $language['common']['stud'];
+		}
+
+		return $user_type;
 	}
 }

@@ -255,29 +255,31 @@ class Question_model extends CI_Model {
         	$tc_sel = 'Selected';
         }
 
+        $language 	= MY_Loader::$add_data['language'];
+
         $output = '<input type="hidden" name="templ_id_edit" id="templ_id_edit" value="'.$templ_id_enc.'"> 
         			<div class="box-body">
 		            <div class="col-md-6">
 		              <div class="form-group">
-		                <label for="exampleInputEmail1">Template Name</label>
+		                <label for="exampleInputEmail1">'.$language['question_tab']['temp_name'].'</label>
 		                <input type="text" class="form-control" id="templ_name" name="templ_name" required="true" placeholder="Enter Template Name" autocomplete="off" value="'.$query['qt_name'].'">
 		              </div>
 		            </div>
 
 		            <div class="col-md-6">
 		              <div class="form-group">
-		                <label for="exampleInputEmail1">Template to</label>
+		                <label for="exampleInputEmail1">'.$language['question_tab']['temp_to'].'</label>
 		                <select name="templ_to" id="templ_to" required="" class="form-control">
-		                  <option value="">--Select--</option>
-		                  <option value="student"'.$st_sel.'>Student</option>
-		                  <option value="teacher"'.$tc_sel.'>Teacher</option>
+		                  <option value="">--'.$language['common']['sele'].'--</option>
+		                  <option value="student"'.$st_sel.'>'.$language['common']['stud'].'</option>
+		                  <option value="teacher"'.$tc_sel.'>'.$language['common']['teac'].'</option>
 		                </select>
 		              </div>
 		            </div>
 
 		            <div class="col-md-12">
 		              <div class="form-group">
-		                <label for="exampleInputEmail1">Template Description</label>
+		                <label for="exampleInputEmail1">'.$language['question_tab']['temp_desc'].'</label>
 		                <textarea name="templ_desc" id="templ_desc" required="" class="form-control" placeholder="Describe about template">'.$query['qt_desc'].'</textarea>
 		              </div>
 		            </div>

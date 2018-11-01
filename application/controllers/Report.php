@@ -22,7 +22,6 @@ class Report extends CI_Controller {
 	function userReport()
 	{
 		if($this->session->userdata('logged_in')){
-			
 			$data = array();
         	$data['title']    = "Manage User Results";
 			$data['template'] = $this->Autoload_model->getTemplateList();
@@ -71,7 +70,9 @@ class Report extends CI_Controller {
 	        
 	        //get the posts data
 	        $data['user_result']   = $this->Report_model->getUsersResults(array('start'=>$offset,'limit'=>$this->perPage));
-	        
+	        //get language
+	        $language = MY_Loader::$add_data;
+			$data     = array_merge($data,$language);
 	        //load the view
 	        $this->load->view('report/manage_user_result_ajax', $data, false);
 		}
@@ -94,8 +95,9 @@ class Report extends CI_Controller {
 
 	function alloweditAnsAcc()
 	{
+		$language 	= MY_Loader::$add_data['language'];
 		$result = $this->Report_model->allowAnsEditAcc();
-		$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Successfully created access to edit answers',1));
+		$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['report_flash']['1'],1));
 		redirect('report/userReport');
 	}
 
@@ -161,17 +163,19 @@ class Report extends CI_Controller {
 
 	function exportQuestionRprt()
 	{
+		$language 	= MY_Loader::$add_data['language'];
+
 		$this->load->model('User_model');
         $this->load->library('excel');
         $empInfo = $this->Autoload_model->getTemplateList();
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         // set Header
-        $objPHPExcel->getActiveSheet()->SetCellValue('A1', 'Question');
-        $objPHPExcel->getActiveSheet()->SetCellValue('B1', 'Answer Type');
-        $objPHPExcel->getActiveSheet()->SetCellValue('C1', 'Options');
-        $objPHPExcel->getActiveSheet()->SetCellValue('D1', 'Count'); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('E1', 'Text Answer');    
+        $objPHPExcel->getActiveSheet()->SetCellValue('A1', $language['report_excel']['ques']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('B1', $language['report_excel']['answ_type']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('C1', $language['report_excel']['opti']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('D1', $language['report_excel']['coun']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('E1', $language['report_excel']['text_answ']);    
 
         $questions = $this->Report_model->getQuestions();
 		$answers   = $this->Report_model->getAnsForTemplate();
@@ -252,17 +256,19 @@ class Report extends CI_Controller {
 
 	function exportFeedbkRprt()
 	{
+		$language 	= MY_Loader::$add_data['language'];
+
 		$this->load->model('User_model');
         $this->load->library('excel');
         $empInfo = $this->Autoload_model->getTemplateList();
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         // set Header
-        $objPHPExcel->getActiveSheet()->SetCellValue('A1', 'Question');
-        $objPHPExcel->getActiveSheet()->SetCellValue('B1', 'Answer Type');
-        $objPHPExcel->getActiveSheet()->SetCellValue('C1', 'Options');
-        $objPHPExcel->getActiveSheet()->SetCellValue('D1', 'Count'); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('E1', 'Text Answer');    
+        $objPHPExcel->getActiveSheet()->SetCellValue('A1', $language['report_excel']['ques']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('B1', $language['report_excel']['answ_type']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('C1', $language['report_excel']['opti']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('D1', $language['report_excel']['coun']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('E1', $language['report_excel']['text_answ']); 
 
         $questions = $this->Report_model->getQuestionsFeedbk();
 		$answers   = $this->Report_model->getAnsForTemplateFeedbk();
@@ -343,17 +349,19 @@ class Report extends CI_Controller {
 
 	function exportUserResult()
 	{
+		$language 	= MY_Loader::$add_data['language'];
+
 		$this->load->model('User_model');
         $this->load->library('excel');
         $empInfo = $this->Autoload_model->getTemplateList();
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         // set Header
-        $objPHPExcel->getActiveSheet()->SetCellValue('A1', 'Question');
-        $objPHPExcel->getActiveSheet()->SetCellValue('B1', 'Answer Type');
-        $objPHPExcel->getActiveSheet()->SetCellValue('C1', 'Options');
-        $objPHPExcel->getActiveSheet()->SetCellValue('D1', 'Count'); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('E1', 'Text Answer');    
+        $objPHPExcel->getActiveSheet()->SetCellValue('A1', $language['report_excel']['ques']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('B1', $language['report_excel']['answ_type']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('C1', $language['report_excel']['opti']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('D1', $language['report_excel']['coun']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('E1', $language['report_excel']['text_answ']);    
 
 		$templ_id 		= $this->Autoload_model->encrypt_decrypt('dc',$this->input->post('usr_rslt_exprt_templid'));
 		$user_id 		= $this->Autoload_model->encrypt_decrypt('dc',$this->input->post('usr_rslt_exprt_empid'));
@@ -426,6 +434,9 @@ class Report extends CI_Controller {
 
 
 	public function createXLS() {
+
+		$language 	= MY_Loader::$add_data['language'];
+
 		// create file name
         $fileName = 'data-'.time().'.xlsx';  
 		// load excel library

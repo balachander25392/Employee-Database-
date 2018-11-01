@@ -1,13 +1,13 @@
 <div class="box-body table-responsive no-padding" style="overflow-x: inherit;">
   <table class="table table-hover">
     <tr>
-      <th>Emp ID / Name</th>
-      <th>Designation/Email</th>
-      <th>Grade/Leader</th>
-      <th>Team/DIV</th>
-      <th>DOJ</th>
-      <th>Added On</th>
-      <th>Action</th>
+      <th><?= $language['emp_tab']['empl_id_name'] ?></th>
+      <th><?= $language['emp_tab']['desi_emai'] ?></th>
+      <th><?= $language['emp_tab']['grad_lead'] ?></th>
+      <th><?= $language['emp_tab']['team_divi'] ?></th>
+      <th><?= $language['emp_tab']['doj'] ?></th>
+      <th><?= $language['emp_tab']['adde_on'] ?></th>
+      <th><?= $language['emp_tab']['acti'] ?></th>
     </tr>
     <?php $i=1; if(!empty($emps)): foreach($emps as $emp_detail): ?>
     <tr>
@@ -73,7 +73,7 @@
     </tr>
 
     <?php $i++; endforeach; else: ?>
-    <tr><td align="center" colspan="7"><p style="color: red;">No User Available</p></td></tr>
+    <tr><td align="center" colspan="7"><p style="color: red;"><?= $language['emp_tab']['no_user_avai'] ?></p></td></tr>
     <?php endif; ?>
     
   </table>

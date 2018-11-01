@@ -213,6 +213,7 @@ class Employee_model extends CI_Model {
 
     function saveBulkEmployee()
     {
+    	$language 	 = MY_Loader::$add_data['language'];
     	$action_type = $this->input->post('eadd_act_type');
     	$configUpload['upload_path'] = FCPATH.'uploads/emp_bulk/';
      	$configUpload['allowed_types'] = '*';
@@ -286,7 +287,7 @@ class Employee_model extends CI_Model {
 				 		$ins_qurey     = $this->db->insert('be_emp_db',$data_emp);
 				 		array_push($succ_list, $data_emp['ed_emp_id']);
 		        	} else {
-		        		array_push($fail_list, $data_emp['ed_emp_id'].' - Unable to Register. User already exists with same employee ID.');
+		        		array_push($fail_list, $data_emp['ed_emp_id'].' - '.$language['empl_flash']['aler_1']);
 		        	}	
 		        }
 
@@ -305,7 +306,7 @@ class Employee_model extends CI_Model {
 			 			$update_qurey = $this->db->update('be_emp_db',$data_emp);
 			 			array_push($succ_list, $data_emp['ed_emp_id']);
 		        	} else {
-		        		array_push($fail_list, $data_emp['ed_emp_id'].' - Unable to update since there is no employee already registered with this employee ID.');
+		        		array_push($fail_list, $data_emp['ed_emp_id'].' - '.$language['empl_flash']['aler_2']);
 		        	}
 	        	}
 
@@ -329,13 +330,13 @@ class Employee_model extends CI_Model {
 			 			$update_qurey = $this->db->update('be_emp_db',$data_emp);
 			 			array_push($succ_list, $data_emp['ed_emp_id']);
 		        	} else {
-		        		array_push($fail_list, $data_emp['ed_emp_id'].' - Unable to register/update due to invalid data.');
+		        		array_push($fail_list, $data_emp['ed_emp_id'].' - '.$language['empl_flash']['aler_3']);
 		        	} 
 		    	} else {
-		    		array_push($fail_list, $data_emp['ed_emp_id'].' - Unable to register due to invalid action type.');
+		    		array_push($fail_list, $data_emp['ed_emp_id'].' - '.$language['empl_flash']['aler_4']);
 		    	}
 		    } else {
-		    	array_push($fail_list, $data_emp['ed_emp_id'].' - Unable to register due to missing of mandatory items.');
+		    	array_push($fail_list, $data_emp['ed_emp_id'].' - '.$language['empl_flash']['aler_5']);
 		    }
 	    }
 

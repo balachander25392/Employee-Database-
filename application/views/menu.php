@@ -31,14 +31,14 @@
 
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-cogs"></i> <span>Admin</span>
+            <i class="fa fa-cogs"></i> <span><?= $language['menu']['admi']; ?></span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?php echo base_url() ?>admin"><i class="fa fa-pencil-square-o"></i> <span>Manage Admin</span></a></li>
-            <li><a href="<?php echo base_url() ?>admin/addAdmin"><i class="fa fa-plus-circle"></i> <span>Add Admin</span></a></li>
+            <li><a href="<?php echo base_url() ?>admin"><i class="fa fa-pencil-square-o"></i> <span><?= $language['menu']['mana_admi']; ?></span></a></li>
+            <li><a href="<?php echo base_url() ?>admin/addAdmin"><i class="fa fa-plus-circle"></i> <span><?= $language['menu']['add_admi']; ?></span></a></li>
           </ul>
         </li>
 
@@ -46,43 +46,43 @@
 
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-id-badge"></i> <span>Employee</span>
+            <i class="fa fa-id-badge"></i> <span><?= $language['menu']['empl']; ?></span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?php echo base_url() ?>employee"><i class="fa fa-pencil-square-o"></i> <span>Manage Employee</span></a></li>
-            <li><a href="<?php echo base_url() ?>employee/addEmployee"><i class="fa fa-plus-circle"></i>Add Employee Single</a></li>
-            <li><a href="<?php echo base_url() ?>employee/addEmpBulk"><i class="fa fa-file-excel-o"></i>Add Employee Bulk</a></li>
+            <li><a href="<?php echo base_url() ?>employee"><i class="fa fa-pencil-square-o"></i> <span><?= $language['menu']['mana_empl']; ?></span></a></li>
+            <li><a href="<?php echo base_url() ?>employee/addEmployee"><i class="fa fa-plus-circle"></i><?= $language['menu']['add_empl_sing']; ?></a></li>
+            <li><a href="<?php echo base_url() ?>employee/addEmpBulk"><i class="fa fa-file-excel-o"></i><?= $language['menu']['add_empl_bulk']; ?></a></li>
           </ul>
         </li>
 
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-question-circle-o"></i> <span>Questionnaire</span>
+            <i class="fa fa-question-circle-o"></i> <span><?= $language['menu']['ques_aire']; ?></span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?php echo base_url() ?>question/manageTemplate"><i class="fa fa-pencil-square-o"></i> Manage Template</a></li>
-            <li><a href="<?php echo base_url() ?>question"><i class="fa fa-pencil-square-o"></i> Manage Questions</a></li>
-            <li><a href="<?php echo base_url() ?>question/addQuestion"><i class="fa fa-plus-circle"></i> Add Question</a></li>
+            <li><a href="<?php echo base_url() ?>question/manageTemplate"><i class="fa fa-pencil-square-o"></i> <?= $language['menu']['mana_temp']; ?></a></li>
+            <li><a href="<?php echo base_url() ?>question"><i class="fa fa-pencil-square-o"></i> <?= $language['menu']['mana_ques']; ?></a></li>
+            <li><a href="<?php echo base_url() ?>question/addQuestion"><i class="fa fa-plus-circle"></i> <?= $language['menu']['add_ques']; ?></a></li>
           </ul>
         </li>
 
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-line-chart"></i> <span>Report</span>
+            <i class="fa fa-line-chart"></i> <span><?= $language['menu']['repo']; ?></span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?php echo base_url() ?>report/userReport"><i class="fa fa-users"></i> Questionnaire Results</a></li>
-            <li><a href="<?php echo base_url() ?>report/questionReport"><i class="fa fa-users"></i> Question Report</a></li>
-            <li><a href="<?php echo base_url() ?>report/userFeedback"><i class="fa fa-users"></i> Employee Report</a></li>
+            <li><a href="<?php echo base_url() ?>report/userReport"><i class="fa fa-users"></i> <?= $language['menu']['empl_repo']; ?></a></li>
+            <li><a href="<?php echo base_url() ?>report/questionReport"><i class="fa fa-users"></i> <?= $language['menu']['ques_repo']; ?></a></li>
+            <li><a href="<?php echo base_url() ?>report/userFeedback"><i class="fa fa-users"></i> <?= $language['menu']['feed_repo']; ?></a></li>
           </ul>
         </li>
 

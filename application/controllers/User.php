@@ -34,6 +34,9 @@ class User extends CI_Controller {
 
 		} else {
 			$data['title'] = "Login";
+			//get language
+	        $language = MY_Loader::$add_data;
+			$data     = array_merge($data,$language);
 			$this->load->view('user/login',$data);
 		}
 
@@ -59,6 +62,8 @@ class User extends CI_Controller {
 	{
 	   $emp_id = $this->input->post('emp_id');
 	   $result = $this->User_model->signin_check($emp_id, $pass);
+
+	   $language 	= MY_Loader::$add_data['language'];
 	 
 	   if($result)
 	   {
@@ -80,7 +85,7 @@ class User extends CI_Controller {
 	   }
 	   else
 	   {
-			$this->session->set_flashdata('message_failed', 'Invalid username or password');
+			$this->session->set_flashdata('message_failed', $language['login_flash']['1']);
 			redirect('user/login');
 			return false;
 	   }
@@ -100,14 +105,16 @@ class User extends CI_Controller {
 	{
 		$result = $this->User_model->changeUserPassword();
 
+		$language 	= MY_Loader::$add_data['language'];
+
 		if($result==1){
-			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Successfully updated your Password',1));
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['user_flash']['1'],1));
 			redirect('User/changePassword');
 		} else if($result==2) {
-			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Unable to update due to technical error',3));
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['user_flash']['2'],3));
 			redirect('User/changePassword');
 		} else {
-			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Invalid current Password. Try Again!',4));
+			$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['user_flash']['3'],4));
 			redirect('User/changePassword');
 		}
 	}
@@ -130,8 +137,9 @@ class User extends CI_Controller {
 
 	function saveAnswer()
 	{
+		$language 	= MY_Loader::$add_data['language'];
 		$result = $this->User_model->saveQstnAns();
-		$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Successfully saved your answers',1));
+		$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['user_flash']['4'],1));
 		redirect('user/availableQuestions');
 	}
 
@@ -156,6 +164,9 @@ class User extends CI_Controller {
 	function editAnswer()
 	{
 		if($this->session->userdata('user_logged_in')){
+
+			$language 	= MY_Loader::$add_data['language'];
+
 			$data['title']       	= "View Answers";
 			$templ_enc_id        	= $this->uri->segment(3);
 			$ans_for_usr_enc        = $this->uri->segment(4);
@@ -173,7 +184,7 @@ class User extends CI_Controller {
 			if(date('Y-m-d H:i:s') <= $new_time || $data['answer']['qa_edit_access']){
 				$this->load->user_template('answer_edit',$data);
 			} else {
-				$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('You can\'t edit your answer. The time limit is over' ,4));
+				$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['user_flash']['5'] ,4));
 				redirect('user/viewAnswer/'.$templ_enc_id.'/'.$ans_for_usr_enc);
 			}
 			
@@ -184,8 +195,9 @@ class User extends CI_Controller {
 
 	function updateAnswer()
 	{
+		$language 	= MY_Loader::$add_data['language'];
 		$result = $this->User_model->updateQstnAns();
-		$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg('Successfully saved your answers',1));
+		$this->session->set_flashdata('flash_msg', $this->Autoload_model->genAlertMsg($language['user_flash']['6'],1));
 		redirect('user/userAnswerManage');
 	}
 
@@ -240,7 +252,9 @@ class User extends CI_Controller {
 	        
 	        //get the posts data
 	        $data['user_templ']    = $this->User_model->getUserTemplates(array('start'=>$offset,'limit'=>$this->perPage));
-	        
+	        //get language
+	        $language = MY_Loader::$add_data;
+			$data     = array_merge($data,$language);
 	        //load the view
 	        $this->load->view('user/manage_user_template_ajax', $data, false);
 		}
@@ -312,7 +326,9 @@ class User extends CI_Controller {
 	        
 	        //get the posts data
 	        $data['user_templ']    = $this->User_model->getUserAnswerManage(array('start'=>$offset,'limit'=>$this->perPage));
-	        
+	        //get language
+	        $language = MY_Loader::$add_data;
+			$data     = array_merge($data,$language);
 	        //load the view
 	        $this->load->view('user/manage_user_answers_ajax', $data, false);
 		}

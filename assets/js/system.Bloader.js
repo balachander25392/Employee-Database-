@@ -110,7 +110,7 @@ function addOptiontoQuestn()
     //alert(qustn_typ);
     $('#quest_dyn_div').empty();
     if(qustn_typ!='text'){
-        $('#quest_dyn_div').append('<div class="col-md-12" id="quest_par_div1"><div class="col-md-8"><div class="form-group"><label for="exampleInputPassword1">Options</label><input type="text" name="option[]" class="form-control" required=""></div></div><div class="col-md-4"><button type="button" id="quest_btn_add" class="btn btn-primary">Add More</button></div></div>');
+        $('#quest_dyn_div').append('<div class="col-md-12" id="quest_par_div1"><div class="col-md-8"><div class="form-group"><label for="exampleInputPassword1">Options</label><input type="text" name="option[]" class="form-control" required=""></div></div><div class="col-md-4"><button type="button" id="quest_btn_add" class="btn btn-primary">+</button></div></div>');
     } else {
 
     }

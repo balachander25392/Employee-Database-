@@ -3,12 +3,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Manage
-        <small>Template</small>
+        <?= $language['question_tab']['mana_temp'] ?>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?php echo base_url() ?>/employee"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Manage Templates</li>
+        <li><a href="<?php echo base_url() ?>/employee"><i class="fa fa-dashboard"></i> <?= $language['common']['home'] ?></a></li>
+        <li class="active"><?= $language['question_tab']['mana_temp'] ?></li>
       </ol>
     </section>
 
@@ -24,18 +23,18 @@
                   <div class="col-md-12">
                   <div class="col-xs-4">
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Search by User Type</label>
+                      <label for="exampleInputPassword1"><?= $language['question_tab']['sear_by_user_type'] ?></label>
                       <select name="mang_tmpl_utype" id="mang_tmpl_utype" class="form-control" onchange="manageTemplatePage()">
-                        <option value="">All</option>
-                        <option value="teacher">Teacher</option>
-                        <option value="student">Student</option>
+                        <option value=""><?= $language['common']['all'] ?></option>
+                        <option value="teacher"><?= $language['common']['teac'] ?></option>
+                        <option value="student"><?= $language['common']['stud'] ?></option>
                       </select>
                     </div>
                   </div>
 
                   <div class="col-xs-6">
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Search by keyword</label>
+                      <label for="exampleInputPassword1"><?= $language['question_tab']['sear_by_keyw'] ?></label>
                       <div class="input-group">
                         <input type="text" name="mang_templ_key" id="mang_templ_key" onkeyup="manageTemplatePage()" class="form-control pull-right" placeholder="Template name, description">
 
@@ -48,8 +47,8 @@
 
                   <div class="col-xs-2">
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Add Template</label>
-                      <button type="submit" data-toggle="modal" data-target="#addTemplateModal" class="btn btn-primary btn-sm">Add new Template</button>
+                      <label for="exampleInputPassword1"><?= $language['question_tab']['add_temp'] ?></label>
+                      <button type="submit" data-toggle="modal" data-target="#addTemplateModal" class="btn btn-primary btn-sm"><?= $language['question_tab']['add_new_temp'] ?></button>
                     </div>
                   </div>
 
@@ -59,12 +58,12 @@
                 <div class="box-body table-responsive no-padding" style="overflow-x: inherit;">
                   <table class="table table-hover">
                     <tr>
-                      <th>SL.No</th>
-                      <th>Name</th>
-                      <th>Description</th>
-                      <th>Template for</th>
-                      <th>Added On</th>
-                      <th>Action</th>
+                      <th><?= $language['question_tab']['sl_no'] ?></th>
+                      <th><?= $language['question_tab']['name'] ?></th>
+                      <th><?= $language['question_tab']['desc'] ?></th>
+                      <th><?= $language['question_tab']['temp_for'] ?></th>
+                      <th><?= $language['question_tab']['adde_on'] ?></th>
+                      <th><?= $language['common']['acti'] ?></th>
                     </tr>
                     <?php $i=1; if(!empty($template)): foreach($template as $templates): ?>
                       <tr>
@@ -75,18 +74,18 @@
                         <td><?php echo $templates['qt_add_on'] ?></td>
                         <td>
                           <div class="dropdown">
-                            <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Action
+                            <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown"><?= $language['common']['acti'] ?>
                             <span class="caret"></span></button>
                             <ul class="dropdown-menu">
-                              <li><a href="#" data-toggle="modal" data-target="#PreviewTemplModal" onclick="setTemplPreview('<?php echo $this->Autoload_model->encrypt_decrypt('en',$templates['qt_id']) ?>')">Preview</a></li>
-                              <li><a href="#" data-toggle="modal" data-target="#EditTemplModal" onclick="setTemplEdit('<?php echo $this->Autoload_model->encrypt_decrypt('en',$templates['qt_id']) ?>')">Edit</a></li>
-                              <li><a href="#" data-toggle="modal" data-target="#DeleteTemplModal" onclick="setTemplDelete('<?php echo $this->Autoload_model->encrypt_decrypt('en',$templates['qt_id']) ?>')">Delete</a></li>
+                              <li><a href="#" data-toggle="modal" data-target="#PreviewTemplModal" onclick="setTemplPreview('<?php echo $this->Autoload_model->encrypt_decrypt('en',$templates['qt_id']) ?>')"><?= $language['common']['prev'] ?></a></li>
+                              <li><a href="#" data-toggle="modal" data-target="#EditTemplModal" onclick="setTemplEdit('<?php echo $this->Autoload_model->encrypt_decrypt('en',$templates['qt_id']) ?>')"><?= $language['common']['edit'] ?></a></li>
+                              <li><a href="#" data-toggle="modal" data-target="#DeleteTemplModal" onclick="setTemplDelete('<?php echo $this->Autoload_model->encrypt_decrypt('en',$templates['qt_id']) ?>')"><?= $language['common']['dele'] ?></a></li>
                             </ul>
                           </div>
                         </td>
                       </tr>
                       <?php $i++; endforeach; else: ?>
-                      <tr><td align="center" colspan="7"><p style="color: red;">No Templates Available</p></td></tr>
+                      <tr><td align="center" colspan="7"><p style="color: red;"><?= $language['question_tab']['no_temp_avai'] ?></p></td></tr>
                       <?php endif; ?>
                   </table>
                 </div>
@@ -117,32 +116,32 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h4 class="modal-title" id="exampleModalLabel">Add Template</h4>
+          <h4 class="modal-title" id="exampleModalLabel"><?= $language['question_tab']['add_temp'] ?></h4>
         </div>
         <div class="modal-body">
 
           <div class="box-body">
             <div class="col-md-6">
               <div class="form-group">
-                <label for="exampleInputEmail1">Template Name</label>
+                <label for="exampleInputEmail1"><?= $language['question_tab']['temp_name'] ?></label>
                 <input type="text" class="form-control" id="templ_name" name="templ_name" required="true" placeholder="Enter Template Name" autocomplete="off">
               </div>
             </div>
 
             <div class="col-md-6">
               <div class="form-group">
-                <label for="exampleInputEmail1">Template to</label>
+                <label for="exampleInputEmail1"><?= $language['question_tab']['temp_to'] ?></label>
                 <select name="templ_to" id="templ_to" required="" class="form-control">
-                  <option value="">--Select--</option>
-                  <option value="student">Student</option>
-                  <option value="teacher">Teacher</option>
+                  <option value="">--<?= $language['common']['sele'] ?>--</option>
+                  <option value="student"><?= $language['common']['stud'] ?></option>
+                  <option value="teacher"><?= $language['common']['teac'] ?></option>
                 </select>
               </div>
             </div>
 
             <div class="col-md-12">
               <div class="form-group">
-                <label for="exampleInputEmail1">Template Description</label>
+                <label for="exampleInputEmail1"><?= $language['question_tab']['temp_desc'] ?></label>
                 <textarea name="templ_desc" id="templ_desc" required="" class="form-control" placeholder="Describe about template"></textarea>
               </div>
             </div>
@@ -150,8 +149,8 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-primary">Create</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><?= $language['common']['canc'] ?></button>
+          <button type="submit" class="btn btn-primary"><?= $language['common']['crea'] ?></button>
         </div>
       </form>
     </div>
@@ -166,15 +165,15 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h5 class="modal-title" id="exampleModalLabel">Edit Template</h5>
+          <h5 class="modal-title" id="exampleModalLabel"><?= $language['question_tab']['edit_temp'] ?></h5>
         </div>
         <div class="modal-body">
           <div class="box-body" id="editTemplDiv">
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Update</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><?= $language['common']['clos'] ?></button>
+          <button type="submit" class="btn btn-primary"><?= $language['common']['upda'] ?></button>
         </div>
       </form>
     </div>
@@ -192,12 +191,12 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h5 class="modal-title" id="exampleModalLabel">Delete Template</h5>
+          <h5 class="modal-title" id="exampleModalLabel"><?= $language['question_tab']['dele_temp'] ?></h5>
         </div>
-        <div class="modal-body"><p style="color: red;">Are you sure want to delete this template? The questions associated with this template will disappear from relevant employee pages.</p></div>
+        <div class="modal-body"><p style="color: red;"><?= $language['question_tab']['dele_temp_aler'] ?></p></div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Delete</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><?= $language['common']['clos'] ?></button>
+          <button type="submit" class="btn btn-primary"><?= $language['common']['dele'] ?></button>
         </div>
       </form>
     </div>
@@ -212,13 +211,13 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h5 class="modal-title" id="exampleModalLabel">Preview Questionnaire</h5>
+          <h5 class="modal-title" id="exampleModalLabel"><?= $language['question_tab']['prev_ques'] ?></h5>
         </div>
         <div class="modal-body" id="adminQstnPrevDiv">
           
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><?= $language['common']['clos'] ?></button>
         </div>
     </div>
   </div>
