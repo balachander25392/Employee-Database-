@@ -37,10 +37,10 @@
                   <label for="exampleInputPassword1"><?= $language['admin_tab']['name']; ?></label>
                   <input type="text" class="form-control" id="emp_name" name="emp_name" required="true" placeholder="Name" autocomplete="off">
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                   <label for="exampleInputPassword1"><?= $language['admin_tab']['pass']; ?></label>
                   <input type="password" class="form-control" id="emp_pass" name="emp_pass" required="true" placeholder="Password" autocomplete="off">
-                </div>
+                </div> -->
                 <div class="form-group">
                   <label for="exampleInputPassword1"><?= $language['admin_tab']['emai']; ?></label>
                   <input type="email" class="form-control" id="emp_email" name="emp_email" required="true" placeholder="Email" autocomplete="off">

@@ -15,13 +15,26 @@ function getBaseurl() {
 
 
 $(function() {
-
   //$('#ans_for_usr').chosen();
+  //$('#emp-add-form').disableAutoFill();
 });
 
 $(function() {
-       // $("#ans_for_usr").customselect();
-      });
+  // $("#ans_for_usr").customselect();
+});
+
+/*$(function() {
+    $('#emp-add-form').disableAutoFill({
+        passwordField: '#emp_pass'
+    });
+});*/
+
+/*$( document ).ready(function() {
+    setTimeout(function(){
+        $("#emp_pass").attr('readonly', false);
+        //$("#emp_pass").focus();
+    },500);
+});*/
 
 
 function setAdminIdPassReset(adminid)

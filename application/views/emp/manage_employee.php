@@ -120,12 +120,12 @@
                       </td>
                       <td>
                         <div class="dropdown">
-                          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
+                          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><?= $language['common']['acti'] ?>
                           <span class="caret"></span></button>
                           <ul class="dropdown-menu">
-                            <li><a href="<?php echo base_url() ?>employee/editEmployee/<?php echo $this->Autoload_model->encrypt_decrypt('en',$emp_detail['ed_id']) ?>">Edit</a></li>
-                            <li><a href="#" data-toggle="modal" data-target="#ResetEmpPasswordModal" onclick="setEmpIdPassReset('<?php echo $this->Autoload_model->encrypt_decrypt('en',$emp_detail['ed_id']) ?>')">Reset Password</a></li>
-                            <li><a href="#" data-toggle="modal" data-target="#DeleteEmpModal" onclick="setEmpIdDelete('<?php echo $this->Autoload_model->encrypt_decrypt('en',$emp_detail['ed_id']) ?>')">Delete</a></li>
+                            <li><a href="<?php echo base_url() ?>employee/editEmployee/<?php echo $this->Autoload_model->encrypt_decrypt('en',$emp_detail['ed_id']) ?>"><?= $language['common']['edit'] ?></a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#ResetEmpPasswordModal" onclick="setEmpIdPassReset('<?php echo $this->Autoload_model->encrypt_decrypt('en',$emp_detail['ed_id']) ?>')"><?= $language['common']['rese_pass'] ?></a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#DeleteEmpModal" onclick="setEmpIdDelete('<?php echo $this->Autoload_model->encrypt_decrypt('en',$emp_detail['ed_id']) ?>')"><?= $language['common']['dele'] ?></a></li>
                           </ul>
                         </div> 
                       </td>
@@ -162,18 +162,19 @@
     <div class="modal-content">
       <form method="POST" action="<?php echo base_url() ?>employee/resetPassword">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel"><?= $language['emp_tab']['rese_empl_pass'] ?></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
+          <h5 class="modal-title" id="exampleModalLabel"><?= $language['emp_tab']['rese_empl_pass'] ?></h5>
         </div>
         <div class="modal-body">
           <!-- <div class="box-body"> -->
             <input type="hidden" name="empUserPassResetID" id="empUserPassResetID">
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label for="exampleInputEmail1"><?= $language['emp_tab']['new_pass'] ?></label>
               <input type="password" class="form-control" id="emp_new_pass" name="emp_new_pass" required="true" placeholder="Enter New Password" autocomplete="off" style="width: 37%;">
-            </div>
+            </div> -->
+            <p style="color: red;"><?= $language['emp_tab']['pass_rese_aler'] ?>.</p>  
           <!-- </div> -->
         </div>
         <div class="modal-footer">

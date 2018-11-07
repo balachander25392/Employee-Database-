@@ -1,41 +1,40 @@
 {
-	"language":"English",
+	"language":"中文",
 
 	"common":{
-		"teac":"Teacher",
-		"stud":"Student",
-		"all":"All",
-		"home":"Home",
-		"sear":"Search",
-		"clos":"Close",
-		"save_chan":"Save changes",
-		"rese_pass":"Reset Password",
-		"dele":"Delete",
-		"subm":"Submit",
-		"none":"None",
-		"sele":"Select",
-		"acti":"Action",
-		"prev":"Preview",
-		"crea":"Create",
-		"canc":"Cancel",
-		"upda":"Update",
-		"edit":"Edit"
+		"teac":"老师",
+		"stud":"学生",
+		"all":"所有",
+		"home":"主页",
+		"sear":"搜索",
+		"clos":"关",
+		"save_chan":"保存更改",
+		"dele":"删除",
+		"subm":"提交",
+		"none":"没有",
+		"sele":"选择",
+		"acti":"行动",
+		"prev":"预习",
+		"crea":"创建",
+		"canc":"取消",
+		"upda":"更新",
+		"edit":"编辑"
 	},
 
 	"flash_common":{
-		"1":"Success!",
-		"2":"Information!",
-		"3":"Warning!",
-		"4":"Failed!"
+		"1":"成功!",
+		"2":"信息!",
+		"3":"警告!",
+		"4":"失败!"
 	},
 
 	"pagination":{
-		"firs":"First",
-		"next":"Next",
-		"show":"Showing",
-		"last":"Last",
-		"to":"to",
-		"of":"of"
+		"firs":"第一",
+		"next":"下一个",
+		"show":"显示",
+		"last":"持续",
+		"to":"至",
+		"of":"的"
 	},
 
 	"header":{
@@ -104,8 +103,7 @@
 		"dele_user_aler":"Are you sure want to delete this user",
 		"add_admi_user":"Add Admin User",
 		"pass":"Password",
-		"edit_admi_user":"Edit Admin User",
-		"pass_rese_aler":"Employee ID will be reset as Password"
+		"edit_admi_user":"Edit Admin User"
 	},
 
 	"admin_flash":{
@@ -168,8 +166,7 @@
 		"inst_2":"Date should be in the format of <b>mm/dd/yyyy</b>.",
 		"inst_3":"Action type <b>New Entry</b> Will only register the employee who is not already registred and this will not update existing.",
 		"inst_4":"Action type <b>Update Existing</b> will only update the employees already registered and this is will not make a new registration.",
-		"inst_5":"Action Type <b>Both</b> will register the employee if he/she is not already registered and if already register it will update the details.",
-		"pass_rese_aler":"Employee ID will be reset as Password"
+		"inst_5":"Action Type <b>Both</b> will register the employee if he/she is not already registered and if already register it will update the details."
 	},
 
 	"empl_flash":{

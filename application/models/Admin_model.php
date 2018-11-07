@@ -12,7 +12,7 @@ class Admin_model extends CI_Model {
 
 		$emp_id    = $this->input->post('emp_id');
 		$emp_name  = $this->input->post('emp_name');
-		$emp_pass  = $this->input->post('emp_pass');
+		//$emp_pass  = $this->input->post('emp_pass');
 		$emp_email = $this->input->post('emp_email');
 		$emp_desig = $this->input->post('emp_desig');
  
@@ -27,7 +27,7 @@ class Admin_model extends CI_Model {
 
 			 	"ea_emp_id" 		=> $emp_id,
 			 	"ea_name" 			=> $emp_name,
-			 	"ea_password" 		=> MD5($emp_pass),
+			 	"ea_password" 		=> MD5($emp_id),
 			 	"ea_email" 			=> $emp_email,
 			 	"ea_designation" 	=> $emp_desig,
 			 	"ea_role" 			=> '2',
@@ -130,12 +130,15 @@ class Admin_model extends CI_Model {
     function updateAdminUserPassword()
     {
     	$admin_id  = $this->Autoload_model->encrypt_decrypt('dc',$this->input->post('adminUserPassResetID'));
-    	$password  = $this->input->post('admin_new_pass');
+    	/*$password  = $this->input->post('admin_new_pass');
 
     	$pass_array = array('ea_password' => MD5($password));
 
     	$this->db->where('ea_id',$admin_id);
-    	$update_qurey = $this->db->update('be_emp_aduser',$pass_array);
+    	$update_qurey = $this->db->update('be_emp_aduser',$pass_array);*/
+
+    	$query = "Update be_emp_aduser Set ea_password = MD5(ea_emp_id) WHERE ea_id='$admin_id'";
+    	$update_qurey = $this->db->query($query);
 
 		if ($update_qurey) {
 			return 1;

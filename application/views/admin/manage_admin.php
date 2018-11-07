@@ -100,18 +100,19 @@
     <div class="modal-content">
       <form method="POST" action="<?php echo base_url() ?>admin/resetPassword">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel"><?= $language['admin_tab']['rese_user_pass']; ?></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
+          <h5 class="modal-title" id="exampleModalLabel"><?= $language['admin_tab']['rese_user_pass']; ?></h5>
         </div>
         <div class="modal-body">
           <!-- <div class="box-body"> -->
             <input type="hidden" name="adminUserPassResetID" id="adminUserPassResetID">
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label for="exampleInputEmail1"><?= $language['admin_tab']['new_pass']; ?></label>
               <input type="password" class="form-control" id="admin_new_pass" name="admin_new_pass" required="true" placeholder="Enter New Password" autocomplete="off" style="width: 37%;">
-            </div>
+            </div> -->
+          <p style="color: red;"><?= $language['admin_tab']['pass_rese_aler'] ?>.</p>  
           <!-- </div> -->
         </div>
         <div class="modal-footer">

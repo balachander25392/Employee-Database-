@@ -27,7 +27,7 @@
             <?php if($this->session->flashdata('flash_msg')) { echo $this->session->flashdata('flash_msg'); } ?>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" action="<?php echo base_url() ?>employee/saveEmployee" method="POST">
+            <form role="form" id="emp-add-form" action="<?php echo base_url() ?>employee/saveEmployee" method="POST" >
               <div class="box-body">
                 <div class="col-md-6">
                   <div class="form-group">
@@ -35,18 +35,18 @@
                     <input type="text" class="form-control" id="emp_id" name="emp_id" required="true" placeholder="Enter Employee ID" autocomplete="off">
                   </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6"> 
                   <div class="form-group">
                     <label for="exampleInputPassword1"><?= $language['emp_tab']['name'] ?></label>
                     <input type="text" class="form-control" id="emp_name" name="emp_name" required="true" placeholder="Name" autocomplete="off">
                   </div>
                 </div>
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputPassword1"><?= $language['emp_tab']['pass'] ?></label>
-                    <input type="password" class="form-control" id="emp_pass" name="emp_pass" required="true" placeholder="Password" autocomplete="off">
+                    <input type="password" class="form-control" id="emp_pass" name="emp_pass" required="true" placeholder="Password" autocomplete="new-password" readonly="">
                   </div>
-                </div>
+                </div> -->
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputPassword1"><?= $language['emp_tab']['emai'] ?></label>

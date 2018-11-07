@@ -12,7 +12,7 @@ class Employee_model extends CI_Model {
 
 		$emp_id     	= $this->input->post('emp_id');
 		$emp_name   	= $this->input->post('emp_name');
-		$emp_pass  		= $this->input->post('emp_pass');
+		//$emp_pass  		= $this->input->post('emp_pass');
 		$emp_email  	= $this->input->post('emp_email');
 		$emp_desig  	= $this->input->post('emp_desig');
 		$emp_grade  	= $this->input->post('emp_grade');
@@ -35,7 +35,7 @@ class Employee_model extends CI_Model {
 
 			 	"ed_emp_id" 		=> $emp_id,
 			 	"ed_emp_name" 		=> $emp_name,
-			 	"ed_emp_pass" 		=> MD5($emp_pass),
+			 	"ed_emp_pass" 		=> MD5($emp_id),
 			 	"ed_emp_email" 		=> $emp_email,
 			 	"ed_emp_desig" 		=> $emp_desig,
 			 	"ed_emp_grade" 		=> $emp_grade,
@@ -172,7 +172,7 @@ class Employee_model extends CI_Model {
     function updateEmpUserPassword()
     {
     	$emp_id    = $this->Autoload_model->encrypt_decrypt('dc',$this->input->post('empUserPassResetID'));
-    	$password  = $this->input->post('emp_new_pass');
+    	/*$password  = $this->input->post('emp_new_pass');
 
     	$pass_array = array(
     					'ed_emp_pass' => MD5($password),
@@ -181,7 +181,13 @@ class Employee_model extends CI_Model {
     					);
 
     	$this->db->where('ed_id',$emp_id);
-    	$update_qurey = $this->db->update('be_emp_db',$pass_array);
+    	$update_qurey = $this->db->update('be_emp_db',$pass_array);*/
+
+    	$ed_emp_pas_rt_on = date('Y-m-d H:i:s');
+    	$ed_emp_pas_tr_by = $this->session->userdata['logged_in']['ea_id'];
+
+    	$query = "Update be_emp_db Set ed_emp_pass = MD5(ed_emp_id), ed_emp_pas_rt_on='$ed_emp_pas_rt_on',ed_emp_pas_tr_by='$ed_emp_pas_tr_by'  WHERE ed_id='$emp_id'";
+    	$update_qurey = $this->db->query($query);
 
 		if ($update_qurey) {
 			return 1;
