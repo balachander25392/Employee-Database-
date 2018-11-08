@@ -81,7 +81,7 @@
                   <li><!-- Task item -->
                     <a href="<?= base_url() ?>LanguageSwitcher/switchLang/zh">
                       <h3>
-                        Chinese
+                        中文
                       </h3>
                     </a>
                   </li>
