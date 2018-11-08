@@ -44,7 +44,7 @@
             <!-- form start -->
               <div class="box-body" >
                 <div class="col-md-12">
-                  <img class="head-img" src="<?php echo base_url() ?>assets/img/logo_BYD.PNG"> 
+                  <img class="head-img" src="<?php echo base_url() ?>assets/img/logo_BYD.png"> 
                 </div>
 
                 <div class="col-md-12">
