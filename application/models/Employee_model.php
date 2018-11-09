@@ -262,20 +262,19 @@ class Employee_model extends CI_Model {
 	     
 	    for($i=2;$i<=$totalrows;$i++)
 	    {
-
 	        $data_emp['ed_emp_id']			= $objWorksheet->getCellByColumnAndRow(0,$i)->getCalculatedValue();
 	        $data_emp['ed_emp_name']		= $objWorksheet->getCellByColumnAndRow(1,$i)->getCalculatedValue();
-	        $data_emp['ed_emp_pass']		= MD5($objWorksheet->getCellByColumnAndRow(2,$i)->getCalculatedValue());
-	        $data_emp['ed_emp_email']		= $objWorksheet->getCellByColumnAndRow(3,$i)->getCalculatedValue();
-	        $data_emp['ed_emp_type']		= $objWorksheet->getCellByColumnAndRow(4,$i)->getCalculatedValue();
-	        $data_emp['ed_emp_desig']		= $objWorksheet->getCellByColumnAndRow(5,$i)->getCalculatedValue();
-	        $data_emp['ed_emp_grade']		= $objWorksheet->getCellByColumnAndRow(6,$i)->getCalculatedValue();
-	        $data_emp['ed_emp_div']			= $objWorksheet->getCellByColumnAndRow(7,$i)->getCalculatedValue();
-	        $data_emp['ed_emp_team']		= $objWorksheet->getCellByColumnAndRow(8,$i)->getCalculatedValue();
+	        $data_emp['ed_emp_pass']		= MD5($data_emp['ed_emp_id']);
+	        $data_emp['ed_emp_email']		= $objWorksheet->getCellByColumnAndRow(2,$i)->getCalculatedValue();
+	        $data_emp['ed_emp_type']		= $objWorksheet->getCellByColumnAndRow(3,$i)->getCalculatedValue();
+	        $data_emp['ed_emp_desig']		= $objWorksheet->getCellByColumnAndRow(4,$i)->getCalculatedValue();
+	        $data_emp['ed_emp_grade']		= $objWorksheet->getCellByColumnAndRow(5,$i)->getCalculatedValue();
+	        $data_emp['ed_emp_div']			= $objWorksheet->getCellByColumnAndRow(6,$i)->getCalculatedValue();
+	        $data_emp['ed_emp_team']		= $objWorksheet->getCellByColumnAndRow(7,$i)->getCalculatedValue();
 	        //$data_emp['ed_emp_section']		= $objWorksheet->getCellByColumnAndRow(9,$i)->getCalculatedValue();
-	        $data_emp['ed_emp_leader']		= $objWorksheet->getCellByColumnAndRow(9,$i)->getCalculatedValue();
-	        $data_emp['ed_emp_dob']			= date($format = "Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($objWorksheet->getCellByColumnAndRow(10,$i)->getCalculatedValue()));
-	        $data_emp['ed_emp_doj']			= date($format = "Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($objWorksheet->getCellByColumnAndRow(11,$i)->getCalculatedValue()));
+	        $data_emp['ed_emp_leader']		= $objWorksheet->getCellByColumnAndRow(8,$i)->getCalculatedValue();
+	        $data_emp['ed_emp_dob']			= date($format = "Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($objWorksheet->getCellByColumnAndRow(9,$i)->getCalculatedValue()));
+	        $data_emp['ed_emp_doj']			= date($format = "Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($objWorksheet->getCellByColumnAndRow(10,$i)->getCalculatedValue()));
 	        $data_emp['ed_emp_add_from']	= 'bulk';
 
 	        if($data_emp['ed_emp_id']!='' && $data_emp['ed_emp_name']!='' && $data_emp['ed_emp_pass']!=''){
