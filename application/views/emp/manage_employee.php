@@ -13,7 +13,7 @@
         <?= $language['emp_tab']['mana_empl'] ?>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?php echo base_url() ?>"><i class="fa fa-dashboard"></i> <?= $language['header']['home'] ?></a></li>
+        <li><a href="<?php echo base_url() ?>welcome"><i class="fa fa-dashboard"></i> <?= $language['header']['home'] ?></a></li>
         <li class="active"><?= $language['emp_tab']['mana_empl'] ?></li>
       </ol>
     </section>

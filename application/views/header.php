@@ -50,7 +50,7 @@
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b><?= $language['header']['head_titl_shor']; ?></b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b><?= $language['header']['head_titl']; ?></b></span>
+      <span class="logo-lg" style="<?php if($ln=='zh'){ echo 'font-size: 14px !important;'; } else { echo ''; } ?>"><b><?= $language['header']['head_titl']; ?></b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">

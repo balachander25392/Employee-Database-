@@ -39,10 +39,10 @@
 	},
 
 	"header":{
-		"page_titl":"比亚迪导师-学员评估系统",
-		"head_titl_shor":"导师-学员评估系统",
-		"head_titl":"导师-学员评估系统 系统管理员",
-		"head_user_mess":"管理员：导师-学员评估系统",
+		"page_titl":"比亚迪导师-学员评价系统",
+		"head_titl_shor":"导师-学员评价系统",
+		"head_titl":"导师-学员评价系统 系统管理员",
+		"head_user_mess":"管理员：导师-学员评价系统",
 		"chang_pass":"更改密码",
 		"sign_out":"登出",
 		"home":"首页",
@@ -51,8 +51,8 @@
 		"save_chang":"保存",
 		"dele":"删除",
 		"subm":"提交",
-		"eval_syst":"评估系统",
-		"user_page_titl":"比亚迪员工评估系统",
+		"eval_syst":"评价系统",
+		"user_page_titl":"比亚迪员工评价系统",
 		"sign_in_to_take_ques":"登陆并开始你的问卷调差",
 		"empl_id":"工号",
 		"pass":"密码",
@@ -60,7 +60,7 @@
 		"sign_in_as_admin":"管理员登陆",
 		"sign_in_to_mana":"用户管理和调查问卷登陆",
 		"sign_in_as_empl":"员工登陆",
-		"admi_logi_titl":"员工评估系统管理登陆"
+		"admi_logi_titl":"员工评价系统管理登陆"
 	},
 
 	"menu":{
@@ -77,7 +77,7 @@
 		"add_ques":"新增问题",
 		"repo":"报告",
 		"empl_repo":"员工报告",
-		"ques_repo":"温泉调查报告",
+		"ques_repo":"问卷调查报告",
 		"feed_repo":"反馈报告",
 		"byd_ques":"比亚迪调查问卷",
 		"avai_ques":"可用的调查问卷",
